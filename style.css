@@ -1,0 +1,229 @@
+body{
+    margin: 0; 
+    padding: 0;
+    box-sizing:border-box;
+    background-color:#fff;
+    display: block;
+}
+
+/*aqui empieza el nav*/
+nav{
+    height:100px;
+    display: center;
+    align-items: center;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav ul{
+    flex: auto;
+    padding: 10px;
+    list-style: none;
+    display: flex;
+    text-decoration: none;
+    text-size-adjust: auto;   
+}
+
+nav ul li button{
+    display: flex;
+    font-size: 25px;
+    color: #fff;
+    list-style:none;
+    text-decoration:none;
+    text-size-adjust: auto;
+    background-color: blue;
+    padding: flex;
+    margin: 10px;
+    position: relative;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: .5s;
+    overflow: hidden;   
+    font-family: sans-serif;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color: #fff;
+}
+
+nav ul li a:hover{
+    text-decoration:none;
+    color: #fff;
+}
+nav ul li button:hover{
+    text-decoration:none;
+    color: #fff;
+}
+button span {
+    position: absolute;
+    background: #fff;
+    transition: .5s;
+}
+
+button span:nth-child(1) {
+    width: 100%;
+    height: 1px;
+    top: 0;
+    left: -100%;
+}
+
+button span:nth-child(2) {
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    right: -100%;
+}
+
+button span:nth-child(3) {
+    width: 1px;
+    height: 100%;
+    bottom: -100%;
+    left: 0;
+}
+
+button span:nth-child(4) {
+    width: 1px;
+    height: 100%;
+    top: -100%;
+    right: 0;
+}
+
+button:hover span:nth-child(1) {
+    left: 0;
+}
+
+button:hover span:nth-child(2) {
+    right: 0;
+}
+
+button:hover span:nth-child(3) {
+    bottom: 0;
+}
+
+button:hover span:nth-child(4) {
+    top: 0;
+}
+.pull-rigth{
+    margin-left: auto;
+}
+/*aqui acaba el nav*/
+
+.spotlights{
+    display: flex;
+    margin: 0px;
+}
+
+.mainArtist{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
+    height: 500px;
+    color: white;
+    background-image: url(./images/taylor_swift.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}   
+
+.infoArtist{
+    margin-left: 30px;
+    padding: 40px;
+    
+}
+.buttonEntradas{
+    display: flex;
+    font-size: 25px;
+    color: #fff;
+    list-style:none;
+    text-decoration:none;
+    text-size-adjust: auto;
+    background-color: blue;
+    padding: flex;
+    margin: 10px;
+    position: relative;
+    padding: 10px 15px;
+    outline: none;
+    cursor: pointer;
+    transition: .5s;
+    overflow: hidden;   
+    font-family: sans-serif;
+}
+.buttonEntradas:hover{
+    text-decoration:none;
+    color: #fff;
+}
+
+.buttonEntradas a{
+    text-decoration:none;
+    color: #fff;
+}
+
+.buttonEntradas a:hover{
+    text-decoration:none;
+    color: #fff;
+}
+
+.listArtist{
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: flex-start;
+    margin: 20px;
+    padding: 2px;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+}
+
+.oneArtist{
+    width: 35%;
+    height: 400px;
+    list-style: none;
+    background-image: url(./images/karol_G.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.link1{
+    display: block;
+    height: 100%;
+    padding: 0px 12px;
+    text-decoration: none;
+}
+
+.link1:hover{
+    display: block;
+    height: 100%;
+    padding: 0px 12px;
+    text-decoration: none;
+}
+
+.link1:focus{
+    display: block;
+    height: 100%;
+    padding: 0px 12px;
+    text-decoration: none;
+}
+
+.text1Artist{
+    justify-content: end;
+    color: #fff  ;
+}
+
+.text1Artist:hover{
+    justify-content: end;
+    color: #000  ;
+}
+
+.name1Artist{
+    color: #fff;
+}
+
+.name1Artist:hover {
+    color: #000;
+    text-decoration: none;
+}
