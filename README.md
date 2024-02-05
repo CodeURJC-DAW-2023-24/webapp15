@@ -31,6 +31,7 @@
 			· Concierto
 			· Entrada
 			· Artista
+   			· Género
 
 	- Relaciones entre entidades:
 			· Usuarios pueden comprar entradas
@@ -51,13 +52,14 @@
 			· Foto del artista
 
 	- Gráficos:
-			· Gráfico de barras con el número de conciertos por mes
+			· Número de entradas vendidas por més
 
 	- Tecnología complementaria:
 			· Generación de un pdf que corresponde a las entradas del concierto comprado
 
 	- Algoritmo o consulta avanzada:
-			· Filtro de búsqueda de un concierto
+			· Filtro de búsqueda
+   			· Sección de recomendados en base al género musical favorito del usuario
 
 
 
@@ -69,13 +71,11 @@
 			· Poder registrarse para ser un usuario registrado
 			· Poder loguearse
 
-
-
 	- Para usuarios registrados:
 			· Poder comprar entradas
 			· Tener un perfil de usuario con sus datos
 			· Modificar su cuenta
-
+   			· Descargar PDF recibo de entrada
 
 	- Para usuarios administradores:
 			· Poder crear conciertos
