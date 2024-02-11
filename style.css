@@ -383,3 +383,190 @@ button:hover span:nth-child(4) {
 #filters-sidebar label {
     font-weight: normal;
 }
+/* Página login */
+#contenedor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    margin: 0;
+    padding: 0;
+    min-width: 50vw;
+    min-height: 100vh;
+    width: 100%;
+    height: 100%;
+}
+
+#central {
+    max-width: 320px;
+    width: 100%;
+}
+
+.titulo {
+    font-size: 250%;
+    color:white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#login {
+    width: 100%;
+    padding: 50px 30px;
+    background-color: #59aee6;
+    
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    
+    box-sizing: border-box;
+}
+
+#login input {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color: #1b262c;
+    
+    display: block;
+    width: 100%;
+    height: 40px;
+    
+    margin-bottom: 10px;
+    padding: 5px 5px 5px 10px;
+    
+    box-sizing: border-box;
+    
+    border: none;
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+}
+
+#login input::placeholder {
+    font-family: 'Overpass', sans-serif;
+    color: #E4E4E4;
+}
+
+#login button {
+    font-family: 'Overpass', sans-serif;
+    font-size: 110%;
+    color:white;
+    width: 100%;
+    height: 40px;
+    border: none;
+    
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    
+    background-color: blue;
+    
+    margin-top: 10px;
+}
+
+#login button:hover {
+    background-color: #0f4c75;
+    color:#bbe1fa;
+}
+
+.profile-picture {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+}
+
+#fondo{
+    list-style: none;
+    background-image: url(./images/karol_G.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.pie-form {
+    font-size: 90%;
+    text-align: center;    
+    margin-top: 15px;
+}
+
+.pie-form a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 3px;
+}
+
+.pie-form a:hover {
+    color: #bbe1fa;
+}
+
+.inferior {
+    margin-top: 10px;
+    font-size: 90%;
+    text-align: center;
+}
+
+.inferior a {
+    display: block;
+    text-decoration: none;
+    color: #bbe1fa;
+    margin-bottom: 3px;
+}
+
+.inferior a:hover {
+    color: #3282b8;
+}
+
+/* creacionArtista */
+#fondoartista{
+    list-style: none;
+    background-image: url(images/taylor_swift.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.left {
+    background: #bbe1fa;
+    height: 200px;
+    top: 20px;
+    position: relative;
+    width: 30%;
+  }
+.tituloartista {
+
+  font-size: 30px;
+  font-weight: center;
+  font-weight: 900;
+  margin: 40px 40px 40px;
+}
+.actor {
+  color: black;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 40px;
+}
+
+/* creacionConcierto */
+#fondoconcierto{
+    list-style: none;
+    background-image: url(images/concierto.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#formConcierto{
+    color:white;
+}
+#artista{
+    color:black;
+}
+#genero{
+    color:black;
+}
