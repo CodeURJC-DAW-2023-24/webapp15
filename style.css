@@ -560,7 +560,7 @@ button:hover span:nth-child(4) {
 #login {
     width: 100%;
     padding: 50px 30px;
-    background-color: #59aee6;
+    background-color: rgb(136, 188, 211);
     
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
     -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
@@ -640,7 +640,7 @@ button:hover span:nth-child(4) {
     background-size: cover;
 }
 .pie-form {
-    font-size: 90%;
+    font-size: 110%;
     text-align: center;    
     margin-top: 15px;
 }
@@ -653,7 +653,7 @@ button:hover span:nth-child(4) {
 }
 
 .pie-form a:hover {
-    color: #bbe1fa;
+    color: blue;
 }
 
 .inferior {
@@ -704,15 +704,16 @@ button:hover span:nth-child(4) {
 /* creacionConcierto */
 #fondoconcierto{
     list-style: none;
-    background-image: url(images/concierto.jpg);
+    background-image: url(images/concierto.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 #concierto-contenedor{
     width: 700px;
-    height: 600px;
+    height: 610px;
     padding: 50px 30px;
-    background-color: #59aee6;
+    background-color: rgb(136, 188, 211);
+
     
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
     -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
@@ -734,8 +735,12 @@ button:hover span:nth-child(4) {
 #formConcierto label{
     width: 75px;
     color:white;
+    white-space: nowrap;
 }
-
+#numero{
+    width:75px;
+    margin-left: 75px;
+}
 
 #formConcierto button{
     margin-right: 20px;
@@ -784,6 +789,9 @@ button:hover span:nth-child(4) {
 }
 #fecha{
     margin-right: 75px;
+}
+#infoConcierto{
+    height:75px;
 }
 
 /* Profile Page Styles */
