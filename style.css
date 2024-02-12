@@ -639,6 +639,13 @@ button:hover span:nth-child(4) {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+#payment-background{
+    list-style: none;
+    background-image: url(./images/payment.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .pie-form {
     font-size: 90%;
     text-align: center;    
