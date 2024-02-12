@@ -1,11 +1,11 @@
 body{
-    margin: 0; 
-    padding: 0;
+    margin: 0px; 
+    padding: 0px;
     box-sizing:border-box;
     background-color:#fff;
     display: block;
 }
-
+/*AQUI EMPIEZA EL HOME*/
 /*aqui empieza el nav*/
 nav{
     height:100px;
@@ -27,7 +27,7 @@ nav ul{
 
 nav ul li button{
     display: flex;
-    font-size: 25px;
+    font-size: 20px;
     color: #fff;
     list-style:none;
     text-decoration:none;
@@ -112,12 +112,9 @@ button:hover span:nth-child(4) {
 }
 /*aqui acaba el nav*/
 
-.spotlights{
-    display: flex;
-    margin: 0px;
-}
 
-.mainArtist{
+/*aqui empieza el artista principal*/
+.content-mainArtist{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -126,14 +123,14 @@ button:hover span:nth-child(4) {
     color: white;
     background-image: url(./images/taylor_swift.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:cover;
 }   
 
-.infoArtist{
-    margin-left: 30px;
+.infoMainArtist{
+    margin-left: 10px;
     padding: 40px;
-    
 }
+
 .buttonEntradas{
     display: flex;
     font-size: 25px;
@@ -145,7 +142,7 @@ button:hover span:nth-child(4) {
     padding: flex;
     margin: 10px;
     position: relative;
-    padding: 10px 15px;
+    padding: 10px 25px;
     outline: none;
     cursor: pointer;
     transition: .5s;
@@ -166,26 +163,87 @@ button:hover span:nth-child(4) {
     text-decoration:none;
     color: #fff;
 }
+/*aqui acaba el artista principal*/
 
-.listArtist{
+
+/*aqui empieza el contenido principal*/
+.elements{
+    margin-bottom: 20px;
+    background-color: blue;
     display: flex;
-    flex-wrap: wrap;
-    -webkit-box-pack: justify;
-    justify-content: flex-start;
-    margin: 20px;
-    padding: 2px;
-    width: 100%;
-    height: 100%;
-    list-style: none;
+}
+/*aqui termina el contenido principal*/
+
+
+/*aqui empieza el contenido de lista artistas*/
+.content-listArtist{
+    width: 70%;
 }
 
-.oneArtist{
-    width: 35%;
-    height: 400px;
+.listArtist{ 
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px;
     list-style: none;
-    background-image: url(./images/karol_G.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #fff;
+    margin-left: 20px;
+    margin-bottom: 0px; 
+    border-top: 1px solid rgb(191, 191, 191);
+}
+
+.Artist{
+    display: flex; 
+    justify-content: space-around;
+    flex-basis: 50%;
+    border-bottom: 1px solid rgb(191, 191, 191); 
+}
+
+.infoArtist img{
+    margin-top: 20px;
+    width: 495px;
+    height: 300px;
+}
+/*aqui termina el contenido de lista artistas*/
+
+
+/*aqui empieza la info de cada elemento de la lista*/
+.link1{
+    display: block;
+    height: 100%;
+    padding: 0px 12px;
+    text-decoration: none;
+}
+
+.link1:hover{
+    display: block;
+    height: 100%;
+    padding: 0px 12px;
+    text-decoration: none;
+}
+
+.text1Artist{
+    justify-content: end;
+    color: #000;
+}
+
+.text1Artist:hover{
+    justify-content: end;
+    color:blue  ;
+}
+
+.name1Artist{
+    color: #000;
+}
+
+.name1Artist:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+.karol_G{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .link1{
@@ -202,35 +260,120 @@ button:hover span:nth-child(4) {
     text-decoration: none;
 }
 
-.link1:focus{
-    display: block;
-    height: 100%;
-    padding: 0px 12px;
-    text-decoration: none;
-}
-
 .text1Artist{
     justify-content: end;
-    color: #fff  ;
+    color: #000;
 }
 
 .text1Artist:hover{
     justify-content: end;
-    color: #000  ;
+    color:blue  ;
 }
 
 .name1Artist{
-    color: #fff;
+    color: #000;
 }
 
 .name1Artist:hover {
-    color: #000;
+    color: blue;
     text-decoration: none;
 }
 
 
 /* search.html */
 
+/*aqui termina la info de la elemento de la lista*/
+
+
+/*aqui empieza el contenido de boton mas*/
+.content-buttonMas{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    margin-left: 20px;
+    padding: 0px;
+    border-bottom: 1px solid rgb(191, 191, 191);
+}
+.buttonMas{
+    display: flex;
+    font-size: 25px;
+    color: #fff;
+    list-style:none;
+    text-decoration:none;
+    text-size-adjust: auto;
+    background-color: blue;
+    padding: flex;
+    margin: 10px;
+    position: relative;
+    padding: 10px 25px;
+    outline: none;
+    cursor: pointer;
+    transition: .5s;
+    overflow: hidden;   
+    font-family: sans-serif;
+}
+.buttonMas:hover{
+    text-decoration:none;
+    color: #fff;
+}
+
+.buttonMas a{
+    text-decoration:none;
+    color: #fff;
+}
+
+.buttonMas a:hover{
+    text-decoration:none;
+    color: #fff;
+}
+/*aqui termina el contenido de boton mas*/
+
+
+/*aqui empieza el contenido del footer*/
+.content-footer{
+    background-color: rgb(7, 7, 7);
+    padding-top: 15px; 
+    padding-bottom: 5px;
+}
+
+.listFooter{ 
+    display: flex;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    justify-content: center;
+}
+
+.contentImgFooter{
+    width: 50%;
+    height: 300px;
+}
+
+.imgfooter{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.contentImgLogo{
+    width: 25%;
+    height: auto;
+    margin-left: 60px;
+}
+
+.logo{
+    width: auto;
+    height: 300px;
+
+}
+
+.nombreEmpresa{
+    color: #FFF;
+}
+/*aqui termina el contenido del footer*/
+/*AQUI ACABA EL HOME*/
+/* search.html */
 #search-body {
     min-height: 100vh;
     display: flex;
@@ -240,6 +383,11 @@ button:hover span:nth-child(4) {
 #search-main {
     flex-grow: 1;
     display: flex;
+}
+
+#artist-main {
+    flex-grow: 1;
+    display: block;
     background-color: #222;
 }
 
@@ -569,4 +717,20 @@ button:hover span:nth-child(4) {
 }
 #genero{
     color:black;
+}
+
+#artist-img {
+    border: 4px solid black;
+    border-radius:10px ;
+}
+
+#artist-sidebar {
+    display: flex;
+    flex-direction: column;
+    min-width: 25vw;
+    margin: 30px;
+    padding: 30px;
+    border: solid #000;
+    border-radius: 10px;
+    background-color: #EEE;
 }
