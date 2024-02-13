@@ -570,7 +570,7 @@ button:hover span:nth-child(4) {
 #login {
     width: 100%;
     padding: 50px 30px;
-    background-color: #59aee6;
+    background-color: rgb(136, 188, 211);
     
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
     -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
@@ -658,7 +658,7 @@ button:hover span:nth-child(4) {
     background-size: cover;
 }
 .pie-form {
-    font-size: 90%;
+    font-size: 110%;
     text-align: center;    
     margin-top: 15px;
 }
@@ -671,7 +671,7 @@ button:hover span:nth-child(4) {
 }
 
 .pie-form a:hover {
-    color: #bbe1fa;
+    color: blue;
 }
 
 .inferior {
@@ -722,21 +722,74 @@ button:hover span:nth-child(4) {
 /* creacionConcierto */
 #fondoconcierto{
     list-style: none;
-    background-image: url(images/concierto.jpg);
+    background-image: url(images/concierto.jpeg);
     background-repeat: no-repeat;
     background-size: cover;
 }
+#concierto-contenedor{
+    width: 700px;
+    height: 610px;
+    padding: 50px 30px;
+    background-color: rgb(136, 188, 211);
+
+    
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    
+    box-sizing: border-box;
+}
 
 #formConcierto{
+    color:black;
+    display:flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#formConcierto label{
+    width: 75px;
     color:white;
+    white-space: nowrap;
 }
-#artista{
-    color:black;
-}
-#genero{
-    color:black;
+#numero{
+    width:75px;
+    margin-left: 75px;
 }
 
+#formConcierto button{
+    margin-right: 20px;
+    padding: 0px 12px;
+    height: 3em;
+    min-width: 120px;
+    text-align: start;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+    width: 120px;
+    align-self: end;
+}
+#formConcierto button img{
+    float:right;
+}
+#seleccionArtista{
+    color:black;
+    width: 200px;
+}
+#seleccionGenero{
+    color:black;
+    width: 200px;
+}
+#horario{
+    display:flex;
+}
+#numeroEntrada{
+    vertical-align: center;
+    width: 400px;
+}
 #artist-img {
     border: 4px solid black;
     border-radius:10px ;
@@ -751,6 +804,12 @@ button:hover span:nth-child(4) {
     border: solid #000;
     border-radius: 10px;
     background-color: #EEE;
+}
+#fecha{
+    margin-right: 75px;
+}
+#infoConcierto{
+    height:75px;
 }
 
 /* Profile Page Styles */

@@ -36,7 +36,7 @@
                         <span></span>
                         <span></span>
                         <span></span>
-                        <a>Perfil</a>
+                        <a href="https://www.ticketmaster.es/">Perfil</a>
                     </button></li>
                 <li><button>
                         <span></span>
@@ -52,55 +52,96 @@
 
     <div id="fondoconcierto">
         <div id="contenedor">
-            <div id="central">
-            <div id="login">
+            <!-- <div id="central"> -->
+            <div id="concierto-contenedor">
                 <div class="titulo">
                     Creación del Concierto
                 </div>
                 <form id="formularioLogin" action="index.html">
                     <div id="formConcierto">
-                        
-                        <label for="name">Nombre:<input type="text" id="name" name="name" /></label>
-                        
-                        
-                        <label for="lugar">Lugar:<input type="text" id="lugar" name="Lugar" /></label>
-
-                        <label for="artista">Artista:</label>
-                        <select id="artista" name="Artista">
-                            <option value="value1">Karol G</option>
-                            <option value="value2">Taylor Swift</option>
-                            <option value="value3">Imagine Dragons</option>
-                        </select>
-
                         <div>
-                        <label for="fecha">Fecha:<input type="date" id="fecha" name="Fecha" /></label>
-                        <label for="hora">Hora:<input type="time" id="hora" name="Hora" /></label>
+                            <label for="name">Nombre:</label>
+                            <input type="text" id="name" name="name" />
                         </div>
-                        <label for="numero">Número de Entradas:<input type="number" id="numero" name="numeroEntrada" /></label>
                         
+                        <div>
+                            <label for="lugar">Lugar:</label>
+                            <input type="text" id="lugar" name="Lugar" />
+                        </div>
+                        <div>
+                        <label for="seleccionArtista">Artista:</label>
+                            <select id="seleccionArtista" name="Artista">
+                                <option value="value1">Karol G</option>
+                                <option value="value2">Taylor Swift</option>
+                                <option value="value3">Imagine Dragons</option>
+                            </select>
+                        </div>
+                        <div id="horario">
+                            <div>
+                                <label for="fecha">Fecha:</label>
+                                <input type="date" id="fecha" name="Fecha" />
+                            </div>
+                            <div>
+                                <label for="hora">Hora:</label>
+                                <input type="time" id="hora" name="Hora" />
+                            </div>
+                        </div>
+                        <div>
+                            <label id="numeroEntrada"for="numero">Número de Entradas:</label>
+                            <input type="number" id="numero" name="numeroEntrada" min="0"/>
+                        </div>
+                        <div>
+                            <label id="precioEntrada"for="precioEntrada">Precio:</label>
+                            <input type="number" id="precio" name="precioEntrada" min="0" />
+                        </div>
+                        <div>
+                            <label for="seleccionGenero">Género:</label>
+                            <select id="seleccionGenero" name="genero">
+                                <option value="value1">Pop</option>
+                                <option value="value2">Rock</option>
+                                <option value="value3">Heavy Metal</option>
+                            </select>
+                        </div>
                         
+                            <label for="info">Información:</label>
+                            <textarea id="infoConcierto" name="Info"></textarea>
                         
-
-                        <label for="artista">Género:</label>
-                        <select id="genero" name="genero">
-                            <option value="value1">Pop</option>
-                            <option value="value2">Rock</option>
-                            <option value="value3">Heavy Metal</option>
-                        </select>
-                        <label for="info">Información:<input id="info" name="Info"/></label>
-                        
-
+                        <button type="submit" title="Crear" name="Crear">Crear
+                            <img src="images/point-right.png" width="19px">
+                        </button>
                     </div>
-                    <button type="submit" title="Crear" name="Crear">Crear</button>
+                    
                 </form>
             </div>
-        </div>
+        <!-- </div> -->
         </div>
         </div>
 
     </div>
 
-
+    <footer>
+        <div class="content-footer">
+            <ul class="listFooter">
+                <li class="contentImgFooter">
+                    <img src="images/footer.jpg" alt class="imgfooter">
+                </li>
+                <li class="infoFooter">
+                    <br>
+                    <br>
+                    <h4 class="nombreEmpresa">MasterTicket</h4>
+                    <br>
+                    <h4 class="nombreEmpresa">Todos los derechos reservados</h4>
+                    <br>
+                    <h4 class="nombreEmpresa">Condiciones de uso</h4>
+                    <br>
+                    <h4 class="nombreEmpresa">Siguenos en nuestras redes</h4>
+                </li>
+                <li class="contentImgLogo">
+                    <img src="images/logo.jpg" alt class="logo">
+                </li>
+            </ul>
+        </div>
+    </footer>
 
 </body>
 </html>
