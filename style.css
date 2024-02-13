@@ -1,9 +1,9 @@
 body{
     margin: 0px; 
-    padding: 0px;   
+    padding: 0px;
     background-color:#fff;
-    display: flex;  
-}   
+    display: block;
+}
 /*AQUI EMPIEZA EL HOME*/
 /*aqui empieza el nav*/
 nav{
@@ -932,4 +932,8 @@ button:hover span:nth-child(4) {
 .edit-input, .user-name, .user-email, .user-lastname {
     width: 100%; /* Ensure inputs and text take full width of their flex container */
     box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.payment-container {
+    display: block;
 }
