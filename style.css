@@ -1,10 +1,9 @@
 body{
     margin: 0px; 
-    padding: 0px;
-    box-sizing:border-box;
+    padding: 0px;   
     background-color:#fff;
-    display: block;
-}
+    display: flex;  
+}   
 /*AQUI EMPIEZA EL HOME*/
 /*aqui empieza el nav*/
 nav{
@@ -176,10 +175,6 @@ button:hover span:nth-child(4) {
 
 
 /*aqui empieza el contenido de lista artistas*/
-.content-listArtist{
-    width: 70%;
-}
-
 .listArtist{ 
     display: flex;
     flex-wrap: wrap;
@@ -200,7 +195,7 @@ button:hover span:nth-child(4) {
 
 .infoArtist img{
     margin-top: 20px;
-    width: 495px;
+    width: 500px;
     height: 300px;
 }
 /*aqui termina el contenido de lista artistas*/
@@ -329,6 +324,47 @@ button:hover span:nth-child(4) {
 }
 /*aqui termina el contenido de boton mas*/
 
+/*aqui empieza el contenido de recomendados*/
+.section-content{
+    display: flex-start;
+    background-color: #fff;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-top: 1px solid rgb(191, 191, 191); 
+    border-bottom: 1px solid rgb(191, 191, 191);
+}
+
+.ListSuggestion{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    list-style: none;
+    background-color: #fff;
+    margin-bottom: 0px; 
+    text-align: center;
+    border-bottom: 1px solid rgb(191, 191, 191); 
+    margin-bottom: 20px;
+}
+
+.content-Recomendados{
+    border-bottom: 1px solid rgb(191, 191, 191);  
+}
+
+
+.ArtistSuggestion{
+    list-style: none;
+    display: flex; 
+    justify-content: space-around;
+    flex-basis: 50%;
+    border-bottom: 1px solid rgb(191, 191, 191); 
+}
+
+.infoArtistSuggestion img{
+    margin-top: 20px;
+    width: 380px;
+    height: 320px;
+}
+/*aqui acaba el contenido de recomendados*/
 
 /*aqui empieza el contenido del footer*/
 .content-footer{
