@@ -80,3 +80,30 @@
 	- Para usuarios administradores:
 			· Poder crear conciertos
 			· Poder eliminar conciertos
+
+
+·Explicaciones de Pantallas:
+
+	- Pantalla Inicio: Es una pantalla de presentación de la aplicación donde habrá una lista de conciertos y otra de recomendados por perfil.
+
+	- Pantalla Login: Pantalla que se utilizará para que se registren los usuarios.
+
+ 	- Pantalla Registro: Pantalla para que se registren nuevos usuarios.
+
+  	- Pantalla Búsqueda: Pantalla donde los usuarios podrán buscar concierto por filtros e irte a comprar las entradas.
+
+   	- Pantalla Información del Artista: Pantalla donde se mostrará la información del artista con una lista de conciertos próximos donde puedas ir a comprar entradas.
+
+    	- Pantalla Comprar Entrada: Pantalla donde podrás comprar el número de entradas metiendo la información de la tarjeta.
+
+     	- Pantalla Creación Artista: Pantalla donde el administrador podrá crear el artista con su información.
+
+      	- Pantalla Creación Concierto: Pantalla donde el administrador podrá crear el concierto con su información.
+ 
+
+   
+·Diagrama de Navegación de Pantallas
+
+<img width="995" alt="DiagramaNavegacion" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/50c79558-a6de-43a0-a348-f01fb8783c1a">
+
+
