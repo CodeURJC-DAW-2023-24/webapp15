@@ -1,79 +1,37 @@
 {{>header}}
-        <div id="Artist-id">
-            <div class="content-mainArtist">
-                <div class="infoMainArtist">
-                    <h2 class="nameArtist">Taylor Swift</h2>
-                    <h3 class="description">Anuncia su gira mundial con su The Eras Tour</h3>
-                    <button class="buttonEntradas">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <a href="https://www.ticketmaster.es/artist/taylor-swift-entradas/33397">Entradas</a>
-                    </button>
+        {{#artist}}
+            <div id="Artist-id">
+                <div class="content-mainArtist">
+                    <div class="infoMainArtist">
+                        <h2 class="nameArtist">{{name}}</h2>
+                        <h3 class="description">{{description}}</h3>
+                        <button class="buttonEntradas">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <a href="{{ticketUrl}}">Entradas</a>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        {{/artist}}
         <br>
         <div class="elements">
             <main id="main-content">
                 <div class="content-listArtist">
                     <ul class="listArtist">
-                        <li class="Artist">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtist">
-                                    <img src="images/karol_G.jpg">
-                                </div>
-                                <h4 class="text1Artist">Sold out en todos sus conciertos en Madrid</h4>
-                                <h3 class="name1Artist">Karol G</h3>
-                                <br>
-                            </a>
-                        </li>
-                        <li class="Artist">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtist">
-                                    <img src="images/shakira.jpg">
-                                </div>
-                                <h4 class="text1Artist">Se anuncia nueva gira en Europa</h4>
-                                <h3 class="name1Artist">Shakira</h3>
-                            </a>
-                        </li>
-                        <li class="Artist">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtist">
-                                    <img src="images/feid.jpg">
-                                </div>
-                                <h4 class="text1Artist">Próximamente FERXXOCALIPSIS en Madrid</h4>
-                                <h3 class="name1Artist">Feid</h3>
-                            </a>
-                        </li>
-                        <li class="Artist">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtist">
-                                    <img src="images/bbnos.jpg">
-                                </div>
-                                <h4 class="text1Artist">Llega la primera gira europea del rapero canadiense</h4>
-                                <h3 class="name1Artist">BBNO$</h3>
-                            </a>
-                        </li>
-                        <li class="Artist">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtist">
-                                    <img src="images/BrunoMars.webp">
-                                </div>
-                                <h4 class="text1Artist">Impactante noticia de su gira Europea </h4>
-                                <h3 class="name1Artist">Bruno Mars</h3>
-                            </a>
-                        </li>
-                        <li class="Artist">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtist">
-                                    <img src="images/beyonce.jpg">
-                                </div>
-                                <h4 class="text1Artist">La estrella norteamericana nos trae su nuevo disco</h4>
-                                <h3 class="name1Artist">Beyonce</h3>
-                            </a>
-                        </li>
+                        {{#artists}}
+                            <li class="Artist">
+                                <a href="{{url}}" class="link1">
+                                    <div class="infoArtist">
+                                        <img src="{{image}}">
+                                    </div>
+                                    <h4 class="text1Artist">{{description}}</h4>
+                                    <h3 class="name1Artist">{{name}}</h3>
+                                </a>
+                            </li>
+                        {{/artists}}
                     </ul>
                     <div class="content-buttonMas">
                         <button class="buttonMas">
@@ -93,29 +51,16 @@
                         <div class="content-Recomendados">
                             <h2>Recomendados</h2>
                         </div>
-                        <li class="ArtistSuggestion">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtistSuggestion">
-                                    <img src="images/adele.webp">
-                                </div>
-                                <h3 class="name1Artist">Adele</h3>
-                            </a>
-                        <li class="ArtistSuggestion">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtistSuggestion">
-                                    <img src="images/duaLipa.jpg">
-                                </div>
-                                <h3 class="name1Artist">Dua Lipa</h3>
-                            </a>
-                        </li>
-                        <li class="ArtistSuggestion">
-                            <a href="https://www.ticketmaster.es/artist/karol-g-entradas/988809" class="link1">
-                                <div class="infoArtistSuggestion">
-                                    <img src="images/ArianaGrande.webp">
-                                </div>
-                                <h3 class="name1Artist">Ariana Grande</h3>
-                            </a>
-                        </li>
+                        {{#suggestions}}
+                            <li class="ArtistSuggestion">
+                                <a href="{{url}}" class="link1">
+                                    <div class="infoArtistSuggestion">
+                                        <img src="{{image}}">
+                                    </div>
+                                    <h3 class="name1Artist">{{name}}</h3>
+                                </a>
+                            </li>
+                        {{/}}
                     </ul>
                 </div>
             </section>

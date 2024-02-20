@@ -24,7 +24,7 @@
                         <span></span>
                         <span></span>
                         <span></span>
-                        <a href="//">MasterTicket</a>
+                        <a href="/">MasterTicket</a>
                     </button></li>
                 <li class="pull-rigth">
                     <button>
@@ -35,19 +35,53 @@
                         <a href="search.html">Búsqueda</a>
                     </button>
                 </li>
-                <li><button>
+                {{#no_user}}
+                    <li><button>
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
                         <a href="login.html">Registrarse/Iniciar sesión</a>
                     </button></li>
+                {{/no_user}}
+                {{#user}}
+                    <li><button>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <a href="perfil.html">Perfil</a>
+                    </button></li>
+                {{/user}}
+                {{#admin}}
+                    <li><button>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <a href="perfil.html">Perfil</a>
+                    </button></li>
+                    <li><button>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <a href="creacionArtista.html">Crear Artista</a>
+                    </button></li>
+                    <li><button>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <a href="creacionConcierto.html">Crear Concierto</a>
+                    </button></li>
+                {{/admin}}
                 <li><button>
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
-                        <a href="">Ayuda</a>
+                        <a>Ayuda</a>
                     </button></li>
             </ul>
         </nav>
