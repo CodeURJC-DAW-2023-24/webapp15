@@ -16,7 +16,7 @@ import es.codeurjc.webapp15.model.Genre;
 public class SearchController {
     
     @GetMapping("/search")
-    public String search(Model model) {
+    public String searchController(Model model) {
 
         model.addAttribute("concerts", sampleConcertList);
         return "search";

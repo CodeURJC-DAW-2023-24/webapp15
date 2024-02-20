@@ -1,54 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>MasterTicket</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <div id="home">
-        <header id="header">
-            <nav>
-                <ul>
-                    <li><button>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <a href="https://www.ticketmaster.es/">MasterTicket</a>
-                        </button></li>
-                    <li class="pull-rigth">
-                        <button>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <a href="https://www.ticketmaster.es/">Búsqueda</a>
-                        </button>
-                    </li>
-                    <li><button>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <a href="https://www.ticketmaster.es/">Registrarse/Iniciar sesión</a>
-                        </button></li>
-                    <li><button>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <a href="https://www.ticketmaster.es/">Ayuda</a>
-                        </button></li>
-                </ul>
-            </nav>
-        </header>
+{{>header}}
         <div id="Artist-id">
             <div class="content-mainArtist">
                 <div class="infoMainArtist">
@@ -170,32 +120,4 @@
                 </div>
             </section>
         </div><!-- fin de los elementos-->
-        <footer>
-            <div class="content-footer">
-                <ul class="listFooter">
-                    <li class="contentImgFooter">
-                        <img src="images/footer.jpg" alt class="imgfooter">
-                    </li>
-                    <li class="infoFooter">
-                        <br>
-                        <br>
-                        <h4 class="nombreEmpresa">MasterTicket</h4>
-                        <br>
-                        <h4 class="nombreEmpresa">Todos los derechos reservados</h4>
-                        <br>
-                        <h4 class="nombreEmpresa">Condiciones de uso</h4>
-                        <br>
-                        <h4 class="nombreEmpresa">Siguenos en nuestras redes</h4>
-                    </li>
-                    <li class="contentImgLogo">
-                        <img src="images/logo.jpg" alt class="logo">
-                    </li>
-                </ul>
-            </div>
-        </footer>
-    </div><!-- fin del id=home-->
-    <footer>
-    </footer>
-</body>
-
-</html>
+{{>footer}}
