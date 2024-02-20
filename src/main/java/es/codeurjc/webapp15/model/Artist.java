@@ -79,4 +79,5 @@ public class Artist {
     public void setConcerts(List<Concert> concerts) {
         this.concerts = concerts;
     }
+    
 }

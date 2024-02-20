@@ -1,6 +1,7 @@
 package es.codeurjc.webapp15.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Concert {
@@ -27,6 +29,12 @@ public class Concert {
     @ManyToOne
     private Artist artist;
 
+    @ManyToOne
+    private Genre genre;
+
+    @OneToMany(mappedBy = "concert")
+    private List<Ticket> tickets;
+    
     public Concert(){}
 
     public Long getId_concert() {
@@ -84,4 +92,29 @@ public class Concert {
     public void setId_artist(Artist artist) {
         this.artist = artist;
     }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+    
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "UserTable")
 public class User {
@@ -28,6 +29,9 @@ public class User {
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
+
+	@OneToMany(mappedBy="user")
+	private List<Ticket> tickets;
 
 	public User() {
 	}
@@ -88,6 +92,18 @@ public class User {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
 	}
 
 }
