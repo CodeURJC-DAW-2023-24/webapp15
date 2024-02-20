@@ -1,5 +1,7 @@
 package es.codeurjc.webapp15.model;
 
+import java.util.List;
+
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,9 +26,9 @@ public class User {
 	public User() {
 	}
 
-	public User(String name, String encodedPassword, String... roles) {
+	public User(String name, String password, String... roles) {
 		this.name = name;
-		this.encodedPassword = encodedPassword;
+		this.password = password;
 		this.roles = List.of(roles);
 	}
 
@@ -53,7 +55,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
 	public List<String> getRoles() {
 		return roles;
 	}
