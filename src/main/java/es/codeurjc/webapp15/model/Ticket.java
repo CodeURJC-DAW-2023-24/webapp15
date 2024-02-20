@@ -11,7 +11,7 @@ public class Ticket {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_ticket;
+	private Long id;
 
     @ManyToOne
     private User user;
@@ -21,12 +21,12 @@ public class Ticket {
 
     public Ticket(){}
 
-    public Long getId_ticket() {
-        return id_ticket;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_ticket(Long id_ticket) {
-        this.id_ticket = id_ticket;
+    public void setId(Long id_ticket) {
+        this.id = id_ticket;
     }
 
     public User getUser() {

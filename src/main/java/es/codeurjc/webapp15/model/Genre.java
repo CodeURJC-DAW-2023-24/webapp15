@@ -13,7 +13,7 @@ public class Genre{
 
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_ticket;
+	private Long id;
 
     private String genre_type;
 
@@ -22,12 +22,12 @@ public class Genre{
 
     public Genre(){}
 
-    public Long getId_ticket() {
-        return id_ticket;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_ticket(Long id_ticket) {
-        this.id_ticket = id_ticket;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getGenre_type() {

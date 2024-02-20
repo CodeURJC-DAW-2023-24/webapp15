@@ -16,7 +16,7 @@ public class Artist {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_artist;
+	private Long id;
 
     private String name;
 
@@ -32,12 +32,12 @@ public class Artist {
 
     public Artist(){}
 
-    public Long getId_artist() {
-        return id_artist;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_artist(Long id_artist) {
-        this.id_artist = id_artist;
+    public void setId(Long id_artist) {
+        this.id = id_artist;
     }
 
     public String getName() {

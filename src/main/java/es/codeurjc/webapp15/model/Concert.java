@@ -16,7 +16,7 @@ public class Concert {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_concert;
+	private Long id;
 
     private LocalDateTime datetime;
     private String place;
@@ -37,12 +37,12 @@ public class Concert {
     
     public Concert(){}
 
-    public Long getId_concert() {
-        return id_concert;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_concert(Long id_concert) {
-        this.id_concert = id_concert;
+    public void setId(Long id_concert) {
+        this.id = id_concert;
     }
 
     public LocalDateTime getDatetime() {
