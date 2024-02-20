@@ -5,84 +5,107 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Concert {
-    private Long id = null;
+    
+    @Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id_concert;
+
     private LocalDateTime datetime;
-    private String city;
-    private String venue;
-    private Long id_artist;
+    private String place;
     private Integer num_tickets;
     private Float price;
+
+    @Column(columnDefinition = "TEXT")
     private String info;
-    // Change this to a enum
+    
+    @ManyToOne
+    private Artist artist;
+
     private Genre genre_type;
 
-
-    public Concert(Long id, LocalDateTime datetime, String city, String venue, Long id_artist, Integer num_tickets,
-            Float price, String info, Genre genre_type) {
-        this.id = id;
+    public Concert(Long id_concert, LocalDateTime datetime, String place, Integer num_tickets, Float price, String info,
+            Artist artist, Genre genre_type) {
+        this.id_concert = id_concert;
         this.datetime = datetime;
-        this.city = city;
-        this.venue = venue;
-        this.id_artist = id_artist;
+        this.place = place;
         this.num_tickets = num_tickets;
         this.price = price;
         this.info = info;
+        this.artist = artist;
         this.genre_type = genre_type;
     }
 
 
-    public Long getId() {
-        return id;
+
+    public Long getId_concert() {
+        return id_concert;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setId_concert(Long id_concert) {
+        this.id_concert = id_concert;
     }
+
     public LocalDateTime getDatetime() {
         return datetime;
     }
+
     public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
-    public String getCity() {
-        return city;
+
+    public String getPlace() {
+        return place;
     }
-    public void setCity(String city) {
-        this.city = city;
+
+    public void setPlace(String place) {
+        this.place = place;
     }
-    public String getVenue() {
-        return venue;
-    }
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-    public Long getIdArtist() {
-        return id_artist;
-    }
-    public void setIdArtist(Long id_artist) {
-        this.id_artist = id_artist;
-    }
-    public Integer getNumTickets() {
+
+    public Integer getNum_tickets() {
         return num_tickets;
     }
-    public void setNumTickets(Integer num_tickets) {
+
+    public void setNum_tickets(Integer num_tickets) {
         this.num_tickets = num_tickets;
     }
+
     public Float getPrice() {
         return price;
     }
+
     public void setPrice(Float price) {
         this.price = price;
     }
+
     public String getInfo() {
         return info;
     }
+
     public void setInfo(String info) {
         this.info = info;
     }
+
+    public Artist getId_artist() {
+        return artist;
+    }
+
+    public void setId_artist(Artist artist) {
+        this.artist = artist;
+    }
+
     public Genre getGenreType() {
         return genre_type;
     }
+
     public void setGenreType(Genre genre_type) {
         this.genre_type = genre_type;
     }
