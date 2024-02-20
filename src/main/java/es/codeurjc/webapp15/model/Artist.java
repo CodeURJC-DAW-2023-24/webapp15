@@ -32,6 +32,15 @@ public class Artist {
 
     public Artist(){}
 
+        public Artist(Long id_artist, String name, String info, boolean image, List<Concert> concerts) {
+        this.id_artist = id_artist;
+        this.name = name;
+        this.info = info;
+        //this.imageFile = imageFile;
+        this.image = image;
+        this.concerts = concerts;
+    }
+
     public Long getId_artist() {
         return id_artist;
     }

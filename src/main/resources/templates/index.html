@@ -4,13 +4,13 @@
                 <div class="content-mainArtist">
                     <div class="infoMainArtist">
                         <h2 class="nameArtist">{{name}}</h2>
-                        <h3 class="description">{{description}}</h3>
+                        <h3 class="description">{{info}}</h3>
                         <button class="buttonEntradas">
                             <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
-                            <a href="{{ticketUrl}}">Entradas</a>
+                            <a href="ticketUrl">Entradas</a>
                         </button>
                     </div>
                 </div>
@@ -23,11 +23,11 @@
                     <ul class="listArtist">
                         {{#artists}}
                             <li class="Artist">
-                                <a href="{{url}}" class="link1">
+                                <a href="url" class="link1">
                                     <div class="infoArtist">
                                         <img src="{{image}}">
                                     </div>
-                                    <h4 class="text1Artist">{{description}}</h4>
+                                    <h4 class="text1Artist">{{info}}</h4>
                                     <h3 class="name1Artist">{{name}}</h3>
                                 </a>
                             </li>
@@ -53,14 +53,14 @@
                         </div>
                         {{#suggestions}}
                             <li class="ArtistSuggestion">
-                                <a href="{{url}}" class="link1">
+                                <a href="url" class="link1">
                                     <div class="infoArtistSuggestion">
                                         <img src="{{image}}">
                                     </div>
                                     <h3 class="name1Artist">{{name}}</h3>
                                 </a>
                             </li>
-                        {{/}}
+                        {{/suggestions}}
                     </ul>
                 </div>
             </section>
