@@ -16,7 +16,7 @@ public class Artist {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_artist;
+	private Long id;
 
     private String name;
 
@@ -30,10 +30,10 @@ public class Artist {
     @OneToMany(mappedBy = "artist")
     private List<Concert> concerts;
 
-    public Artist(){}
+    public Artist() {}
 
-        public Artist(Long id_artist, String name, String info, boolean image, List<Concert> concerts) {
-        this.id_artist = id_artist;
+    public Artist(Long id, String name, String info, boolean image, List<Concert> concerts) {
+        this.id = id;
         this.name = name;
         this.info = info;
         //this.imageFile = imageFile;
@@ -41,12 +41,12 @@ public class Artist {
         this.concerts = concerts;
     }
 
-    public Long getId_artist() {
-        return id_artist;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_artist(Long id_artist) {
-        this.id_artist = id_artist;
+    public void setId(Long id_artist) {
+        this.id = id_artist;
     }
 
     public String getName() {
@@ -88,4 +88,5 @@ public class Artist {
     public void setConcerts(List<Concert> concerts) {
         this.concerts = concerts;
     }
+    
 }

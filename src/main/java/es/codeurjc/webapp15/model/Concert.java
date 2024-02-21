@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
@@ -11,13 +12,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Concert {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id_concert;
+	private Long id;
 
     private LocalDateTime datetime;
     private String place;
@@ -30,28 +32,32 @@ public class Concert {
     @ManyToOne
     private Artist artist;
 
-    private Genre genre_type;
+    @ManyToOne
+    private Genre genre;
 
-    public Concert(Long id_concert, LocalDateTime datetime, String place, Integer num_tickets, Float price, String info,
-            Artist artist, Genre genre_type) {
-        this.id_concert = id_concert;
+    @OneToMany(mappedBy = "concert")
+    private List<Ticket> tickets;
+
+    public Concert(){}
+
+    public Concert(Long id, LocalDateTime datetime, String place, Integer num_tickets, Float price, String info,
+            Artist artist, Genre genre) {
+        this.id = id;
         this.datetime = datetime;
         this.place = place;
         this.num_tickets = num_tickets;
         this.price = price;
         this.info = info;
         this.artist = artist;
-        this.genre_type = genre_type;
+        this.genre = genre;
     }
 
-
-
-    public Long getId_concert() {
-        return id_concert;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_concert(Long id_concert) {
-        this.id_concert = id_concert;
+    public void setId(Long id_concert) {
+        this.id = id_concert;
     }
 
     public LocalDateTime getDatetime() {
@@ -102,12 +108,28 @@ public class Concert {
         this.artist = artist;
     }
 
-    public Genre getGenreType() {
-        return genre_type;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setGenreType(Genre genre_type) {
-        this.genre_type = genre_type;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     public String getHour() {
