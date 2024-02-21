@@ -8,7 +8,7 @@
                 <div class="titulo">
                     Creación del Concierto
                 </div>
-                <form id="formularioLogin" action="index.html">
+                <form id="formularioLogin" action="index.html" method="post">
                     <div id="formConcierto">
                         <div>
                             <label for="name">Nombre:</label>
@@ -22,9 +22,9 @@
                         <div>
                         <label for="seleccionArtista">Artista:</label>
                             <select id="seleccionArtista" name="Artista">
-                                <option value="value1">Karol G</option>
-                                <option value="value2">Taylor Swift</option>
-                                <option value="value3">Imagine Dragons</option>
+                                {{#artist}}
+                                    <option value="{{id_artist}}">{{name}}</option>
+                                {{/artist}}
                             </select>
                         </div>
                         <div id="horario">
@@ -48,9 +48,9 @@
                         <div>
                             <label for="seleccionGenero">Género:</label>
                             <select id="seleccionGenero" name="genero">
-                                <option value="value1">Pop</option>
-                                <option value="value2">Rock</option>
-                                <option value="value3">Heavy Metal</option>
+                                {{#genre}}
+                                    <option value="{{genre_type}}">{{genre_type}}</option>
+                                {{/genre}}
                             </select>
                         </div>
                         
