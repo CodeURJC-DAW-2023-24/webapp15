@@ -2,7 +2,9 @@ package es.codeurjc.webapp15.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,14 @@ public class ArtistController {
 
     @GetMapping("/artist/{artistName}")
     public String artistController (Model model, @PathVariable String artistName) {
-        model.addAttribute(artistName, artistName);
+
+        Artist artist = sampleArtistMap.get(artistName);
+        if (artist == null) {
+            return "error";
+        }
+
+        model.addAttribute("artist", artist);
+        model.addAttribute("concerts2", artist.getConcerts());
         return "info_artist";
     }
 
@@ -37,5 +46,11 @@ public class ArtistController {
         add(new Concert(Long.valueOf(120), LocalDateTime.now() ,"Getafe", Integer.valueOf(230), Float.valueOf(10), "jjjjjjjjjjj", new Artist(), new Genre()));
         add(new Concert(Long.valueOf(92123), LocalDateTime.now() ,"Alcorcón", Integer.valueOf(110), Float.valueOf(80), "kkkkkkkk", new Artist(), new Genre()));
         add(new Concert(Long.valueOf(87), LocalDateTime.now() ,"Humanes", Integer.valueOf(100000), Float.valueOf(100), "lllllllll", new Artist(), new Genre()));
+    }};
+
+    private Map<String, Artist> sampleArtistMap = new HashMap<>() {{
+        put("shakira", new Artist(Long.valueOf(1), "Shakira", "ABCDEFGHIJK", false, sampleConcertList));
+        put("taylor-swift", new Artist(Long.valueOf(2), "Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA", false, sampleConcertList));
+        put("kayne-west", new Artist(Long.valueOf(3), "Kayne West", "BBBBBBBBBBBBBBBBBBBB", false, sampleConcertList));
     }};
 }
