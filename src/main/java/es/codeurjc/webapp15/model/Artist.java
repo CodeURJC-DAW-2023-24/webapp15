@@ -25,6 +25,7 @@ public class Artist {
     
     @Lob
     private Blob imageFile;
+
     private boolean image;
 
     @OneToMany(mappedBy = "artist")
