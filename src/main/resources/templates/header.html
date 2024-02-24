@@ -35,23 +35,34 @@
                         <a href="search.html">Búsqueda</a>
                     </button>
                 </li>
-                {{#no_user}}
+                {{^user}}
                     <li><button>
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
-                        <a href="login.html">Registrarse/Iniciar sesión</a>
+                        <a href="login">Registrarse/Iniciar sesión</a>
                     </button></li>
-                {{/no_user}}
+                {{/user}}
                 {{#user}}
-                    <li><button>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <a href="perfil.html">Perfil</a>
-                    </button></li>
+                    <li>
+                        <button>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <a href="perfil.html">Perfil</a>
+                        </button>
+                    </li>
+                    <li>
+                        <button>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <a href="perfil.html">Cerrar Sesión</a>
+                        </button>
+                    </li>
                 {{/user}}
                 {{#admin}}
                     <li><button>

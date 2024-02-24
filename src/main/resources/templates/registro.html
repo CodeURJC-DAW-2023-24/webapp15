@@ -7,13 +7,13 @@
             <div class="titulo">
                 Registro
             </div>
-            <form id="formularioLogin" action="/user/new" method="post">
+            <form id="formularioLogin" action="/user/new" method="post" enctype="multipart/form-data">
 
                 <div class="profile-picture">
                     <img src="images/Perfil.jpg" alt="Foto de perfil">
                 </div>
 
-                <input type="file" name="Foto" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
                 <input type="text" name="Name" placeholder="Nombre" required>
                 
                 <input type="email" name="Email" placeholder="Correo" required>
