@@ -31,6 +31,18 @@ public class UserController {
         usersRepository.save(new User("hughjackman", "maninthemiddle", "hola"));
     }
 
+    @GetMapping("/registro")
+    public String registro(Model model) {
+
+        User user = session.getUser();
+        if (user != null) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("loginError", "");
+            return "registro";
+        }
+    }
+
     @PostMapping("/user/new")
     public String createUser(Model model,@RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
         try {
