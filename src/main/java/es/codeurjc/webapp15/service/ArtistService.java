@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.codeurjc.webapp15.repository.artistRepository;
+import es.codeurjc.webapp15.repository.ArtistRepository;
 import es.codeurjc.webapp15.model.Artist;
 
 @Service
 public class ArtistService {
     @Autowired
-	private artistRepository repository;
+	private ArtistRepository repository;
 
 	public Optional<Artist> findById(long id) {
 		return repository.findById(id);
