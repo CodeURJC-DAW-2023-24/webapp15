@@ -40,9 +40,8 @@ public class Concert {
 
     public Concert(){}
 
-    public Concert(Long id, LocalDateTime datetime, String place, Integer num_tickets, Float price, String info,
+    public Concert(LocalDateTime datetime, String place, Integer num_tickets, Float price, String info,
             Artist artist, Genre genre) {
-        this.id = id;
         this.datetime = datetime;
         this.place = place;
         this.num_tickets = num_tickets;

@@ -1,6 +1,5 @@
 package es.codeurjc.webapp15.model;
 
-import java.util.List;
 import java.sql.Blob;
 
 import jakarta.persistence.Entity;
@@ -9,7 +8,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Artist {
@@ -28,18 +26,16 @@ public class Artist {
 
     private boolean image;
 
-    @OneToMany(mappedBy = "artist")
-    private List<Concert> concerts;
+    // @OneToMany(mappedBy = "artist")
+    // private List<Concert> concerts;
 
     public Artist() {}
 
-    public Artist(Long id, String name, String info, boolean image, List<Concert> concerts) {
-        this.id = id;
+    public Artist(String name, String info, boolean image) {
         this.name = name;
         this.info = info;
         //this.imageFile = imageFile;
         this.image = image;
-        this.concerts = concerts;
     }
 
     public Long getId() {
@@ -52,6 +48,10 @@ public class Artist {
 
     public String getName() {
         return name;
+    }
+
+    public String getURI() {
+        return name.toLowerCase().replace(' ', '-');
     }
 
     public void setName(String name) {
@@ -82,12 +82,12 @@ public class Artist {
         this.image = image;
     }
 
-    public List<Concert> getConcerts() {
-        return concerts;
-    }
+    // public List<Concert> getConcerts() {
+    //     return concerts;
+    // }
 
-    public void setConcerts(List<Concert> concerts) {
-        this.concerts = concerts;
-    }
+    // public void setConcerts(List<Concert> concerts) {
+    //     this.concerts = concerts;
+    // }
     
 }

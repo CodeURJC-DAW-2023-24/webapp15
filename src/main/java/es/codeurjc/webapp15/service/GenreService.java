@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.codeurjc.webapp15.repository.genreRepository;
+import es.codeurjc.webapp15.repository.GenreRepository;
 import es.codeurjc.webapp15.model.Genre;
 
 @Service
 public class GenreService{
     
     @Autowired
-	private genreRepository repository;
+	private GenreRepository repository;
 
 	public Optional<Genre> findById(long id) {
 		return repository.findById(id);
