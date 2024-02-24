@@ -26,9 +26,12 @@ public class IndexController {
 
         Artist mainArtist = artistList.getContent().getFirst();
         List<Artist> secondaryArtists = artistList.getContent().subList(1, 9);
+        List<Artist> recommendedArtists = artistList.getContent().subList(0, 4);
 
         model.addAttribute("mainArtist", mainArtist);
         model.addAttribute("secondaryArtists", secondaryArtists);
+        model.addAttribute("recommendedArtists", recommendedArtists);
+
         return "index";
     }
     
