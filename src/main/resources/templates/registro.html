@@ -22,6 +22,12 @@
 
                 <button type="submit" title="Login" name="Login">Registro</button>
             </form>
+            <div class="pie-form">
+                {{#error}}
+                <div style="color: red;">{{error}}</div>
+                {{/error}}
+                <a href="login">Iniciar Sesión</a>
+            </div>
         </div>
         
         </div>

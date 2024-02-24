@@ -31,6 +31,13 @@ public class UserController {
         usersRepository.save(new User("hughjackman", "maninthemiddle", "hola"));
     }
 
+    @GetMapping("/logout")
+    public String cerrarSesion(Model model) {
+
+        session.setUser(null);
+        return "redirect:/";
+    }
+
     @GetMapping("/registro")
     public String registro(Model model) {
 
@@ -38,14 +45,20 @@ public class UserController {
         if (user != null) {
             return "redirect:/";
         } else {
-            model.addAttribute("loginError", "");
             return "registro";
         }
     }
 
     @PostMapping("/user/new")
-    public String createUser(Model model,@RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
+    public String createUser(Model model, @RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
         try {
+            // Check if user already exists with the given email
+            List<User> existingUsers = usersRepository.findByEmail(Email);
+            if (!existingUsers.isEmpty()) {
+                // User exists, so we return an error message
+                model.addAttribute("error", "El email ya está en uso");
+                return "registro"; // Return back to the registration form
+            }
 
             User user = new User();
             user.setEmail(Email);
@@ -63,9 +76,11 @@ public class UserController {
             return "redirect:/"; // Redirect to homepage or user profile page after successful login
         } catch (Exception e) {
             e.printStackTrace();
-            return "error";
+            model.addAttribute("error", "Ha ocurrido un error.");
+            return "register"; // Redirect back to the registration page with an error message
         }
     }
+
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -73,7 +88,6 @@ public class UserController {
         if (user != null) {
             return "redirect:/";
         } else {
-            model.addAttribute("loginError", "");
             return "login";
         }
     }
@@ -88,7 +102,7 @@ public class UserController {
                 return "redirect:/";
             }
         }
-        model.addAttribute("loginError", "Invalid email or password");
+        model.addAttribute("error", "Email o Contraseña no válido");
         return "login"; // Return to login page if authentication fails
     }
 }

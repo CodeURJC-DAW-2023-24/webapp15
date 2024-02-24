@@ -6,6 +6,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import java.sql.Blob;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,8 +25,10 @@ public class User {
 	private Long id;
 
 	private String name;
-    private String email;
 	private String password;
+
+	@Column(unique = true)
+    private String email;
 
 	@Lob
 	private Blob img_user;
