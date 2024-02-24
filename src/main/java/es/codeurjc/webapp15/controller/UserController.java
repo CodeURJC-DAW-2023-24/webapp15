@@ -2,12 +2,14 @@ package es.codeurjc.webapp15.controller;
 
 import java.util.List;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.UserRepository;
@@ -29,21 +31,59 @@ public class UserController {
         usersRepository.save(new User("hughjackman", "maninthemiddle", "hola"));
     }
 
-    @PostMapping("/user/new")
-    public String createUser(Model model,User user) {
-        try {
-            usersRepository.save(user);
-            session.setUser(user);
+    @GetMapping("/logout")
+    public String cerrarSesion(Model model) {
 
-            return "redirect:/"; // Redirect to homepage or user profile page after successful login
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
+        session.setUser(null);
+        return "redirect:/";
+    }
+
+    @GetMapping("/registro")
+    public String registro(Model model) {
+
+        User user = session.getUser();
+        if (user != null) {
+            return "redirect:/";
+        } else {
+            return "registro";
         }
     }
 
+    @PostMapping("/user/new")
+    public String createUser(Model model, @RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
+        try {
+            // Check if user already exists with the given email
+            List<User> existingUsers = usersRepository.findByEmail(Email);
+            if (!existingUsers.isEmpty()) {
+                // User exists, so we return an error message
+                model.addAttribute("error", "El email ya está en uso");
+                return "registro"; // Return back to the registration form
+            }
+
+            User user = new User();
+            user.setEmail(Email);
+            user.setName(Name);
+            user.setPassword(password);
+
+            if (!Image.isEmpty()) {
+                user.setImg_user(BlobProxy.generateProxy(Image.getInputStream(), Image.getSize()));
+                user.setImage(true);
+            }
+            
+            usersRepository.save(user);
+            session.setUser(user);
+            
+            return "redirect:/"; // Redirect to homepage or user profile page after successful login
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Ha ocurrido un error.");
+            return "register"; // Redirect back to the registration page with an error message
+        }
+    }
+
+
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
         User user = session.getUser();
         if (user != null) {
             return "redirect:/";
@@ -62,7 +102,7 @@ public class UserController {
                 return "redirect:/";
             }
         }
-        model.addAttribute("loginError", "Invalid email or password");
+        model.addAttribute("error", "Email o Contraseña no válido");
         return "login"; // Return to login page if authentication fails
     }
 }
