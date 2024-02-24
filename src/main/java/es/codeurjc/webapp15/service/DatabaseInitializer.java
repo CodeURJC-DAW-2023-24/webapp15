@@ -39,6 +39,24 @@ public class DatabaseInitializer {
         Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB", false);
         artists.save(artist3);
 
+        Artist artist4 = new Artist("Billie Eilish", "LLLLLLLLLLLLLLLLLLLLLLL", false);
+        artists.save(artist4);
+
+        Artist artist5 = new Artist("Quevedo", "quedate", false);
+        artists.save(artist5)
+        ;
+        Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB", false);
+        artists.save(artist6);
+
+        Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh", false);
+        artists.save(artist7);
+
+        Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA", false);
+        artists.save(artist8)
+        ;
+        Artist artist9 = new Artist("Beyoncé", "666666666666666666666", false);
+        artists.save(artist9);
+
         // Sample genres
 
         Genre genre1 = new Genre("Pop");
