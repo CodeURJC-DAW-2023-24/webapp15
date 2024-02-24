@@ -3,7 +3,6 @@ package es.codeurjc.webapp15.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import java.util.List;
 

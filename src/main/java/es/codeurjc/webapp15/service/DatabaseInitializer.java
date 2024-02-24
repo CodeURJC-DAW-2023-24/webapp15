@@ -50,22 +50,22 @@ public class DatabaseInitializer {
 
         // Sample concerts
 
-        Concert concert1 = new Concert(LocalDateTime.now(),"Palencia", Integer.valueOf(1000), Float.valueOf(40.5f), "aaaaaaa", artist1, genre1);
+        Concert concert1 = new Concert(LocalDateTime.of(2024, 03, 01, 19, 30, 00),"Palencia", Integer.valueOf(1000), Float.valueOf(40.5f), "aaaaaaa", artist1, genre1);
         concerts.save(concert1);
 
-        Concert concert2 = new Concert(LocalDateTime.now(),"Barcelona", Integer.valueOf(500), Float.valueOf(32f), "aaaaaaa", artist1, genre2);
+        Concert concert2 = new Concert(LocalDateTime.of(2024, 03, 12, 21, 15, 00),"Barcelona", Integer.valueOf(500), Float.valueOf(32f), "aaaaaaa", artist1, genre2);
         concerts.save(concert2);
         
-        Concert concert3 = new Concert(LocalDateTime.now(),"Madrid", Integer.valueOf(2000), Float.valueOf(82.5f), "aaaaaaa", artist2, genre1);
+        Concert concert3 = new Concert(LocalDateTime.of(2024, 03, 03, 20, 00, 00),"Madrid", Integer.valueOf(2000), Float.valueOf(82.5f), "aaaaaaa", artist2, genre1);
         concerts.save(concert3);
         
-        Concert concert4 = new Concert(LocalDateTime.now(),"Valencia", Integer.valueOf(5000), Float.valueOf(12.25f), "aaaaaaa", artist2, genre2);
+        Concert concert4 = new Concert(LocalDateTime.of(2024, 03, 04, 20, 30, 00),"Valencia", Integer.valueOf(5000), Float.valueOf(12.25f), "aaaaaaa", artist2, genre2);
         concerts.save(concert4);
         
-        Concert concert5 = new Concert(LocalDateTime.now(),"Bilbao", Integer.valueOf(50), Float.valueOf(4.9f), "aaaaaaa", artist3, genre1);
+        Concert concert5 = new Concert(LocalDateTime.of(2024, 03, 05, 21, 30, 00),"Bilbao", Integer.valueOf(50), Float.valueOf(4.9f), "aaaaaaa", artist3, genre1);
         concerts.save(concert5);
         
-        Concert concert6 = new Concert(LocalDateTime.now(),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
+        Concert concert6 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
         concerts.save(concert6);
 
     }
