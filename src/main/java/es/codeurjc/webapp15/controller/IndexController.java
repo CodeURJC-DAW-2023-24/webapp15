@@ -24,6 +24,12 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/registro")
+    public String registro(Model model) {
+
+        return "registro";
+    }
+
     private List<Artist> sampleList = new ArrayList<>() {{
         add(new Artist(Long.valueOf(239187), "name1", "dsaoijsdaoifdjosdfhfsdiu", false, sampleConcertList));
     }};

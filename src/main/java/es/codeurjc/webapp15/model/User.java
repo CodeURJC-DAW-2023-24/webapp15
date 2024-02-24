@@ -1,6 +1,9 @@
 package es.codeurjc.webapp15.model;
 
 import java.util.List;
+
+import org.springframework.web.context.annotation.SessionScope;
+
 import java.sql.Blob;
 
 import jakarta.persistence.ElementCollection;
@@ -13,6 +16,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 
 @Entity(name = "UserTable")
+@SessionScope
 public class User {
 
 	@Id
