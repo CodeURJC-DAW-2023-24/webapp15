@@ -1,3 +1,33 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Obtener todos los botones de eliminación
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    
+    // Agregar un evento de clic a cada botón de eliminación
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const concertId = button.getAttribute('data-id');
+            const confirmation = confirm('¿Estás seguro de que quieres eliminar este concierto?');
+            if (confirmation) {
+                fetch(`/search/${concertId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Eliminación exitosa, puedes realizar alguna acción adicional si es necesario
+                        button.parentNode.remove(); // Eliminar el elemento HTML del concierto eliminado
+                        alert('Concierto eliminado correctamente');
+                    } else {
+                        alert('Hubo un problema al intentar eliminar el concierto.');
+                    }
+                })
+                .catch(error => console.error('Error al eliminar el concierto:', error));
+            }
+        });
+    });
+});
+
+
+
 function editField(textId, inputId, saveBtnId, editBtnId) {
     var value = document.getElementById(textId).innerText;
     // Hide the text and edit button

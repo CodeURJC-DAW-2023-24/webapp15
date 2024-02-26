@@ -25,6 +25,12 @@
                     <span>Entradas</span>
                     <img src="images/point-right.png" width="19px">
                 </button>
+                {{#admin}}
+                    <button class="delete-btn" data-id="{{id}}">
+                        <span>Eliminar</span>
+                        <img src="images/point-right.png" width="19px">
+                    </button>
+                {{/admin}}
             </article>
             {{/concerts}}
         </main>
