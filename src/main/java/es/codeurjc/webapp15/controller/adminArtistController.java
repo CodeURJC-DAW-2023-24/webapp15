@@ -56,7 +56,7 @@ public class adminArtistController {
         Artist artist = new Artist();
 		if (!Image.isEmpty()) {
 			artist.setImageFile(BlobProxy.generateProxy(Image.getInputStream(), Image.getSize()));
-	    	artist.setImage(true);
+	    	// artist.setImage(true);
 		}
        
         artist.setName(Name);

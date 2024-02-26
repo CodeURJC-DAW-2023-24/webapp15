@@ -30,31 +30,31 @@ public class DatabaseInitializer {
 
         // Sample artists
 
-        Artist artist1 = new Artist("Shakira", "ABCDEFGHIJK", false);
+        Artist artist1 = new Artist("Shakira", "ABCDEFGHIJK");
         artists.save(artist1);
 
-        Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA", false);
+        Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA");
         artists.save(artist2)
         ;
-        Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB", false);
+        Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB");
         artists.save(artist3);
 
-        Artist artist4 = new Artist("Billie Eilish", "LLLLLLLLLLLLLLLLLLLLLLL", false);
+        Artist artist4 = new Artist("Billie Eilish", "LLLLLLLLLLLLLLLLLLLLLLL");
         artists.save(artist4);
 
-        Artist artist5 = new Artist("Quevedo", "quedate", false);
+        Artist artist5 = new Artist("Quevedo", "quedate");
         artists.save(artist5)
         ;
-        Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB", false);
+        Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB");
         artists.save(artist6);
 
-        Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh", false);
+        Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh");
         artists.save(artist7);
 
-        Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA", false);
+        Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA");
         artists.save(artist8)
         ;
-        Artist artist9 = new Artist("Beyoncé", "666666666666666666666", false);
+        Artist artist9 = new Artist("Beyoncé", "666666666666666666666");
         artists.save(artist9);
 
         // Sample genres
