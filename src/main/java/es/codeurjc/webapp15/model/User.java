@@ -113,5 +113,13 @@ public class User {
 		this.tickets = tickets;
 	}
 
+	public Boolean isRole(String rol) {
+		return this.roles.contains(rol);
+	}
+
+	public void addRol(String rol) {
+		this.roles.add(rol);
+	}
+
 }
 

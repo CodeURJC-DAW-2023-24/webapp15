@@ -27,8 +27,13 @@ public class UserController {
 
     @PostConstruct
     public void init() {
-        usersRepository.save(new User("edwardKennedy", "edu123456", "hola"));
-        usersRepository.save(new User("hughjackman", "maninthemiddle", "hola"));
+        User admin = new User("admin", "admin", "ADMIN");
+        admin.setEmail("admin@admin.com");
+        usersRepository.save(admin);
+
+        User user = new User("user", "maninthemiddle", "USER");
+        user.setEmail("user@user.com");
+        usersRepository.save(user);
     }
 
     @GetMapping("/logout")
@@ -64,6 +69,7 @@ public class UserController {
             user.setEmail(Email);
             user.setName(Name);
             user.setPassword(password);
+            user.addRol("USER");
 
             if (!Image.isEmpty()) {
                 user.setImg_user(BlobProxy.generateProxy(Image.getInputStream(), Image.getSize()));
