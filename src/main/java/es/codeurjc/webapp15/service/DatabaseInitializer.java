@@ -1,7 +1,12 @@
 package es.codeurjc.webapp15.service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +30,22 @@ public class DatabaseInitializer {
     @Autowired
     private ConcertRepository concerts;
 
+    private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "/src/main/resources/images/");
+
+
     @PostConstruct
-    public void init() {
+    public void init() throws IOException {
 
         // Sample artists
 
         Artist artist1 = new Artist("Shakira", "ABCDEFGHIJK");
+        Path imagePath = IMAGES_FOLDER.resolve("shakira.jpg");
+        artist1.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath.toFile()), 0));
         artists.save(artist1);
 
         Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA");
-        artists.save(artist2)
-        ;
+        artists.save(artist2);
+
         Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB");
         artists.save(artist3);
 
@@ -43,8 +53,8 @@ public class DatabaseInitializer {
         artists.save(artist4);
 
         Artist artist5 = new Artist("Quevedo", "quedate");
-        artists.save(artist5)
-        ;
+        artists.save(artist5);
+
         Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB");
         artists.save(artist6);
 
@@ -52,8 +62,8 @@ public class DatabaseInitializer {
         artists.save(artist7);
 
         Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA");
-        artists.save(artist8)
-        ;
+        artists.save(artist8);
+        
         Artist artist9 = new Artist("Beyoncé", "666666666666666666666");
         artists.save(artist9);
 

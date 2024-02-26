@@ -1,11 +1,16 @@
 package es.codeurjc.webapp15.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +22,8 @@ import es.codeurjc.webapp15.repository.ArtistRepository;
 import es.codeurjc.webapp15.repository.ConcertRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -44,5 +51,23 @@ public class ArtistController {
         model.addAttribute("concerts", concertList.getContent());
         return "info_artist";
     }
+
+    @GetMapping("/artist/{artistName}/image")
+    public ResponseEntity<Object> getArtistImage(@PathVariable String artistName) throws SQLException {
+        
+        artistName = artistName.toLowerCase().replace('-', ' ');
+        Artist artist = artists.findFirstByNameIgnoreCase(artistName);
+
+        if (artist == null)
+            return ResponseEntity.notFound().build();
+
+        Resource file = new InputStreamResource(artist.getImageFile().getBinaryStream());
+
+        return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+        .contentLength(artist.getImageFile().length())
+        .body(file);
+    }
+    
 
 }
