@@ -27,18 +27,8 @@ public class ImageController {
             Resource image = new UrlResource(imagePath.toUri());
 
             return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_TYPE, getImageType(imageName))
+            .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
             .body(image);
-    }
-
-    private String getImageType(String imageName) {
-        if (imageName.endsWith(".jpg"))
-            return "image/jpeg";
-        if (imageName.endsWith(".png"))
-            return "image/png";
-        if (imageName.endsWith(".webp"))
-            return "image/webp";
-        return null;
     }
     
 }

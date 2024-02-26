@@ -44,6 +44,8 @@ public class DatabaseInitializer {
         artists.save(artist1);
 
         Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        Path imagePath2 = IMAGES_FOLDER.resolve("taylor_swift.jpg");
+        artist2.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath2.toFile()), 0));
         artists.save(artist2);
 
         Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB");
@@ -59,12 +61,18 @@ public class DatabaseInitializer {
         artists.save(artist6);
 
         Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh");
+        Path imagePath7 = IMAGES_FOLDER.resolve("adele.webp");
+        artist7.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath7.toFile()), 0));
         artists.save(artist7);
 
         Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        Path imagePath8 = IMAGES_FOLDER.resolve("ArianaGrande.webp");
+        artist8.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath8.toFile()), 0));
         artists.save(artist8);
-        
+
         Artist artist9 = new Artist("Beyoncé", "666666666666666666666");
+        Path imagePath9 = IMAGES_FOLDER.resolve("beyonce.jpg");
+        artist9.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath9.toFile()), 0));
         artists.save(artist9);
 
         // Sample genres
