@@ -31,7 +31,7 @@ public class UserController {
         admin.setEmail("admin@admin.com");
         usersRepository.save(admin);
 
-        User user = new User("user", "maninthemiddle", "USER");
+        User user = new User("user", "user", "USER");
         user.setEmail("user@user.com");
         usersRepository.save(user);
     }
@@ -65,11 +65,8 @@ public class UserController {
                 return "registro"; // Return back to the registration form
             }
 
-            User user = new User();
+            User user = new User(Name, password, "USER");
             user.setEmail(Email);
-            user.setName(Name);
-            user.setPassword(password);
-            user.addRol("USER");
 
             if (!Image.isEmpty()) {
                 user.setImg_user(BlobProxy.generateProxy(Image.getInputStream(), Image.getSize()));
