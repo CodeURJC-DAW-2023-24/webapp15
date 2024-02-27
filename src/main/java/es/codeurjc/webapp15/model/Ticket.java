@@ -19,6 +19,16 @@ public class Ticket {
     @ManyToOne 
     private Concert concert;
 
+    private Integer num_ticket;
+
+    public Integer getNum_ticket() {
+        return num_ticket;
+    }
+
+    public void setNum_ticket(Integer num_ticket) {
+        this.num_ticket = num_ticket;
+    }
+
     public Ticket(){}
 
     public Long getId() {

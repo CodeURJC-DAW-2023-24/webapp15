@@ -1,5 +1,7 @@
 {{>header}}
-
+<div id="search-main">
+<main id="search-results">
+    
     <div id = "payment-background";>
         <div id="contenedor">
         <div>
@@ -7,7 +9,7 @@
             <div class="titulo">
                 Comprar Entradas
             </div>
-            <form id="payment-form" action="index.html">
+            <form id="payment-form" method ="post" action="/payment/{{#concert}}{{id}}{{/concert}}" enctype="multipart/form-data">
                 <label for="ccnum">Número de Cuenta Bancaria</label>
                 <input type="" name="target-number" placeholder="Número de Cuenta Bancaria" required>
                 <label for="expmonth">Fecha de expedición (MES)</label>
@@ -16,34 +18,37 @@
                 <input type="text" id="expyear" name="expyear" placeholder="Año Espedición">
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" name="cvv" placeholder="CVV">
-                <label for="price">Precio = 20 €</label>
-
+                <label id="num"for="numero">Número de Entradas:</label>
+                <input type="number" id="num_ticket" name="num_ticket" min="0"/>
                 <button type="submit" title="Buy" name="Buy">Comprar</button>
             </form>
         </div>
         <div id="payment-resume">
             <h2>Resumen de Compra</h2>
+            {{#concert}}
             <article class="event-article">
-                <time datetime="2024-02-29T21:00:00+01:00">
-                    <span class="day">29</span>
-                    <span class="month">Feb</span>
+                <time>
+                    <span class="day">{{getDay}}</span>
+                    <span class="month">{{getMonth}}</span>
                 </time>
                 <div class="event-info">
-                    <h1><a>Metallica World Tour</a></h1>
+                    <h1><a>{{#artist}}{{name}}{{/artist}}</a></h1>
                     <p class="date-info">
-                        <span class="weekday">Thu</span>
+                        <span class="weekday">{{getWeekday}}</span>
                         <span> - </span>
-                        <span class="hour">22:00</span>
+                        <span class="hour">{{getHour}}</span>
                     </p>
                     <p class="venue-info">
-                        <span class="city">Madrid</span>
-                        <span> - </span>
-                        <span class="venue">Estadio de Vallecas</span>
+                        <span class="city">{{place}}</span>
                     </p>
                 </div>
+                <label for="price">Precio <span>{{price}}</span> &euro;</label>
             </article>
+            {{/concert}}
         </div>
         </div>
     </div>
+</main>
+</div>
 
 {{>footer}}
