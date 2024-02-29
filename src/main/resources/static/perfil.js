@@ -1,3 +1,26 @@
+$(document).ready(function() {
+    $('#moreArtistButton').click(function() {
+        var existingCount = $('.listArtist li').length; 
+
+        $.ajax({
+            url: '/moreArtists',
+            type: 'GET',
+            data: { existingCount: existingCount },
+            success: function(data) {
+                if (data.trim() === '') {
+                    $('#moreArtistButton').hide();
+                } else {
+                    $('.listArtist').append(data);
+                }
+            },
+            error: function() {
+                alert('Error al cargar más artistas');
+            }
+        });
+    });
+});
+
+
 document.addEventListener("DOMContentLoaded", function() {
     // Obtener todos los botones de eliminación
     const deleteButtons = document.querySelectorAll('.delete-btn');
