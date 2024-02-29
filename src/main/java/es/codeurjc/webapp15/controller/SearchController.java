@@ -3,6 +3,8 @@ package es.codeurjc.webapp15.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.service.ConcertService;
@@ -28,8 +32,8 @@ public class SearchController {
     
     @GetMapping("/search")
     public String searchController(Model model) {
-
-        List<Concert> concertList = concerts.findAll(Sort.by("datetime"));
+        Page<Concert> concert = concerts.findAll(PageRequest.of(0, 6));
+        List<Concert> concertList = concert.getContent().subList(0,6);
 
         model.addAttribute("concerts", concertList);
         return "search";
@@ -39,4 +43,58 @@ public class SearchController {
         concertService.delete(id);
         return new ResponseEntity<>("Concierto eliminado correctamente", HttpStatus.OK);
     }
+
+
+    @GetMapping("/moreConcerts")
+    public ResponseEntity<String> moreConcerts(@RequestParam("existingCount") int existingCount) {
+        if((existingCount) < concerts.findAll().size()){
+            int pageSize = 6; 
+            int pageNumber = existingCount / pageSize;
+            int offset = (pageNumber * pageSize);
+
+            List<Concert> allConcerts = concerts.findAll();
+
+            List<Concert> moreConcert;
+            if (offset < allConcerts.size()) {
+                moreConcert = allConcerts.subList(offset, Math.min(offset + pageSize, allConcerts.size()));
+                
+                StringBuilder htmlBuilder = new StringBuilder();
+
+                for (Concert concert : moreConcert) {
+                    htmlBuilder.append("<article class=\"event-article\">");
+                    htmlBuilder.append("<time>");
+                    htmlBuilder.append("<span class=\"day\">" + concert.getDay() + "</span>");
+                    htmlBuilder.append("<span class=\"month\">" + concert.getMonth() + "</span>");
+                    htmlBuilder.append("</time>");
+                    htmlBuilder.append("<div class=\"event-info\">");
+                    htmlBuilder.append("<h1><a>" + concert.getArtist().getName() + "</a></h1>");
+                    htmlBuilder.append("<p class=\"date-info\">");
+                    htmlBuilder.append("<span class=\"weekday\">" + concert.getWeekday() + "</span>");
+                    htmlBuilder.append("<span> - </span>");
+                    htmlBuilder.append("<span class=\"hour\">" + concert.getHour() + "</span>");
+                    htmlBuilder.append("</p>");
+                    htmlBuilder.append("<p class=\"venue-info\">");
+                    htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
+                    htmlBuilder.append("</p>");
+                    htmlBuilder.append("</div>");
+                    htmlBuilder.append("<button>");
+                    htmlBuilder.append("<span>Entradas</span>");
+                    htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
+                    htmlBuilder.append("</button>");
+                    if (isAdmin) {
+                        htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
+                        htmlBuilder.append("<span>Eliminar</span>");
+                        htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
+                        htmlBuilder.append("</button>");
+                    }
+                    htmlBuilder.append("</article>");
+                }
+                    
+                    
+                
+            return ResponseEntity.ok(htmlBuilder.toString());
+        } 
+    }
+    return ResponseEntity.noContent().build();
+}
 }

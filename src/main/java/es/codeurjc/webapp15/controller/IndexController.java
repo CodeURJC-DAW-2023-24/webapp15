@@ -40,9 +40,9 @@ public class IndexController {
     
     @GetMapping("/moreArtists")
     public ResponseEntity<String> moreArtists(@RequestParam("existingCount") int existingCount) {
-        System.out.println(existingCount);
+        
         if((existingCount+1) < artists.findAll().size()){
-            int pageSize = 8; 
+            int pageSize = 10; 
             int pageNumber = existingCount / pageSize;
             int offset = (pageNumber * pageSize) + 1; // First id element array
 

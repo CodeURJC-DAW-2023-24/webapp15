@@ -19,6 +19,28 @@ $(document).ready(function() {
         });
     });
 });
+$(document).ready(function() {
+    $('#moreConcertButton').click(function() {
+        var existingCount = $('.event-article').length; 
+
+        $.ajax({
+            url: '/moreConcerts',
+            type: 'GET',
+            data: { existingCount: existingCount },
+            success: function(data) {
+                if (data.trim() === '') {
+                    $('#moreConcertButton').hide();
+                } else {
+                    $('#search-results2').append(data);
+                }
+            },
+            error: function() {
+                alert('Error al cargar más conciertos');
+            }
+        });
+    });
+});
+
 
 
 document.addEventListener("DOMContentLoaded", function() {

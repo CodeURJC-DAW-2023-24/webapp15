@@ -2,6 +2,7 @@
 {{>header}}
     <div id="search-main">
         <main id="search-results">
+            <div id="search-results2">
             {{#concerts}}
             <article class="event-article">
                 <time>
@@ -17,8 +18,6 @@
                     </p>
                     <p class="venue-info">
                         <span class="city">{{place}}</span>
-                        <span> - </span>
-                        <span class="venue">aaa</span>
                     </p>
                 </div>
                 <button>
@@ -33,8 +32,16 @@
                 {{/admin}}
             </article>
             {{/concerts}}
+            </div>
+            <button id="moreConcertButton" class="buttonMas">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <a>Mas Conciertos</a>
+            </button>
         </main>
-
+        
         <aside id="filters-sidebar">
             <h1>Filtros</h1>
 
