@@ -21,21 +21,20 @@ public class Artist {
     @Column(columnDefinition = "TEXT")
     private String info;
     
+    //private boolean image;
+
     @Lob
     private Blob imageFile;
 
-    private boolean image;
 
     // @OneToMany(mappedBy = "artist")
     // private List<Concert> concerts;
 
     public Artist() {}
 
-    public Artist(String name, String info, boolean image) {
+    public Artist(String name, String info) {
         this.name = name;
         this.info = info;
-        //this.imageFile = imageFile;
-        this.image = image;
     }
 
     public Long getId() {
@@ -74,13 +73,13 @@ public class Artist {
         this.imageFile = imageFile;
     }
 
-    public boolean isImage() {
-        return image;
-    }
+    // public boolean isImage() {
+    //     return image;
+    // }
 
-    public void setImage(boolean image) {
-        this.image = image;
-    }
+    // public void setImage(boolean image) {
+    //     this.image = image;
+    // }
 
     // public List<Concert> getConcerts() {
     //     return concerts;

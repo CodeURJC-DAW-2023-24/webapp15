@@ -1,7 +1,12 @@
 package es.codeurjc.webapp15.service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,36 +30,49 @@ public class DatabaseInitializer {
     @Autowired
     private ConcertRepository concerts;
 
+    private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "/src/main/resources/images/");
+
+
     @PostConstruct
-    public void init() {
+    public void init() throws IOException {
 
         // Sample artists
 
-        Artist artist1 = new Artist("Shakira", "ABCDEFGHIJK", false);
+        Artist artist1 = new Artist("Shakira", "ABCDEFGHIJK");
+        Path imagePath = IMAGES_FOLDER.resolve("shakira.jpg");
+        artist1.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath.toFile()), 0));
         artists.save(artist1);
 
-        Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA", false);
-        artists.save(artist2)
-        ;
-        Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB", false);
+        Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        Path imagePath2 = IMAGES_FOLDER.resolve("taylor_swift.jpg");
+        artist2.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath2.toFile()), 0));
+        artists.save(artist2);
+
+        Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB");
         artists.save(artist3);
 
-        Artist artist4 = new Artist("Billie Eilish", "LLLLLLLLLLLLLLLLLLLLLLL", false);
+        Artist artist4 = new Artist("Billie Eilish", "LLLLLLLLLLLLLLLLLLLLLLL");
         artists.save(artist4);
 
-        Artist artist5 = new Artist("Quevedo", "quedate", false);
-        artists.save(artist5)
-        ;
-        Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB", false);
+        Artist artist5 = new Artist("Quevedo", "quedate");
+        artists.save(artist5);
+
+        Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB");
         artists.save(artist6);
 
-        Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh", false);
+        Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh");
+        Path imagePath7 = IMAGES_FOLDER.resolve("adele.webp");
+        artist7.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath7.toFile()), 0));
         artists.save(artist7);
 
-        Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA", false);
-        artists.save(artist8)
-        ;
-        Artist artist9 = new Artist("Beyoncé", "666666666666666666666", false);
+        Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        Path imagePath8 = IMAGES_FOLDER.resolve("ArianaGrande.webp");
+        artist8.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath8.toFile()), 0));
+        artists.save(artist8);
+
+        Artist artist9 = new Artist("Beyoncé", "666666666666666666666");
+        Path imagePath9 = IMAGES_FOLDER.resolve("beyonce.jpg");
+        artist9.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath9.toFile()), 0));
         artists.save(artist9);
 
         // Sample genres
