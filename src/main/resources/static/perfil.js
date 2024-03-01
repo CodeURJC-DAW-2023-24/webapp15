@@ -1,13 +1,17 @@
+let currentArtistPage = 0;
+let currentConcertPage = 0;
+
 
 //AJAX in /index
 $(document).ready(function() {
     $('#moreArtistButton').click(function() {
+        currentArtistPage++;
         var existingCount = $('.listArtist li').length; 
 
         $.ajax({
             url: '/moreArtists',
             type: 'GET',
-            data: { existingCount: existingCount },
+            data: { page: currentArtistPage },
             success: function(data) {
                 if (data.trim() === '') {
                     $('#moreArtistButton').hide();
@@ -25,18 +29,18 @@ $(document).ready(function() {
 //AJAX in /search
 $(document).ready(function() {
     $('#moreConcertButton').click(function() {
+        currentConcertPage++;
         var existingCount = $('.event-article').length;
+        console.log($('.event-article').length, existingCount); 
 
         $.ajax({
             url: '/moreConcerts',
             type: 'GET',
-            data: { existingCount: existingCount },
+            data: { page: currentConcertPage },
             success: function(data) {
-                if (data.trim() === '') {
+                if (!data.hasNext)
                     $('#moreConcertButton').hide();
-                } else {
-                    $('#search-results2').append(data);
-                }
+                $('#search-results2').append(data.content);
             },
             error: function() {
                 alert('Error al cargar más conciertos');
