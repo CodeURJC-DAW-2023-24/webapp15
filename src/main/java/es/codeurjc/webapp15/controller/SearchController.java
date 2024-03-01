@@ -32,7 +32,7 @@ public class SearchController {
     
     @GetMapping("/search")
     public String searchController(Model model) {
-        Page<Concert> concert = concerts.findAll(PageRequest.of(0, 6));
+        Page<Concert> concert = concerts.findAll(PageRequest.of(0, 6,Sort.by("datetime")));
         List<Concert> concertList = concert.getContent().subList(0,6);
 
         model.addAttribute("concerts", concertList);
@@ -82,10 +82,12 @@ public class SearchController {
                     htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
                     htmlBuilder.append("</button>");
                     if (isAdmin) {
+                       
                         htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
                         htmlBuilder.append("<span>Eliminar</span>");
                         htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
                         htmlBuilder.append("</button>");
+                        
                     }
                     htmlBuilder.append("</article>");
                 }

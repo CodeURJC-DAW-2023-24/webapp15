@@ -1,3 +1,5 @@
+
+//AJAX in /search
 $(document).ready(function() {
     $('#moreArtistButton').click(function() {
         var existingCount = $('.listArtist li').length; 
@@ -19,6 +21,8 @@ $(document).ready(function() {
         });
     });
 });
+
+//AJAX in /index
 $(document).ready(function() {
     $('#moreConcertButton').click(function() {
         var existingCount = $('.event-article').length; 
@@ -42,12 +46,12 @@ $(document).ready(function() {
 });
 
 
-
+// Delete concert in /search
 document.addEventListener("DOMContentLoaded", function() {
-    // Obtener todos los botones de eliminación
+  
     const deleteButtons = document.querySelectorAll('.delete-btn');
     
-    // Agregar un evento de clic a cada botón de eliminación
+    
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
             const concertId = button.getAttribute('data-id');
@@ -70,6 +74,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+
 
 
 
