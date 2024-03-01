@@ -76,7 +76,7 @@ public class SearchController {
                 htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
                 htmlBuilder.append("</p>");
                 htmlBuilder.append("</div>");
-                htmlBuilder.append("<button>");
+                htmlBuilder.append("<button onclick=\"location.href =\'/payment/" + concert.getId().toString() + "\'\">");
                 htmlBuilder.append("<span>Entradas</span>");
                 htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
