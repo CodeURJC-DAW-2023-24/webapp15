@@ -1,6 +1,7 @@
 package es.codeurjc.webapp15.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.service.ConcertService;
@@ -29,6 +29,9 @@ public class SearchController {
 
     @Autowired
 	private ConcertService concertService;
+
+    @Autowired
+    private GlobalControllerAdvice globalControllerAdvice;
     
     @GetMapping("/search")
     public String searchController(Model model) {
@@ -47,7 +50,10 @@ public class SearchController {
 
     @GetMapping("/moreConcerts")
     public ResponseEntity<String> moreConcerts(@RequestParam("existingCount") int existingCount) {
+        Logger.getAnonymousLogger().info(Integer.toString(existingCount));
+        Logger.getAnonymousLogger().info(Integer.toString(concerts.findAll().size()));
         if((existingCount) < concerts.findAll().size()){
+            Logger.getAnonymousLogger().info(Integer.toString(existingCount));
             int pageSize = 6; 
             int pageNumber = existingCount / pageSize;
             int offset = (pageNumber * pageSize);
@@ -81,7 +87,7 @@ public class SearchController {
                     htmlBuilder.append("<span>Entradas</span>");
                     htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
                     htmlBuilder.append("</button>");
-                    if (isAdmin) {
+                    if (globalControllerAdvice.globalAdminModel()) {
                        
                         htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
                         htmlBuilder.append("<span>Eliminar</span>");

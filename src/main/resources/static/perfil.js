@@ -1,5 +1,5 @@
 
-//AJAX in /search
+//AJAX in /index
 $(document).ready(function() {
     $('#moreArtistButton').click(function() {
         var existingCount = $('.listArtist li').length; 
@@ -22,10 +22,10 @@ $(document).ready(function() {
     });
 });
 
-//AJAX in /index
+//AJAX in /search
 $(document).ready(function() {
     $('#moreConcertButton').click(function() {
-        var existingCount = $('.event-article').length; 
+        var existingCount = $('.event-article').length;
 
         $.ajax({
             url: '/moreConcerts',

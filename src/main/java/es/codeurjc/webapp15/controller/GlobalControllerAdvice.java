@@ -20,7 +20,7 @@ public class GlobalControllerAdvice {
     }
 
     @ModelAttribute("admin")
-    public Boolean goblalAdminModel(){
+    public Boolean globalAdminModel(){
         User admin = session.getUser();
         if (admin != null) {
             if (admin.isRole("ADMIN")) {

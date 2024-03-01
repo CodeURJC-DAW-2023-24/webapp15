@@ -27,7 +27,7 @@ public class IndexController {
         Page<Artist> artistList = artists.findAll(PageRequest.of(0, 10));
 
         Artist mainArtist = artistList.getContent().getFirst();
-        List<Artist> secondaryArtists = artistList.getContent().subList(1, 9);
+        List<Artist> secondaryArtists = artistList.getContent().subList(1, 4);
         List<Artist> recommendedArtists = artistList.getContent().subList(0, 4);
 
         model.addAttribute("mainArtist", mainArtist);
@@ -42,7 +42,7 @@ public class IndexController {
     public ResponseEntity<String> moreArtists(@RequestParam("existingCount") int existingCount) {
         
         if((existingCount+1) < artists.findAll().size()){
-            int pageSize = 10; 
+            int pageSize = 4; 
             int pageNumber = existingCount / pageSize;
             int offset = (pageNumber * pageSize) + 1; // First id element array
 
