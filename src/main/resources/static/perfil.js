@@ -1,8 +1,61 @@
+let currentArtistPage = 0;
+let currentConcertPage = 0;
+
+
+//AJAX in /index
+$(document).ready(function() {
+    $('#moreArtistButton').click(function() {
+        currentArtistPage++;
+        var existingCount = $('.listArtist li').length; 
+
+        $.ajax({
+            url: '/moreArtists',
+            type: 'GET',
+            data: { page: currentArtistPage },
+            success: function(data) {
+                if (data.trim() === '') {
+                    $('#moreArtistButton').hide();
+                } else {
+                    $('.listArtist').append(data);
+                }
+            },
+            error: function() {
+                alert('Error al cargar más artistas');
+            }
+        });
+    });
+});
+
+//AJAX in /search
+$(document).ready(function() {
+    $('#moreConcertButton').click(function() {
+        currentConcertPage++;
+        var existingCount = $('.event-article').length;
+        console.log($('.event-article').length, existingCount); 
+
+        $.ajax({
+            url: '/moreConcerts',
+            type: 'GET',
+            data: { page: currentConcertPage },
+            success: function(data) {
+                if (!data.hasNext)
+                    $('#moreConcertButton').hide();
+                $('#search-results2').append(data.content);
+            },
+            error: function() {
+                alert('Error al cargar más conciertos');
+            }
+        });
+    });
+});
+
+
+// Delete concert in /search
 document.addEventListener("DOMContentLoaded", function() {
-    // Obtener todos los botones de eliminación
+  
     const deleteButtons = document.querySelectorAll('.delete-btn');
     
-    // Agregar un evento de clic a cada botón de eliminación
+    
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
             const concertId = button.getAttribute('data-id');
@@ -25,6 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+
 
 
 
