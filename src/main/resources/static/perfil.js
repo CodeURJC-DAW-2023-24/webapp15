@@ -104,11 +104,39 @@ function editField(textId, inputId, saveBtnId, editBtnId) {
 function saveField(textId, inputId, saveBtnId, editBtnId) {
     var newValue = document.getElementById(inputId).value;
     document.getElementById(textId).innerText = newValue;
+
+    // Prepare data to be sent to the server
+    var data = { value: newValue };
+
+    // Determine which field is being updated based on the inputId
+    var updateUrl = '/user/update/'; // Base URL for update endpoint
+    if (inputId === 'nameInput') {
+        updateUrl += 'name';
+    } else if (inputId === 'emailInput') {
+        updateUrl += 'email';
+    }
+
+    // Make the POST request using fetch
+    fetch(updateUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Include CSRF token as needed for security
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        if (response.ok) {
+            console.log('Update successful');
+        } else {
+            console.error('Update failed');
+        }
+    });
+
     // Revert visibility
     document.getElementById(textId).style.visibility = 'visible';
     document.getElementById(inputId).style.visibility = 'hidden';
     document.getElementById(saveBtnId).style.visibility = 'hidden';
-    document.getElementById(editBtnId).style.visibility = 'visible'; // Show the correct edit button again
+    document.getElementById(editBtnId).style.visibility = 'visible';
 
     // Optionally revert to display none
     document.getElementById(inputId).style.display = 'none';
@@ -118,12 +146,34 @@ function saveField(textId, inputId, saveBtnId, editBtnId) {
 function previewImage(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
+
+        // Preview the image
         reader.onload = function(e) {
             document.getElementById('profileImage').src = e.target.result;
-            // Optionally, you can submit the new image to the server here or use another button for submission.
+            // After setting the preview, upload the image
+            uploadImage(input.files[0]);
         };
+
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+function uploadImage(file) {
+    var formData = new FormData();
+    formData.append('imageFile', file); // 'imageFile' is the key
+
+    fetch('/user/update/image', { // Endpoint to upload the image
+        method: 'POST',
+        body: formData, // Send the image file in FormData
+    }).then(response => {
+        if (response.ok) {
+            console.log('Image uploaded successfully.');
+        } else {
+            response.text().then(text => console.log(text)); // Show server response text
+        }
+    }).catch(error => {
+        console.error('Error uploading image:', error);
+    });
 }
 
 function downloadTicket(ticketId) {
