@@ -3,7 +3,11 @@ package es.codeurjc.webapp15.controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import es.codeurjc.webapp15.model.User;
+import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.service.UserSession;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @ControllerAdvice
@@ -28,5 +32,14 @@ public class GlobalControllerAdvice {
             }
         }
         return false;
+    }
+
+    @ModelAttribute("tickets")
+    public List<Ticket> globalTicketsModel() {
+        User user = session.getUser();
+        if (user != null) {
+            return user.getTickets();
+        }
+        return null;
     }
 }

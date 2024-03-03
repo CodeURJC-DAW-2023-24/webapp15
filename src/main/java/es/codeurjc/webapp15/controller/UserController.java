@@ -1,10 +1,13 @@
 package es.codeurjc.webapp15.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.webapp15.model.Concert;
+import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
+import es.codeurjc.webapp15.repository.TicketRepository;
 import es.codeurjc.webapp15.repository.UserRepository;
 import es.codeurjc.webapp15.service.UserService;
 import es.codeurjc.webapp15.service.UserSession;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -36,6 +41,9 @@ public class UserController {
 
     @Autowired
     private UserSession session;
+
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @PostConstruct
     public void init() {
@@ -125,9 +133,21 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        User user = session.getUser();
+        User user = session.getUser(); // Assuming 'session' is your way of retrieving the currently logged-in user.
         if (user != null) {
-            return "perfil";
+            List<Ticket> ticketList = ticketRepository.findByUserId(user.getId(), PageRequest.of(0, 6)).getContent();
+            // Fetch the first 6 tickets for the user
+            // Adjust the end index if the list size is less than 6
+            int endIndex = Math.min(ticketList.size(), 6);
+            List<Ticket> userTickets = ticketList.subList(0, endIndex);
+
+            user.setTickets(userTickets);
+            session.setUser(user);
+
+            // Directly add the tickets to the model
+            model.addAttribute("tickets", userTickets);
+
+            return "perfil"; // Ensure "perfil" is the correct view name
         } else {
             return "redirect:/login";
         }
