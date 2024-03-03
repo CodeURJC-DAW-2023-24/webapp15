@@ -67,7 +67,11 @@ public class SearchController {
     public ResponseEntity<Object> getConcerts(@RequestParam("locations") String[] locations,
                                               @RequestParam("artists") String[] artists,
                                               @RequestParam("page") int page) {
+
         for (String a : locations) {
+            a = a.replace("[", "");
+            a = a.replace("]", "");
+            a = a.replace("\"", "");
             System.out.println(a);
         }
         Page<Concert> pageQuery = concerts.findAll(PageRequest.of(page, 6, Sort.by("datetime")));
