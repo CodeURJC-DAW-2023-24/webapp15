@@ -37,6 +37,8 @@ public class SearchController {
 
     @Autowired
     private GlobalControllerAdvice globalControllerAdvice;
+
+    private final int pageSize = 6;
     
     @GetMapping("/search")
     public String searchController(Model model) {
@@ -74,17 +76,16 @@ public class SearchController {
         List<String> locationList = formatJSONArrayToList(locations);
         List<String> artistList = formatJSONArrayToList(artists);
 
-        Pageable pageable = PageRequest.of(page, 6);
+        Pageable pageable = PageRequest.of(page, pageSize);
 
         Page<Concert> pageQuery = concertService.findConcerts(pageable, locationList, artistList, null, null, null, null);
-        // Page<Concert> pageQuery = concerts.findAll(PageRequest.of(page, 6, Sort.by("datetime")));
         if (pageQuery.hasContent()) {
 
             Map<String, Object> map = new HashMap<>();
              
             map.put("content", htmlBuilder(pageQuery.getContent()));
 
-            boolean hasNext = concerts.findAll(PageRequest.of(page+1, 6, Sort.by("datetime"))).hasContent();
+            boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, null, null, null, null).hasContent();
             map.put("hasNext", hasNext);
                 
             return ResponseEntity.ok(map);

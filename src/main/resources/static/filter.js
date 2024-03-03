@@ -50,7 +50,6 @@ function addFiltersListeners() {
     console.log(filters);
     filters.forEach(f => {
         f.addEventListener("change", function(){
-            clearSearchList();
             filter();
         });
     });
@@ -91,6 +90,7 @@ function getQuery() {
         success: function(data) {
             if (!data.hasNext)
                 $('#moreConcertButton').hide();
+            clearSearchList();
             $('#search-results2').append(data.content);
         },
         error: function() {
