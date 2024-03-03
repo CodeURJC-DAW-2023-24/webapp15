@@ -6,17 +6,53 @@ fetch('/concert-list-data')
     .then(function(json) {
         let locations = json.locations;
         let artists = json.artists;
-        console.log(locations, artists);
+        generateLocationCheckboxes(locations);
+        generateArtistsCheckboxes(artists);
+        addFiltersListeners();
+    })
+
+
+function generateLocationCheckboxes(locations) {
+    let list = document.getElementById('location-list');
+    locations.forEach(l => {
+        let li = list.appendChild(document.createElement('li'));
+        let label = li.appendChild(document.createElement('label'));
+        let input = label.appendChild(document.createElement('input'));
+        input.setAttribute('class', 'filter');
+        input.setAttribute('class', 'filter-location');
+        input.setAttribute('type', 'checkbox');
+        input.content = l;
+        let span = label.appendChild(document.createElement('span'));
+        span.textContent = l;
     });
+}
+
+function generateArtistsCheckboxes(artists) {
+    let list = document.getElementById('artist-list');
+    artists.forEach(a => {
+        let li = list.appendChild(document.createElement('li'));
+        let label = li.appendChild(document.createElement('label'));
+        let input = label.appendChild(document.createElement('input'));
+        input.setAttribute('class', 'filter');
+        input.setAttribute('class', 'filter-artist')
+        input.setAttribute('type', 'checkbox');
+        input.content = a;
+        let span = label.appendChild(document.createElement('span'));
+        span.textContent = a;
+    })
+}
 
 // Add listeners to filters checkboxes
-let filters = document.querySelectorAll(".filter");
-filters.forEach(f => {
-    f.addEventListener("change", function(){
-        clearSearchList();
-        generateQueryParameters();
+function addFiltersListeners() {
+    let filters = document.querySelectorAll(".filter");
+    filters.forEach(f => {
+        f.addEventListener("change", function(){
+            clearSearchList();
+            generateQueryParameters();
+        });
     });
-});
+}
+
 
 function clearSearchList() {
     let concerts = document.querySelectorAll(".event-article");
