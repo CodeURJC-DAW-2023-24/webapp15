@@ -35,6 +35,22 @@
                         <a href="search.html">Búsqueda</a>
                     </button>
                 </li>
+                {{#admin}}
+                    <li><button>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <a href="creacionArtista.html">Crear Artista</a>
+                    </button></li>
+                    <li><button>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <a href="creacionConcierto.html">Crear Concierto</a>
+                    </button></li>
+                {{/admin}}
                 {{^user}}
                     <li><button>
                         <span></span>
@@ -51,7 +67,7 @@
                             <span></span>
                             <span></span>
                             <span></span>
-                            <a href="perfil.html">Perfil</a>
+                            <a href="profile">Perfil</a>
                         </button>
                     </li>
                     <li>
@@ -64,29 +80,6 @@
                         </button>
                     </li>
                 {{/user}}
-                {{#admin}}
-                    <li><button>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <a href="perfil.html">Perfil</a>
-                    </button></li>
-                    <li><button>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <a href="creacionArtista.html">Crear Artista</a>
-                    </button></li>
-                    <li><button>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <a href="creacionConcierto.html">Crear Concierto</a>
-                    </button></li>
-                {{/admin}}
                 <li><button>
                         <span></span>
                         <span></span>
