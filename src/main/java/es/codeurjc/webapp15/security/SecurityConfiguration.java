@@ -51,7 +51,8 @@ public class SecurityConfiguration {
                     .requestMatchers("/search*").permitAll()
                     .requestMatchers("/signup").permitAll()
                     .requestMatchers("/artist/*").permitAll()
-                    .requestMatchers("/user*").permitAll()
+                    .requestMatchers("/user**").permitAll()
+                    .requestMatchers("/css/*", "/js/", "/images/**").permitAll()
                     //Private PAGES
                     .requestMatchers("/profile").hasAnyRole("USER")
                     .requestMatchers("/payment/*").hasAnyRole("USER")
@@ -73,7 +74,7 @@ public class SecurityConfiguration {
     
         // Disable CSRF at the moment
         http.csrf(csrf -> csrf.disable());
-
+        
         return http.build();
     }
 }
