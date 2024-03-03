@@ -104,11 +104,39 @@ function editField(textId, inputId, saveBtnId, editBtnId) {
 function saveField(textId, inputId, saveBtnId, editBtnId) {
     var newValue = document.getElementById(inputId).value;
     document.getElementById(textId).innerText = newValue;
+
+    // Prepare data to be sent to the server
+    var data = { value: newValue };
+
+    // Determine which field is being updated based on the inputId
+    var updateUrl = '/user/update/'; // Base URL for update endpoint
+    if (inputId === 'nameInput') {
+        updateUrl += 'name';
+    } else if (inputId === 'emailInput') {
+        updateUrl += 'email';
+    }
+
+    // Make the POST request using fetch
+    fetch(updateUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Include CSRF token as needed for security
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        if (response.ok) {
+            console.log('Update successful');
+        } else {
+            console.error('Update failed');
+        }
+    });
+
     // Revert visibility
     document.getElementById(textId).style.visibility = 'visible';
     document.getElementById(inputId).style.visibility = 'hidden';
     document.getElementById(saveBtnId).style.visibility = 'hidden';
-    document.getElementById(editBtnId).style.visibility = 'visible'; // Show the correct edit button again
+    document.getElementById(editBtnId).style.visibility = 'visible';
 
     // Optionally revert to display none
     document.getElementById(inputId).style.display = 'none';
@@ -118,24 +146,39 @@ function saveField(textId, inputId, saveBtnId, editBtnId) {
 function previewImage(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
+
+        // Preview the image
         reader.onload = function(e) {
             document.getElementById('profileImage').src = e.target.result;
-            // Optionally, you can submit the new image to the server here or use another button for submission.
+            // After setting the preview, upload the image
+            uploadImage(input.files[0]);
         };
+
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-function downloadTicket(ticketId) {
+function uploadImage(file) {
+    var formData = new FormData();
+    formData.append('imageFile', file); // 'imageFile' is the key
+
+    fetch('/user/update/image', { // Endpoint to upload the image
+        method: 'POST',
+        body: formData, // Send the image file in FormData
+    }).then(response => {
+        if (response.ok) {
+            console.log('Image uploaded successfully.');
+        } else {
+            response.text().then(text => console.log(text)); // Show server response text
+        }
+    }).catch(error => {
+        console.error('Error uploading image:', error);
+    });
+}
+
+function downloadTicket(ticketId, num_ticket, eventName, name, date, time, location) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-
-    // Ticket information
-    const eventName = "Taylor Swift: The Eras Tour";
-    const name = "Pedro Fernández"
-    const date = "2024-03-01";
-    const time = "21:00";
-    const location = "Palau Sant Jordi, Barcelona";
 
     // PDF Content
     // Include the QR code image
@@ -154,10 +197,11 @@ function downloadTicket(ticketId) {
     doc.text(`Fecha: ${date}`, 10, 110)
     doc.text(`Hora: ${time}`, 10, 120);
     doc.text(`Lugar: ${location}`, 10, 130);
+    doc.text(`Número de entradas: ${num_ticket}`, 10, 140);
 
     // Include the QR code image
     const qrImg2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIMAAASDAgMAAACXZRdkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJUExURf///z8/PwAAAABE24UAAAfdSURBVHja7d2xceMwEAVQjgMFKoVVXBNKVMJVwSacK3AgscqL7ASzxAIkJfr0fioI2H1Id8BhkMV8ICBEiBAhQoQIERJChAgRIkSIECEhRIgQIUKECBESQoQIESJEiBAhIUSIECFChAgREkKECBEiRIgQISFEiBAhQoQIERJChAgRIkSIECEhRIgQoeMLnecVuffsMn3/adtdujIRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFC/4PQ7Xvt2LHLPZ48fJ7Q45LO9ZBCn/kG+oS+8gOjp0MK/ck38JcQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKE+oTqM22nROHxQT3tl4hTKJQ4iBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIEfpFQmVV8UFlVfVRx3IaciBEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoTeRGho6C1eMjcgEiJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQr9RqJ6MUENvLc4lYiGUCCFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAi1CT0u6VwPKfSZb2DuEurJoYR68jyh+FO9T1tCiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIHU5om8Qf/B3qQ4r3ntua9mmEECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgR2lAoMRiY+Jpv4inBVQOTLQeVV/HT/rpJT0KECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRGh7oXi/YdsJxK5atjmIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgReopQQ/v3hl2GNaOOC0sSQ4rFL7ewJkKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRGhXoaKqOJnn+4qq4m8CtyAeYdKTECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRWhbqSjwY2NJ+AjFekkhXLYQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiNCeQg37/WSvdwLjJXFu9Qud180xEiJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQo2vDcaFJ4YU411ariLxlGBcy0L7hAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSI0GuEVs0xfvRUlbiKoS7UNaQY70KIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAjtINT1CGBiArGlqnr75W2N4cDkuecqCBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQoR2EtknXO4ENhQ89VxE/SEiIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAg9RSg+ciE944VxuoTmhvbjcgkRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIEKE9hYaeqoreWjJ1tL/uKggRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIEKEXC4319qf6kWMDVaKWbUOIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAi9SGhVWt4sHMPCz/WrSBx0bjCbCBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQoR2FWvab670lZgd73gmcG2YqE48jxh8fJkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChI4rVA4G1qtKCK2bYyxqmeNyF/Z7XNK5vqfQV77uEyFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAi9qVB9dvAUDym29JYYA0y03zPqGIcQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBE6nFBijnHeSWjVkokQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBH6PUJFVQuvDTY4lxn3OYgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBHaVaiehdcGx7k966YhY6EWREKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBFaEnpc0rm+p9C8pjdC7b0Va291xHgCca4LDfFtESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQq8REkKECBEiRIgQISFEiBAhQoQIERJChAgRIkSIECEhRIgQIUKECBESQoQIESJEiBAhIUSIECFChAgREkKECBEiRIgQIUIICBEiRIgQIUKEhBAhQoSOLfQPo9dNYRDWvZ8AAAAASUVORK5CYII='; // Your base64-encoded image string here
-    doc.addImage(qrImg2, 'PNG', 10, 140, 50, 50);
+    doc.addImage(qrImg2, 'PNG', 10, 150, 50, 50);
 
     // Trigger PDF download
     doc.save(`ticket-${ticketId}.pdf`);

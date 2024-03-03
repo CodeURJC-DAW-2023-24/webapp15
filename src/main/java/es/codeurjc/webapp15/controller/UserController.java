@@ -1,18 +1,32 @@
 package es.codeurjc.webapp15.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.webapp15.model.Concert;
+import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
+import es.codeurjc.webapp15.repository.TicketRepository;
 import es.codeurjc.webapp15.repository.UserRepository;
+import es.codeurjc.webapp15.service.UserService;
 import es.codeurjc.webapp15.service.UserSession;
 import jakarta.annotation.PostConstruct;
 
@@ -23,7 +37,13 @@ public class UserController {
     private UserRepository usersRepository;
 
     @Autowired
+    private UserService userService; // Assuming you have a UserService
+
+    @Autowired
     private UserSession session;
+
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @PostConstruct
     public void init() {
@@ -43,7 +63,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/registro")
+    @GetMapping("/signup")
     public String registro(Model model) {
 
         User user = session.getUser();
@@ -92,6 +112,89 @@ public class UserController {
             return "redirect:/";
         } else {
             return "login";
+        }
+    }
+
+    @GetMapping("/user/image/{userId}")
+    public ResponseEntity<byte[]> getUserImage(@PathVariable("userId") Long userId) {
+        try {
+            User user = usersRepository.findById(userId).get(); // Implement this method to find user by ID
+            if (user != null && user.getImg_user() != null) {
+                byte[] imageBytes = user.getImg_user().getBytes(1, (int) user.getImg_user().length());
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_JPEG); // Or the correct content type of your image
+                return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        User user = session.getUser(); // Assuming 'session' is your way of retrieving the currently logged-in user.
+        if (user != null) {
+            List<Ticket> ticketList = ticketRepository.findByUserId(user.getId(), PageRequest.of(0, 6)).getContent();
+            // Fetch the first 6 tickets for the user
+            // Adjust the end index if the list size is less than 6
+            int endIndex = Math.min(ticketList.size(), 6);
+            List<Ticket> userTickets = ticketList.subList(0, endIndex);
+
+            user.setTickets(userTickets);
+            session.setUser(user);
+
+            // Directly add the tickets to the model
+            model.addAttribute("tickets", userTickets);
+
+            return "perfil"; // Ensure "perfil" is the correct view name
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/user/update/name")
+    public ResponseEntity<?> updateUserName(@RequestBody Map<String, String> payload) {
+        Long userId = session.getUser().getId();
+        // Extract the new name from the payload
+        String newName = payload.get("value");
+        User updatedUser = userService.updateUserName(userId, newName);
+        if (updatedUser != null) {
+            session.setUser(updatedUser);
+            return ResponseEntity.ok().body("User name updated successfully");
+        } else {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+    }
+
+    @PostMapping("/user/update/email")
+    public ResponseEntity<?> updateUserEmail(@RequestBody Map<String, String> payload) {
+        Long userId = session.getUser().getId();
+        // Extract the new email from the payload
+        String newEmail = payload.get("value");
+        User updatedUser = userService.updateUserEmail(userId, newEmail);
+        if (updatedUser != null) {
+            session.setUser(updatedUser);
+            return ResponseEntity.ok().body("User email updated successfully");
+        } else {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+    }
+
+    @PostMapping("/user/update/image")
+    public ResponseEntity<?> updateUserImage(@RequestParam("imageFile") MultipartFile file) {
+        try {
+            User user = session.getUser();
+
+            user.setImg_user(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
+            user.setImage(true);
+            usersRepository.save(user);
+
+            session.setUser(user);
+
+            return ResponseEntity.ok("Image updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update image");
         }
     }
 

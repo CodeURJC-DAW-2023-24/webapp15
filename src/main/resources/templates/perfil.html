@@ -1,115 +1,64 @@
 {{>header}}
         <div id="profile-content" class="container main">
-            <div class="profile-header">
-                <img src="./images/user_profile.jpg" alt="User Profile" class="profile-image" id="profileImage">
-                <input type="file" id="imageInput" class="edit-input" style="display:none;" onchange="previewImage(this)">
-                <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
-                <!-- For Name -->
-                <div class="field-section">
-                    <h2 class="title">Nombre:</h2>
-                    <div class="edit-container">
-                        <p class="user-name" id="userName">Pedro</p>
-                        <input type="text" id="nameInput" class="edit-input" style="display:none;">
-                        <button class="edit-button" id="editNameBtn" onclick="editField('userName', 'nameInput', 'saveNameBtn', 'editNameBtn')">Editar</button>
-                        <button id="saveNameBtn" class="save-button" onclick="saveField('userName', 'nameInput', 'saveNameBtn', 'editNameBtn')" style="display:none;">Guardar</button>
+            {{#user}}
+                <div class="profile-header">
+                    <img src="/user/image/{{id}}" alt="User Profile" class="profile-image" id="profileImage">
+                    <input type="file" id="imageInput" class="edit-input" style="display:none;" onchange="previewImage(this)">
+                    <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
+                    <!-- For Name -->
+                    <div class="field-section">
+                        <h2 class="title">Nombre:</h2>
+                        <div class="edit-container">
+                            <p class="user-name" id="userName">{{name}}</p>
+                            <input type="text" id="nameInput" class="edit-input" style="display:none;">
+                            <button class="edit-button" id="editNameBtn" onclick="editField('userName', 'nameInput', 'saveNameBtn', 'editNameBtn')">Editar</button>
+                            <button id="saveNameBtn" class="save-button" onclick="saveField('userName', 'nameInput', 'saveNameBtn', 'editNameBtn')" style="display:none;">Guardar</button>
+                        </div>
+                    </div>
+        
+                    <!-- For Email -->
+                    <div class="field-section">
+                        <h2 class="title">Email:</h2>
+                        <div class="edit-container">
+                            <p class="user-email" id="userEmail">{{email}}</p>
+                            <input type="email" id="emailInput" class="edit-input" style="display:none;">
+                            <button class="edit-button" id="editEmailBtn" onclick="editField('userEmail', 'emailInput', 'saveEmailBtn', 'editEmailBtn')">Editar</button>
+                            <button id="saveEmailBtn" class="save-button" onclick="saveField('userEmail', 'emailInput', 'saveEmailBtn', 'editEmailBtn')" style="display:none;">Guardar</button>
+                        </div>
                     </div>
                 </div>
-    
-                <!-- For LastName -->
-                <div class="field-section">
-                    <h2 class="title">Apellidos:</h2>
-                    <div class="edit-container">
-                        <p class="user-lastname" id="lastName">García Hernández</p>
-                        <input type="text" id="lastnameInput" class="edit-input" style="display:none;">
-                        <button class="edit-button" id="editLastNameBtn" onclick="editField('lastName', 'lastnameInput', 'saveLastNameBtn', 'editLastNameBtn')">Editar</button>
-                        <button id="saveLastNameBtn" class="save-button" onclick="saveField('lastName', 'lastnameInput', 'saveLastNameBtn', 'editLastNameBtn')" style="display:none;">Guardar</button>
-                    </div>
+                <div class="tickets-history">
+                    <h3>Tickets Comprados:</h3>
+                    {{#tickets}}
+                        <article class="event-article">
+                        {{#concert}}
+                            <time>
+                                <span class="day">{{getDay}}</span>
+                                <span class="month">{{getMonth}}</span>
+                            </time>
+                            <div class="event-info">
+                                <h1><a>{{#artist}}{{name}}{{/artist}}</a></h1>
+                                <p class="date-info">
+                                    <span class="weekday">{{getWeekday}}</span>
+                                    <span> - </span>
+                                    <span class="hour">{{getHour}}</span>
+                                </p>
+                                <p class="venue-info">
+                                    <span class="city">{{place}}</span>
+                                </p>
+                            </div>
+                            {{/concert}}
+                            <button class="download-button" onclick="downloadTicket('{{concert.getId}}', '{{getNum_ticket}}', '{{concert.artist.name}}', '{{user.name}}', '{{concert.getDatetime}}', '{{concert.getHour}}', '{{concert.place}}')">
+                                <span>Descargar</span>
+                                <img src="images/point-right.png" width="19px">
+                            </button>
+                        </article>
+                    {{/tickets}}
+                    {{^tickets}}
+                        <p>Historial vacío</p>
+                    {{/tickets}}
                 </div>
-    
-                <!-- For Email -->
-                <div class="field-section">
-                    <h2 class="title">Email:</h2>
-                    <div class="edit-container">
-                        <p class="user-email" id="userEmail">pedrito123@gmail.com</p>
-                        <input type="email" id="emailInput" class="edit-input" style="display:none;">
-                        <button class="edit-button" id="editEmailBtn" onclick="editField('userEmail', 'emailInput', 'saveEmailBtn', 'editEmailBtn')">Editar</button>
-                        <button id="saveEmailBtn" class="save-button" onclick="saveField('userEmail', 'emailInput', 'saveEmailBtn', 'editEmailBtn')" style="display:none;">Guardar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="tickets-history">
-                <h3>Tickets Comprados:</h3>
-                <article class="event-article">
-                    <time datetime="2024-02-29T21:00:00+01:00">
-                        <span class="day">29</span>
-                        <span class="month">Feb</span>
-                    </time>
-                    <div class="event-info">
-                        <h1><a>Metallica World Tour</a></h1>
-                        <p class="date-info">
-                            <span class="weekday">Thu</span>
-                            <span> - </span>
-                            <span class="hour">22:00</span>
-                        </p>
-                        <p class="venue-info">
-                            <span class="city">Madrid</span>
-                            <span> - </span>
-                            <span class="venue">Estadio de Vallecas</span>
-                        </p>
-                    </div>
-                    <button class="download-button" onclick="downloadTicket('uniqueTicketId')">
-                        <span>Descargar</span>
-                        <img src="images/point-right.png" width="19px">
-                    </button>
-                </article>
-                <article class="event-article">
-                    <time datetime="2024-02-29T21:00:00+01:00">
-                        <span class="day">1</span>
-                        <span class="month">Mar</span>
-                    </time>
-                    <div class="event-info">
-                        <h1><a>Taylor Swift: The Eras Tour</a></h1>
-                        <p class="date-info">
-                            <span class="weekday">Fri</span>
-                            <span> - </span>
-                            <span class="hour">21:00</span>
-                        </p>
-                        <p class="venue-info">
-                            <span class="city">Barcelona</span>
-                            <span> - </span>
-                            <span class="venue">Palau Sant Jordi</span>
-                        </p>
-                    </div>
-                    <button class="download-button" onclick="downloadTicket('uniqueTicketId')">
-                        <span>Descargar</span>
-                        <img src="images/point-right.png" width="19px">
-                    </button>
-                </article>
-                <article class="event-article">
-                    <time datetime="2024-02-29T21:00:00+01:00">
-                        <span class="day">2</span>
-                        <span class="month">Mar</span>
-                    </time>
-                    <div class="event-info">
-                        <h1><a>Billie Eilish</a></h1>
-                        <p class="date-info">
-                            <span class="weekday">sat</span>
-                            <span> - </span>
-                            <span class="hour">20:00</span>
-                        </p>
-                        <p class="venue-info">
-                            <span class="city">Madrid</span>
-                            <span> - </span>
-                            <span class="venue">Wizink Center</span>
-                        </p>
-                    </div>
-                    <button class="download-button" onclick="downloadTicket('uniqueTicketId')">
-                        <span>Descargar</span>
-                        <img src="images/point-right.png" width="19px">
-                    </button>
-                </article>
-                <button>Mostrar más</button>
-            </div>
+            {{/user}}
         </div>
     
 {{>footer}}
