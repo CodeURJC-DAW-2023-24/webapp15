@@ -41,8 +41,11 @@ public class IndexController {
     public String indexController(Model model) {
 
         Page<Artist> artistList = artists.findAll(PageRequest.of(0, 10));
-        List<Artist> recommendedArtists;
+
         Artist mainArtist = artistList.getContent().getFirst();
+        List<Artist> secondaryArtists = artistList.getContent().subList(0, 4);
+        List<Artist> recommendedArtists;
+
         User user = session.getUser();
         if (user != null){
             recommendedArtists = getRecomendArtists(user);
@@ -52,7 +55,6 @@ public class IndexController {
         } else {
             recommendedArtists = artistList.getContent().subList(0, 4);
         }
-        List<Artist> secondaryArtists = getRecomendArtists(null);
 
         model.addAttribute("mainArtist", mainArtist);
         model.addAttribute("secondaryArtists", secondaryArtists);
