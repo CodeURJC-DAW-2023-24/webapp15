@@ -576,6 +576,19 @@ button:hover span:nth-child(4) {
 #filters-sidebar label {
     font-weight: normal;
 }
+
+#filters-sidebar .date-form label span{
+    float: left;
+    width: 60px;
+    margin: auto;
+    margin-right: 10px;
+}
+
+#filters-sidebar .reset-date-form {
+    border: 0;
+    padding: 0;
+}
+
 /* Página login */
 #contenedor {
     display: flex;

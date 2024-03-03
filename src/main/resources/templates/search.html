@@ -59,10 +59,18 @@
             <ul class="collapse" id="artist-list">
             </ul>
 
-            <button id="artist-list-button">
+            <button id="dates-button" data-bs-toggle="collapse" data-bs-target="#dates-list" aria-expanded="false" aria-controls="dates-list">
                 <span>Fecha</span>
                 <img src="image/point-right.png" width="20px">
             </button>
+            <ul class="collapse" id="dates-list">
+                <li class="date-form"><label><span>Desde:</span><input id="after-date" type="date"></label>
+                    <button class="reset-date-form"><img src="image/point-right.png" width="20px"></button>
+                </li>
+                <li class="date-form"><label><span>Hasta:</span><input id="after-date" type="date"></label>
+                    <button class="reset-date-form"><img src="image/point-right.png" width="20px"></button>
+                </li>
+            </ul>
         </aside>
     </div>
 
