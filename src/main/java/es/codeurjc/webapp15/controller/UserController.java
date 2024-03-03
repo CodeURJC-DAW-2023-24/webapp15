@@ -54,13 +54,13 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String registro(Model model) {
+    public String signup(Model model) {
 
         User user = session.getUser();
         if (user != null) {
             return "redirect:/";
         } else {
-            return "registro";
+            return "signup";
         }
     }
 
@@ -72,7 +72,7 @@ public class UserController {
             if (existingUser.isPresent()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
-                return "registro"; // Return back to the registration form
+                return "signup"; // Return back to the registration form
             }
 
             User user = new User(Name, password, "USER");
@@ -137,7 +137,7 @@ public class UserController {
             // Directly add the tickets to the model
             model.addAttribute("tickets", userTickets);
 
-            return "perfil"; // Ensure "perfil" is the correct view name
+            return "profile";
         } else {
             return "redirect:/login";
         }

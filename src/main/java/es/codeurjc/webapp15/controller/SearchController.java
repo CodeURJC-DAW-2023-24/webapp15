@@ -111,7 +111,7 @@ public class SearchController {
         return list;
     }
 
-    private String htmlBuilder (List<Concert> concertList) {
+    private String htmlBuilder(List<Concert> concertList) {
         StringBuilder htmlBuilder = new StringBuilder();
 
         for (Concert concert : concertList) {
