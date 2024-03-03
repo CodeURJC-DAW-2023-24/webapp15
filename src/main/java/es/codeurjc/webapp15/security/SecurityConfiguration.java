@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +36,7 @@ public class SecurityConfiguration {
          DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
          authProvider.setUserDetailsService(userDetailService);
-         authProvider.setPasswordEncoder(passwordEncoder()); //los usuarios se gestionan con el RepositoryUserDetailsService
+         authProvider.setPasswordEncoder(passwordEncoder());
          
          return authProvider;
     }
@@ -47,14 +48,14 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authorize -> authorize
                     //Public PAGES
                     .requestMatchers("/").permitAll()
-                    .requestMatchers("/index/*").permitAll()
-                    .requestMatchers("/search/*").permitAll()
-                    .requestMatchers("/registro/*").permitAll()
-                    .requestMatchers("/info_artist/*").permitAll()
+                    .requestMatchers("/search*").permitAll()
+                    .requestMatchers("/signup").permitAll()
+                    .requestMatchers("/artist/*").permitAll()
+                    .requestMatchers("/user*").permitAll()
                     //Private PAGES
-                    .requestMatchers("/perfil/*").hasAnyRole("USER")
+                    .requestMatchers("/profile").hasAnyRole("USER")
                     .requestMatchers("/payment/*").hasAnyRole("USER")
-                    .requestMatchers("/createArtist/*").hasAnyRole("ADMIN")
+                    .requestMatchers("/createArtist").hasAnyRole("ADMIN")
                     .requestMatchers("/createConcert").hasAnyRole("ADMIN")
             )
 
@@ -75,5 +76,4 @@ public class SecurityConfiguration {
 
         return http.build();
     }
-
 }
