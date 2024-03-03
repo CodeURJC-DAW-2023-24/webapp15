@@ -13,9 +13,13 @@ import org.springframework.stereotype.Service;
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Genre;
+import es.codeurjc.webapp15.model.Ticket;
+import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.ArtistRepository;
 import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.repository.GenreRepository;
+import es.codeurjc.webapp15.repository.TicketRepository;
+import es.codeurjc.webapp15.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 
 @Service
@@ -26,6 +30,12 @@ public class DatabaseInitializer {
 
     @Autowired
     private GenreRepository genres;
+
+    @Autowired
+    private UserRepository usersRepository;
+
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @Autowired
     private ConcertRepository concerts;
@@ -113,5 +123,58 @@ public class DatabaseInitializer {
         Concert concert9 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
         concerts.save(concert9);
 
+
+        // Users Example
+
+        User admin = new User("admin", "admin", "ADMIN");
+        admin.setEmail("admin@admin.com");
+        usersRepository.save(admin);
+
+        User user = new User("user", "user", "USER");
+        user.setEmail("user@user.com");
+        usersRepository.save(user);
+
+        // Ticket Examples
+        Ticket ticket1 = new Ticket();
+        ticket1.setConcert(concert1);
+        ticket1.setUser(user);
+        ticket1.setNum_ticket(5);
+        ticketRepository.save(ticket1);   
+
+        Ticket ticket2 = new Ticket();
+        ticket2.setConcert(concert2);
+        ticket2.setUser(user);
+        ticket2.setNum_ticket(3);
+        ticketRepository.save(ticket2);   
+
+        Ticket ticket3 = new Ticket();
+        ticket3.setConcert(concert3);
+        ticket3.setUser(user);
+        ticket3.setNum_ticket(5);
+        ticketRepository.save(ticket3);
+
+        Ticket ticket4 = new Ticket();
+        ticket4.setConcert(concert2);
+        ticket4.setUser(user);
+        ticket4.setNum_ticket(5);
+        ticketRepository.save(ticket4);   
+        
+        Ticket ticket5 = new Ticket();
+        ticket5.setConcert(concert1);
+        ticket5.setUser(user);
+        ticket5.setNum_ticket(2);
+        ticketRepository.save(ticket5);
+
+        Ticket ticket6 = new Ticket();
+        ticket6.setConcert(concert1);
+        ticket6.setUser(user);
+        ticket6.setNum_ticket(2);
+        ticketRepository.save(ticket6);
+        
+        Ticket ticket7 = new Ticket();
+        ticket7.setConcert(concert1);
+        ticket7.setUser(user);
+        ticket7.setNum_ticket(2);
+        ticketRepository.save(ticket7);   
     }
 }

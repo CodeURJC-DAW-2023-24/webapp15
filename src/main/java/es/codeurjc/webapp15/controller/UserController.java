@@ -1,13 +1,16 @@
 package es.codeurjc.webapp15.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,7 +31,6 @@ import es.codeurjc.webapp15.repository.TicketRepository;
 import es.codeurjc.webapp15.repository.UserRepository;
 import es.codeurjc.webapp15.service.UserService;
 import es.codeurjc.webapp15.service.UserSession;
-import jakarta.annotation.PostConstruct;
 
 @Controller
 public class UserController {
@@ -44,17 +46,6 @@ public class UserController {
 
     @Autowired
     private TicketRepository ticketRepository;
-
-    @PostConstruct
-    public void init() {
-        User admin = new User("admin", "admin", "ADMIN");
-        admin.setEmail("admin@admin.com");
-        usersRepository.save(admin);
-
-        User user = new User("user", "user", "USER");
-        user.setEmail("user@user.com");
-        usersRepository.save(user);
-    }
 
     @GetMapping("/logout")
     public String cerrarSesion(Model model) {
@@ -151,6 +142,51 @@ public class UserController {
         } else {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/moreTickets")
+    public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
+        Logger.getAnonymousLogger().info(Integer.toString(page));
+        Page<Ticket> pageQuery = ticketRepository.findByUserId(session.getUser().getId(), PageRequest.of(page, 6));
+        if (pageQuery.hasContent()) {
+
+            Map<String, Object> map = new HashMap<>();
+            StringBuilder htmlBuilder = new StringBuilder();
+
+            for (Ticket ticket : pageQuery.getContent()) {
+                Concert concert = ticket.getConcert();
+
+                htmlBuilder.append("<article class=\"event-article\">");
+                htmlBuilder.append("<time>");
+                htmlBuilder.append("<span class=\"day\">" + concert.getDay() + "</span>");
+                htmlBuilder.append("<span class=\"month\">" + concert.getMonth() + "</span>");
+                htmlBuilder.append("</time>");
+                htmlBuilder.append("<div class=\"event-info\">");
+                htmlBuilder.append("<h1><a>" + concert.getArtist().getName() + "</a></h1>");
+                htmlBuilder.append("<p class=\"date-info\">");
+                htmlBuilder.append("<span class=\"weekday\">" + concert.getWeekday() + "</span>");
+                htmlBuilder.append("<span> - </span>");
+                htmlBuilder.append("<span class=\"hour\">" + concert.getHour() + "</span>");
+                htmlBuilder.append("</p>");
+                htmlBuilder.append("<p class=\"venue-info\">");
+                htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
+                htmlBuilder.append("</p>");
+                htmlBuilder.append("</div>");
+                htmlBuilder.append("<button class=\"download-button\" onclick=\"downloadTicket("+ concert.getId() + "," + ticket.getNum_ticket() + "," + concert.getArtist().getName() + "," + session.getUser().getName() + "," + concert.getDatetime() + "," + concert.getHour() + "," + concert.getPlace() + ")\">");
+                htmlBuilder.append("<span>Descargar</span>");
+                htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
+                htmlBuilder.append("</button>");
+                htmlBuilder.append("</article>");
+            }
+                    
+            map.put("content", htmlBuilder);
+
+            boolean hasNext = ticketRepository.findAll(PageRequest.of(page+1, 6)).hasContent();
+            map.put("hasNext", hasNext);
+                
+            return ResponseEntity.ok(map);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/user/update/name")

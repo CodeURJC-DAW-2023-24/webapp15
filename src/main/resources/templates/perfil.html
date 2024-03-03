@@ -50,7 +50,7 @@
                             {{/concert}}
                             <button class="download-button" onclick="downloadTicket('{{concert.getId}}', '{{getNum_ticket}}', '{{concert.artist.name}}', '{{user.name}}', '{{concert.getDatetime}}', '{{concert.getHour}}', '{{concert.place}}')">
                                 <span>Descargar</span>
-                                <img src="images/point-right.png" width="19px">
+                                <img src="/image/point-right.png" width="19px">
                             </button>
                         </article>
                     {{/tickets}}
@@ -58,6 +58,11 @@
                         <p>Historial vacío</p>
                     {{/tickets}}
                 </div>
+                {{#tickets}}
+                <button id="moreTicketsButton" class="buttonMas">
+                    <a>Mas Tickets</a>
+                </button>
+                {{/tickets}}
             {{/user}}
         </div>
     

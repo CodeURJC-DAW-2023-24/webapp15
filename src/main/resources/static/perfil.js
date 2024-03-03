@@ -50,6 +50,29 @@ $(document).ready(function() {
 });
 
 
+//AJAX in /profile
+$(document).ready(function() {
+    $('#moreTicketsButton').click(function() {
+        currentConcertPage++;
+        var existingCount = $('.event-article').length;
+        console.log($('.event-article').length, existingCount); 
+
+        $.ajax({
+            url: '/moreTickets',
+            type: 'GET',
+            data: { page: currentConcertPage },
+            success: function(data) {
+                if (!data.hasNext)
+                    $('#moreTicketsButton').hide();
+                $('.tickets-history').append(data.content);
+            },
+            error: function() {
+                alert('Error al cargar más conciertos');
+            }
+        });
+    });
+});
+
 // Delete concert in /search
 document.addEventListener("DOMContentLoaded", function() {
   
