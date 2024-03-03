@@ -14,7 +14,7 @@ import es.codeurjc.webapp15.model.User;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     
-    @Query("select t from Ticket t join fetch t.concert where t.user.id = :userId")
+    @Query("SELECT t FROM Ticket t JOIN FETCH t.concert WHERE t.user.id = :userId")
     Page<Ticket> findByUserId(@Param("userId") Long userId, PageRequest page);
 
     List<Ticket> findByUser(User user);

@@ -117,8 +117,8 @@ public class User {
 		return this.roles.contains(rol);
 	}
 
-	public void addRol(String rol) {
-		this.roles.add(rol);
+	public void addRole(String role) {
+		this.roles.add(role);
 	}
 
 }

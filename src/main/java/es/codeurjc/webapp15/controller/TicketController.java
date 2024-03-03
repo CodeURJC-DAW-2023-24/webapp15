@@ -30,7 +30,7 @@ public class TicketController {
     private UserSession session;
 
     @GetMapping("/payment/{id}")
-    public String proccesPayment(Model model, @PathVariable long id){
+    public String processPayment(Model model, @PathVariable long id){
         Optional<Concert> concert = concertRepository.findById(id);
         if (concert.isPresent()){
             model.addAttribute("concert", concert.get());
