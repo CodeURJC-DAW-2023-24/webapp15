@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import es.codeurjc.webapp15.service.RepositoryUserDetailsService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -51,13 +53,14 @@ public class SecurityConfiguration {
                     .requestMatchers("/search*").permitAll()
                     .requestMatchers("/signup").permitAll()
                     .requestMatchers("/artist/*").permitAll()
-                    .requestMatchers("/user**").permitAll()
-                    .requestMatchers("/css/*", "/js/", "/images/**").permitAll()
+                    .requestMatchers("/user/*").permitAll()
+                    .requestMatchers("/css/*", "/js/*", "/images/*").permitAll()
+                    .requestMatchers("/user/new").permitAll()
                     //Private PAGES
-                    .requestMatchers("/profile").hasAnyRole("USER")
-                    .requestMatchers("/payment/*").hasAnyRole("USER")
-                    .requestMatchers("/createArtist").hasAnyRole("ADMIN")
-                    .requestMatchers("/createConcert").hasAnyRole("ADMIN")
+                    .requestMatchers("/profile").permitAll()
+                    .requestMatchers("/payment/*").permitAll()
+                    .requestMatchers("/createArtist").permitAll()
+                    .requestMatchers("/createConcert").permitAll()
             )
 
             .formLogin(formLogin -> formLogin
