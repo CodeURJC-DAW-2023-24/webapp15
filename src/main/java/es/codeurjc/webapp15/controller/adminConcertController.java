@@ -32,16 +32,16 @@ public class AdminConcertController {
 
 
 
-    @GetMapping("/createConcert")
+    @GetMapping("/create-concert")
 	public String createConcertController(Model model) {
         
         model.addAttribute("artists", artistService.findAll());
         model.addAttribute("genres", genreService.findAll());
 
-		return "createConcert";
+		return "create-concert";
 	}
 
-    @PostMapping("/createConcert")
+    @PostMapping("/create-concert")
 	public String newConcert(Model model,@RequestParam String place,Long artist,String date,String time,Integer num_ticket,Float price,Long genre, String info) throws IOException {
 		Concert concert = new Concert();
 		concert.setPlace(place);

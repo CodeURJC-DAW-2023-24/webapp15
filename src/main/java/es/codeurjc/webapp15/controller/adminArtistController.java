@@ -20,13 +20,13 @@ public class AdminArtistController {
     @Autowired
 	private ArtistService artistService;
 
-    @GetMapping("/createArtist")
+    @GetMapping("/create-artist")
 	public String createArtistController(Model model) {
 
-		return "createArtist";
+		return "create-artist";
 	}
     
-    @PostMapping("/createArtist")
+    @PostMapping("/create-artist")
 	public String newArtist(Model model,  @RequestParam MultipartFile Image,String Name, String Info) throws IOException {
 
 
