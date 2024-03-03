@@ -37,7 +37,7 @@ import es.codeurjc.webapp15.service.GenreService;
 import es.codeurjc.webapp15.service.ConcertService;
 
 @Controller
-public class adminConcertController {
+public class AdminConcertController {
     
 
      @Autowired

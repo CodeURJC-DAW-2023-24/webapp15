@@ -38,7 +38,7 @@ import es.codeurjc.webapp15.service.ArtistService;
 
 
 @Controller
-public class adminArtistController {
+public class AdminArtistController {
 
     @Autowired
 	private ArtistService artistService;
