@@ -1,7 +1,6 @@
 package es.codeurjc.webapp15.service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,8 +61,6 @@ public class ConcertService {
 
         query.setFirstResult(page.getPageNumber() * page.getPageSize());
         query.setMaxResults(page.getPageSize());
-
-        List<Concert> results = query.getResultList();
 
         return new PageImpl<>(query.getResultList());
 
