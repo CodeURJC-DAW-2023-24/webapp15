@@ -44,8 +44,6 @@ public class ConcertService {
         if (locations != null && !locations.isEmpty())
             jpql.append(" AND c.place IN :locations");
 
-        // System.out.println(locations.size() + " " +  artists.size());
-
         if (artists != null && !artists.isEmpty())
             jpql.append(" AND c.artist.name IN :artists");
         
@@ -63,9 +61,6 @@ public class ConcertService {
         query.setMaxResults(page.getPageSize());
 
         return new PageImpl<>(query.getResultList());
-
-
-		
 	}
 
     public void save(Concert concert) {
