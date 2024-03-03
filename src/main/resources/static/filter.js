@@ -89,13 +89,41 @@ function getQuery() {
         },
         success: function(data) {
             if (!data.hasNext)
-                $('#moreConcertButton').hide();
+                document.getElementById("moreConcertButton").style.display = 'none';
             clearSearchList();
-            $('#search-results2').append(data.content);
+            document.getElementById("search-results2").insertAdjacentHTML('beforeend', data.content);
+            addDeleteButtonListeners();
         },
         error: function() {
             alert('Error al cargar más conciertos');
         }
+    });
+}
+
+function addDeleteButtonListeners() {
+  
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const concertId = button.getAttribute('data-id');
+            const confirmation = confirm('¿Estás seguro de que quieres eliminar este concierto?');
+            if (confirmation) {
+                fetch(`/search/${concertId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Eliminación exitosa, puedes realizar alguna acción adicional si es necesario
+                        button.parentNode.remove(); // Eliminar el elemento HTML del concierto eliminado
+                        alert('Concierto eliminado correctamente');
+                    } else {
+                        alert('Hubo un problema al intentar eliminar el concierto.');
+                    }
+                })
+                .catch(error => console.error('Error al eliminar el concierto:', error));
+            }
+        });
     });
 }
 
