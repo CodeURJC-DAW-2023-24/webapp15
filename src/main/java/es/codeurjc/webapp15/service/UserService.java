@@ -8,10 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.UserRepository;
 
-import java.sql.Blob;
 import java.util.Optional;
-
-import javax.sql.rowset.serial.SerialBlob;
 
 @Service
 public class UserService {
