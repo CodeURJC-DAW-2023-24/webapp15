@@ -49,6 +49,20 @@ public class SearchController {
         return new ResponseEntity<>("Concierto eliminado correctamente", HttpStatus.OK);
     }
 
+    @GetMapping("/concert-list-data")
+    public ResponseEntity<Object> getLocations() {
+        Map<String, Object> map = new HashMap<>();
+
+        List<String> locations = concerts.findLocations();
+        map.put("locations", locations);
+
+        List<String> artists = concerts.findArtists();
+        map.put("artists", artists);
+
+        return ResponseEntity.ok(map);
+    }
+    
+
 
     @GetMapping("/moreConcerts")
     public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
