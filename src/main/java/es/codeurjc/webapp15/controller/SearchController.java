@@ -50,7 +50,7 @@ public class SearchController {
     }
 
     @GetMapping("/concert-list-data")
-    public ResponseEntity<Object> getLocations() {
+    public ResponseEntity<Object> getConcertListData() {
         Map<String, Object> map = new HashMap<>();
 
         List<String> locations = concerts.findLocations();
@@ -61,12 +61,15 @@ public class SearchController {
 
         return ResponseEntity.ok(map);
     }
-    
 
 
-    @GetMapping("/moreConcerts")
-    public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
-        Logger.getAnonymousLogger().info(Integer.toString(page));
+    @GetMapping("/get-concerts")
+    public ResponseEntity<Object> getConcerts(@RequestParam("locations") String[] locations,
+                                              @RequestParam("artists") String[] artists,
+                                              @RequestParam("page") int page) {
+        for (String a : locations) {
+            System.out.println(a);
+        }
         Page<Concert> pageQuery = concerts.findAll(PageRequest.of(page, 6, Sort.by("datetime")));
         if (pageQuery.hasContent()) {
 

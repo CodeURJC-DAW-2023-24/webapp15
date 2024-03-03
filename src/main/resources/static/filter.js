@@ -1,3 +1,5 @@
+let currentPage = 0;
+
 // Get data of concerts
 fetch('/concert-list-data')
     .then(function(response) {
@@ -19,7 +21,7 @@ function generateLocationCheckboxes(locations) {
         let label = li.appendChild(document.createElement('label'));
         let input = label.appendChild(document.createElement('input'));
         input.setAttribute('class', 'filter');
-        input.setAttribute('class', 'filter-location');
+        input.setAttribute('filter', 'location');
         input.setAttribute('type', 'checkbox');
         input.content = l;
         let span = label.appendChild(document.createElement('span'));
@@ -34,7 +36,7 @@ function generateArtistsCheckboxes(artists) {
         let label = li.appendChild(document.createElement('label'));
         let input = label.appendChild(document.createElement('input'));
         input.setAttribute('class', 'filter');
-        input.setAttribute('class', 'filter-artist')
+        input.setAttribute('filter', 'artist')
         input.setAttribute('type', 'checkbox');
         input.content = a;
         let span = label.appendChild(document.createElement('span'));
@@ -45,10 +47,11 @@ function generateArtistsCheckboxes(artists) {
 // Add listeners to filters checkboxes
 function addFiltersListeners() {
     let filters = document.querySelectorAll(".filter");
+    console.log(filters);
     filters.forEach(f => {
         f.addEventListener("change", function(){
             clearSearchList();
-            generateQueryParameters();
+            filter();
         });
     });
 }
@@ -61,13 +64,40 @@ function clearSearchList() {
     });
 }
 
-function generateQueryParameters() {
-    let filters = document.querySelectorAll(".filter");
-    filters.forEach(f => {
-        console.log(f.checked);
-    }) 
+function getLocationsChecked() {
+    let list = document.getElementById('location-list');
+    let filters = list.querySelectorAll(".filter");
+    return Array.from(filters).filter(x => x.checked).map(x => x.content);
 }
 
+function getArtistsChecked() {
+    let list = document.getElementById('artist-list');
+    let filters = list.querySelectorAll(".filter");
+    return Array.from(filters).filter(x => x.checked).map(x => x.content);
+}
+
+function filter() {
+    getQuery();
+}
+
+function getQuery() {
+    $.ajax({
+        url: '/get-concerts',
+        type: 'GET',
+        data: { locations: JSON.stringify(getLocationsChecked()),
+                artists: JSON.stringify(getArtistsChecked()),
+                page: currentPage,
+        },
+        success: function(data) {
+            if (!data.hasNext)
+                $('#moreConcertButton').hide();
+            $('#search-results2').append(data.content);
+        },
+        error: function() {
+            alert('Error al cargar más conciertos');
+        }
+    });
+}
 
 // // AJAX in /search filters
 // $(document).ready(function() {
