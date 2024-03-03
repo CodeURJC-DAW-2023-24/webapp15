@@ -17,7 +17,7 @@
                     <span class="month">{{getMonth}}</span>
                 </time>
                 <div class="event-info">
-                    <h1><a>{{#artist}}{{name}}{{/artist}}</a></h1>
+                    <h1><a href="/artist/{{#artist}}{{name}}{{/artist}}">{{#artist}}{{name}}{{/artist}}</a></h1>
                     <p class="date-info">
                         <span class="weekday">{{getWeekday}}</span>
                         <span> - </span>
@@ -29,7 +29,7 @@
                         <span class="venue">aaa</span>
                     </p>
                 </div>
-                <button>
+                <button onclick ="location.href='/payment/{{id}}' ">
                     <span>Entradas</span>
                     <img src="/image/point-right.png" width="19px">
                 </button>

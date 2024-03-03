@@ -10,7 +10,7 @@
                     <span></span>
                     <span></span>
                     <span></span>
-                    <a href="ticketUrl">Entradas</a>
+                    <a href="/search">Entradas</a>
                 </button>
             </div>
         </div>
@@ -22,7 +22,7 @@
                     <ul class="listArtist">
                         {{#secondaryArtists}}
                             <li class="Artist">
-                                <a href="url" class="link1">
+                                <a href="/artist/{{name}}" class="link1">
                                     <div class="infoArtist">
                                         <img src="/artist/{{name}}/image">
                                     </div>
@@ -52,7 +52,7 @@
                         </div>
                         {{#recommendedArtists}}
                             <li class="ArtistSuggestion">
-                                <a href="url" class="link1">
+                                <a href="/artist/{{name}}" class="link1">
                                     <div class="infoArtistSuggestion">
                                         <img src="/artist/{{name}}/image">
                                     </div>
