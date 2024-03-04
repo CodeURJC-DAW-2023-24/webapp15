@@ -1,8 +1,11 @@
 package es.codeurjc.webapp15.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +22,7 @@ import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.ArtistRepository;
 import es.codeurjc.webapp15.repository.TicketRepository;
+import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.UserSession;
 
 
@@ -33,6 +37,9 @@ public class IndexController {
 
     @Autowired
     private UserSession session;
+
+    @Autowired
+    private ConcertService concertService;
     
     @GetMapping("/")
     public String indexController(Model model) {
@@ -108,5 +115,18 @@ public class IndexController {
         List<Artist> artist_list;
         artist_list = List.copyOf(artist_set);
         return artist_list;
+    }
+
+    @GetMapping("/number-of-concerts-per-month")
+    public ResponseEntity<Object> concertsPerMonth() {
+        Logger.getAnonymousLogger().info("WAAAAAAAAA");
+        List<Long> list = new ArrayList<>();
+        int month = LocalDate.now().getDayOfMonth();
+
+        for (int i = 0; i < 6; i ++) {
+            list.add(concertService.findAmountOfConcertsInAMonth((month + i) % 12));
+        }
+
+        return ResponseEntity.ok(list);
     }
 }

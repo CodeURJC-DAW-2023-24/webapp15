@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 //AJAX in /search
 $(document).ready(function() {
-    $('#moreConcertButton').click(function() {
+    $('.more-results-button').click(function() {
         currentConcertPage++;
         var existingCount = $('.event-article').length;
         console.log($('.event-article').length, existingCount); 
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 //AJAX in /profile
 $(document).ready(function() {
-    $('#moreTicketsButton').click(function() {
+    $('.more-results-button').click(function() {
         currentConcertPage++;
         var existingCount = $('.event-article').length;
         console.log($('.event-article').length, existingCount); 
