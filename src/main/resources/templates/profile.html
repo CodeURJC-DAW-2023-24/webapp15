@@ -1,10 +1,14 @@
 {{>header}}
-        <div id="profile-content" class="container main">
+        <div id="profile-container" class="container">
+    <div>
+        <div id="profile-content" class="">
             {{#user}}
                 <div class="profile-header">
-                    <img src="/user/image/{{id}}" alt="User Profile" class="profile-image" id="profileImage">
-                    <input type="file" id="imageInput" class="edit-input" style="display:none;" onchange="previewImage(this)">
-                    <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
+                    <div id="profile-picture-container">
+                        <img src="/user/image/{{id}}" alt="User Profile" class="profile-image" id="profileImage">
+                        <input type="file" id="imageInput" class="edit-input" style="display:none;" onchange="previewImage(this)">
+                        <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
+                    </div>
                     <!-- For Name -->
                     <div class="field-section">
                         <h2 class="title">Nombre:</h2>
@@ -65,5 +69,7 @@
                 {{/tickets}}
             {{/user}}
         </div>
+    </div>
+    </div>
     
 {{>footer}}

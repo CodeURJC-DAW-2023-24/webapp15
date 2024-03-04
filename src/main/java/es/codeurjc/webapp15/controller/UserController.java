@@ -89,7 +89,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Ha ocurrido un error.");
-            return "register"; // Redirect back to the registration page with an error message
+            return "signup"; // Redirect back to the registration page with an error message
         }
     }
 
