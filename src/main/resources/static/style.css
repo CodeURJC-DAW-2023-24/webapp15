@@ -833,9 +833,54 @@ button:hover span:nth-child(4) {
 }
 
 /* Profile Page Styles */
+
+#profile-container {
+    background-color: #222;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-content {
+    background-color: #FFF;
+    flex-grow: 1;
+    width: 800px;
+
+    padding: 50px 30px;
+    background-color: rgb(136, 188, 211);
+    
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    
+    box-sizing: border-box;
+}
+
 .profile-header, .tickets-history {
     text-align: center;
     margin: 20px 0;
+}
+
+.tickets-history .event-info {
+    text-align: left;
+}
+
+#profile-picture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-picture-container button {
+    margin: 0;
+    width: 150px;
 }
 
 .profile-image {
@@ -859,7 +904,7 @@ button:hover span:nth-child(4) {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    display: none; /* Initially hide the input fields */
+    display: none;
 }
 
 .edit-button, .save-button, .download-button {
@@ -877,7 +922,7 @@ button:hover span:nth-child(4) {
 .tickets-list {
     list-style-type: none;
     padding: 0;
-    display: block; /* Show the tickets list */
+    display: block;
 }
 
 .tickets-list li {
@@ -888,44 +933,44 @@ button:hover span:nth-child(4) {
 }
 
 .field-section {
-    text-align: left; /* Align text to the left */
+    text-align: left;
     margin-bottom: 20px;
 }
 
 .title {
     font-weight: bold;
-    display: block; /* Make title a block element for new line */
-    margin-bottom: 5px; /* Space between title and edit section */
+    display: block;
+    margin-bottom: 5px;
 }
 
 .edit-container {
     display: flex;
-    align-items: center; /* Align items vertically */
+    align-items: center;
     margin: 10px 0;
 }
 
 .edit-container > *:first-child {
     flex-grow: 1;
-    margin-right: 10px; /* Space between the input and the button */
+    margin-right: 10px;
 }
 
 .edit-container > *:last-child {
-    flex-grow: 0; /* Button only takes necessary space */
+    flex-grow: 0;
 }
 
 .edit-input, .user-name, .user-email, .user-lastname {
-    width: 100%; /* Ensure inputs and text take full width of their flex container */
-    box-sizing: border-box; /* Include padding and border in the element's total width */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .architecture {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* This makes the architecture div take the full viewport height */
+    height: 100vh;
 }
 
 .main {
-    flex-grow: 1; /* This allows the main content to expand and fill available space */
+    flex-grow: 1;
 }
 
 .page-header {
