@@ -110,4 +110,12 @@
 ### Diagrama de templates y clases
 ![DiagramaTemplate](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/d8815952-1149-4a8a-8c6e-355bd5348b24)
 
+## Participación de los miembros del equipo
 
+### Jesús Pérez
+
+Durante la fase 2 he estado trabajando principalmente en la implementación y despliege de la base de datos en MySQL. He realizado todas las entidades y participado activamente en la resolucción de errores relacionados con la BBDD. (Subir y cargar imágenes dió muchos problemas, por ejemplo). Posteriormente, he programado algunas de las funcionalidades como el proceso de pago y el algoritmo para la sección de recomendados en la pantalla de inicio.
+
+**5 Commits principales
+
+**5 Ficheros donde más he trabajado
