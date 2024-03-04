@@ -135,9 +135,12 @@
 
 	- Jesús Pérez
 
-		- Durante la fase 2 he estado trabajando principalmente en la implementación y despliege de la base
-  		de datos en MySQL. He realizado todas las entidades y participado activamente en la resolucción de 
-    		errores relacionados con la BBDD. (Subir y cargar imágenes dió muchos problemas, por ejemplo). 			Posteriormente, he programado algunas de las funcionalidades como el proceso de pago y el algoritmo 		para la sección de recomendados en la pantalla de inicio.
+		- Durante la fase 2 he estado trabajando principalmente en la implementación
+  		y despliege de la base de datos en MySQL. He realizado todas las entidades 
+    		y participado activamente en la resolucción de errores relacionados con la BBDD.
+      		(Subir y cargar imágenes dió muchos problemas, por ejemplo).Posteriormente, he 
+		programado algunas de las funcionalidades como el proceso de pago y el algoritmo
+  		para la sección de recomendados en la pantalla de inicio.
 
 		- Commits más significativos:
 			- artist y concert models: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/628e5f516676b809caed4fc18910a7deff48ea9c
