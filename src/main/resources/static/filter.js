@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(anchor);
         anchor.addEventListener('click', function() {
             let artistName = anchor.getAttribute('artist');
-            artistName = artistName.replace(" ", "");
+            artistName = artistName.replace(" ", "-");
             anchor.href = ("/artist/" +  artistName);
         })
     });
