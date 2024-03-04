@@ -133,10 +133,20 @@
 			- searchController.java:https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/SearchController.java
 
 
-### Jesús Pérez
+	- Jesús Pérez
 
-Durante la fase 2 he estado trabajando principalmente en la implementación y despliege de la base de datos en MySQL. He realizado todas las entidades y participado activamente en la resolucción de errores relacionados con la BBDD. (Subir y cargar imágenes dió muchos problemas, por ejemplo). Posteriormente, he programado algunas de las funcionalidades como el proceso de pago y el algoritmo para la sección de recomendados en la pantalla de inicio.
+		- Durante la fase 2 he estado trabajando principalmente en la implementación y despliege de la base de datos en MySQL. He realizado todas las entidades y participado activamente en la resolucción de errores relacionados con la BBDD. (Subir y cargar imágenes dió muchos problemas, por ejemplo). Posteriormente, he programado algunas de las funcionalidades como el proceso de pago y el algoritmo para la sección de recomendados en la pantalla de inicio.
 
-**5 Commits principales
+		- Commits más significativos:
+			- artist y concert models: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/628e5f516676b809caed4fc18910a7deff48ea9c
+			- model user entity: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/d467a63921bc66e54485254f23c8996fc6970850
+			- payment process: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3fdae4e1e96bdc491e081389cc5dc586e316c7bc
+			- algoritmoSeccionRecomendados: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/158b2b520be87643cd9d61b813e3c5e7402a45bd
+			- (PROGRAMACION COLABORATIVA) Controller adminConcertController: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/db97b46f2ff0bb01fccd30a22bc7fdb27ada8767
 
-**5 Ficheros donde más he trabajado
+		- Ficheros más significativos:
+			- TicketController.java src/main/java/es/codeurjc/webapp15/controller/TicketController.java
+			- IndexController.java src/main/java/es/codeurjc/webapp15/controller/IndexController.java
+			- Concert.java src/main/java/es/codeurjc/webapp15/model/Concert.java
+			- User.java src/main/java/es/codeurjc/webapp15/model/User.java
+   			- adminArtistController.java src/main/java/es/codeurjc/webapp15/controller/adminArtistController.java
