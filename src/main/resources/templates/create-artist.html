@@ -1,28 +1,27 @@
 {{>header}}
-    <div id="fondoartista">
-        <div id="contenedor">
-        <div id="central">
-        <div id="login">
-            <div class="titulo">
-                Creación del Artista
-            </div>
-            <form id="formularioLogin" action="/create-artist" method="post" enctype="multipart/form-data">
+    <div class="background">
+        <div class="container">
+            <div class="center">
+                <div class="login">
+                    <div class="login-title">
+                        Creación del Artista
+                    </div>
+                    <form action="/create-artist" method="post" enctype="multipart/form-data">
 
-                <div class="profile-picture">
-                    <img src="images/Perfil.jpg" alt="Foto de perfil">
+                        <div class="profile-picture">
+                        <img src="images/profile-picture.jpg" alt="Foto de perfil">
+                        </div>
+                        
+                        <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+
+                        <input type="text" name="Name" placeholder="Nombre" required>
+                        
+                        <input type="text" name="Info" placeholder="Información" required>
+
+                        <button onclick="location.href='/'" type="submit" title="Submit" name="Submit">Crear</button>
+                    </form>
                 </div>
-                
-                <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
-
-                <input type="text" name="Name" placeholder="Nombre" required>
-                
-                <input type="text" name="Info" placeholder="Información" required>
-
-                <button onclick="location.href='/'" type="submit" title="Login" name="Login" >Registro</button>
-            </form>
-        </div>
-        
-        </div>
+            </div>
         </div>
     </div>
 
