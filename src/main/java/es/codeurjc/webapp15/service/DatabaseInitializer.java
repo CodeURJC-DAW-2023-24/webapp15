@@ -48,39 +48,45 @@ public class DatabaseInitializer {
 
         // Sample artists
 
-        Artist artist1 = new Artist("Shakira", "ABCDEFGHIJK");
+        Path imagePathSample = IMAGES_FOLDER.resolve("sample.png");
+
+        Artist artist1 = new Artist("Shakira", "Descripción de artista 1");
         Path imagePath = IMAGES_FOLDER.resolve("shakira.jpg");
         artist1.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath.toFile()), 0));
         artists.save(artist1);
 
-        Artist artist2 = new Artist("Taylor Swift", "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        Artist artist2 = new Artist("Taylor Swift", "Descripción de artista 2");
         Path imagePath2 = IMAGES_FOLDER.resolve("taylor_swift.jpg");
         artist2.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath2.toFile()), 0));
         artists.save(artist2);
 
-        Artist artist3 = new Artist("Kayne West", "BBBBBBBBBBBBBBBBBBBB");
+        Artist artist3 = new Artist("Kayne West", "Descripción de artista 3");
+        artist3.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
         artists.save(artist3);
 
-        Artist artist4 = new Artist("Billie Eilish", "LLLLLLLLLLLLLLLLLLLLLLL");
+        Artist artist4 = new Artist("Billie Eilish", "Descripción de artista 4");
+        artist4.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
         artists.save(artist4);
 
-        Artist artist5 = new Artist("Quevedo", "quedate");
+        Artist artist5 = new Artist("Quevedo", "Descripción de artista 5");
+        artist5.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
         artists.save(artist5);
 
-        Artist artist6 = new Artist("Metallica", "BBBBBBBBBBBBBBBBBBBB");
+        Artist artist6 = new Artist("Metallica", "Descripción de artista 6");
+        artist6.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
         artists.save(artist6);
 
-        Artist artist7 = new Artist("Adele", "sahisdvhisduhfsduh");
+        Artist artist7 = new Artist("Adele", "Descripción de artista 7");
         Path imagePath7 = IMAGES_FOLDER.resolve("adele.webp");
         artist7.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath7.toFile()), 0));
         artists.save(artist7);
 
-        Artist artist8 = new Artist("Ariana Grande", "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        Artist artist8 = new Artist("Ariana Grande", "Descripción de artista 8");
         Path imagePath8 = IMAGES_FOLDER.resolve("ArianaGrande.webp");
         artist8.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath8.toFile()), 0));
         artists.save(artist8);
 
-        Artist artist9 = new Artist("Beyoncé", "666666666666666666666");
+        Artist artist9 = new Artist("Beyoncé", "Descripción de artista 9");
         Path imagePath9 = IMAGES_FOLDER.resolve("beyonce.jpg");
         artist9.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath9.toFile()), 0));
         artists.save(artist9);
@@ -114,14 +120,41 @@ public class DatabaseInitializer {
         Concert concert6 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
         concerts.save(concert6);
 
-        Concert concert7 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
+        Concert concert7 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Zaragoza", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist6, genre1);
         concerts.save(concert7);
 
-        Concert concert8 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
+        Concert concert8 = new Concert(LocalDateTime.of(2024, 04, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist5, genre1);
         concerts.save(concert8);
 
-        Concert concert9 = new Concert(LocalDateTime.of(2024, 03, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
+        Concert concert9 = new Concert(LocalDateTime.of(2024, 03, 16, 18, 00, 00),"Málaga", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist9, genre2);
         concerts.save(concert9);
+
+        Concert concert10 = new Concert(LocalDateTime.of(2024, 03, 10, 19, 30, 00),"Valladolid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist8, genre1);
+        concerts.save(concert10);
+
+        Concert concert11 = new Concert(LocalDateTime.of(2024, 03, 27, 23, 00, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist4, genre2);
+        concerts.save(concert11);
+
+        Concert concert12 = new Concert(LocalDateTime.of(2024, 03, 31, 19, 15, 00),"Barcelona", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist7, genre1);
+        concerts.save(concert12);
+
+        Concert concert13 = new Concert(LocalDateTime.of(2024, 04, 02, 16, 30, 00),"Valencia", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist7, genre1);
+        concerts.save(concert13);
+
+        Concert concert14 = new Concert(LocalDateTime.of(2024, 05, 03, 21, 15, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist5, genre2);
+        concerts.save(concert14);
+
+        Concert concert15 = new Concert(LocalDateTime.of(2024, 03, 24, 20, 45, 00),"Málaga", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist9, genre2);
+        concerts.save(concert15);
+
+        Concert concert16 = new Concert(LocalDateTime.of(2024, 03, 8, 21, 30, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist6, genre1);
+        concerts.save(concert16);
+
+        Concert concert17 = new Concert(LocalDateTime.of(2024, 03, 9, 17, 00, 00),"Barcelona", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist2, genre1);
+        concerts.save(concert17);
+
+        Concert concert18 = new Concert(LocalDateTime.of(2024, 03, 30, 20, 00, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist4, genre2);
+        concerts.save(concert18);
 
 
         // Users Example
