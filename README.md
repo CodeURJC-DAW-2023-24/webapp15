@@ -111,7 +111,6 @@
 ![DiagramaTemplate](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/d8815952-1149-4a8a-8c6e-355bd5348b24)
 
 ## Participación de los miembros del equipo
-### Participación componentes del grupo
 
 - Diego Del Amo Infante:
 		
@@ -169,7 +168,12 @@
 		- Creacion de paquetes model y securityhttps://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3215b7d8f1d4b8c0b0275353c887612e5de23820
 
 
-	- Ficheros más significativos:
+   	- Ficheros más significativos:
+   		- UserRepository.java: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/merge-security/src/main/java/es/codeurjc/webapp15/repository/UserRepository.java
+		- SecurityConfiguration.java: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/merge-security/src/main/java/es/codeurjc/webapp15/security/SecurityConfiguration.java
+		- CSRFHandlerConfiguration.java: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/merge-security/src/main/java/es/codeurjc/webapp15/security/CSRFHandlerConfiguration.java
+    		- DatabaseUsersLoader.java: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/merge-security/src/main/java/es/codeurjc/webapp15/service/DatabaseUsersLoader.java
+        	- RepositoryUserDetailsService.java: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/merge-security/src/main/java/es/codeurjc/webapp15/service/RepositoryUserDetailsService.java
 
 
 
