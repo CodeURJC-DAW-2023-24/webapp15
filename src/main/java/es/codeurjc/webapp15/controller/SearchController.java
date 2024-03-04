@@ -121,7 +121,7 @@ public class SearchController {
             htmlBuilder.append("<span class=\"month\">" + concert.getMonth() + "</span>");
             htmlBuilder.append("</time>");
             htmlBuilder.append("<div class=\"event-info\">");
-            htmlBuilder.append("<h1><a class=\"artist-info-anchor\" artist=\"" + concert.getArtist().getName() + "\">" + concert.getArtist().getName() + "</a></h1>");
+            htmlBuilder.append("<h1><a href=\"/artist/" + concert.getArtist().getName() + "\" class=\"artist-info-anchor\" artist=\"" + concert.getArtist().getName() + "\">" + concert.getArtist().getName() + "</a></h1>");
             htmlBuilder.append("<p class=\"date-info\">");
             htmlBuilder.append("<span class=\"weekday\">" + concert.getWeekday() + "</span>");
             htmlBuilder.append("<span> - </span>");
