@@ -155,3 +155,18 @@
 			- Concert.java src/main/java/es/codeurjc/webapp15/model/Concert.java
 			- User.java src/main/java/es/codeurjc/webapp15/model/User.java
    			- adminArtistController.java src/main/java/es/codeurjc/webapp15/controller/adminArtistController.java
+
+      
+      - Xavier Medina Salas:
+		
+		- Durante esta fase, me he encargado de la parte de seguridad y de lanzar el proyecto en spring boot 
+		
+		- Commits más significativos:
+			- Creacion de SecurityConfiguration: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/6142404fe6955aae40242296a3ba08e9833017ef
+			- Cambio de la base de datos: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/647231420c9cc8ede356abfb39296350a8e3cca1
+			- Actualizacion de security: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f98b1dda422094c0b0ed7a557feaa5eb0aab5c99
+			- Creacion de repositorios: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/80e3874cc4ec6b698aa18ed9c7e87d643cd87e1e
+   			- Creacion de paquetes model y securityhttps://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3215b7d8f1d4b8c0b0275353c887612e5de23820
+
+
+		- Ficheros más significativos:
