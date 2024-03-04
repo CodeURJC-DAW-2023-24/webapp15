@@ -1,5 +1,14 @@
 let currentPage = 0;
 
+document.addEventListener('DOMContentLoaded', function() {
+    filter(true);
+
+    document.getElementById('more-results-button').addEventListener('click', function() {
+        currentPage++;
+        filter(false);
+    });
+});
+
 // Get data of concerts
 fetch('/concert-list-data')
     .then(function(response) {
@@ -50,7 +59,8 @@ function addFiltersListeners() {
     console.log(filters);
     filters.forEach(f => {
         f.addEventListener("change", function(){
-            filter();
+            currentPage = 0;
+            filter(true);
         });
     });
 }
@@ -75,11 +85,11 @@ function getArtistsChecked() {
     return Array.from(filters).filter(x => x.checked).map(x => x.content);
 }
 
-function filter() {
-    getQuery();
+function filter(isNewQuery) {
+    getQuery(isNewQuery);
 }
 
-function getQuery() {
+function getQuery(isNewQuery) {
     $.ajax({
         url: '/get-concerts',
         type: 'GET',
@@ -88,12 +98,13 @@ function getQuery() {
                 page: currentPage,
         },
         success: function(data) {
-            document.getElementById("moreConcertButton").style.display = 'block';
+            document.getElementById("more-results-button").style.display = 'block';
             if (data == null)
-                document.getElementById("moreConcertButton").style.display = 'none';
+                document.getElementById("more-results-button").style.display = 'none';
             if (!data.hasNext)
-                document.getElementById("moreConcertButton").style.display = 'none';
-            clearSearchList();
+                document.getElementById("more-results-button").style.display = 'none';
+            if (isNewQuery)
+                clearSearchList();
             document.getElementById("search-results2").insertAdjacentHTML('beforeend', data.content);
             addDeleteButtonListeners();
         },
@@ -129,26 +140,3 @@ function addDeleteButtonListeners() {
         });
     });
 }
-
-// // AJAX in /search filters
-// $(document).ready(function() {
-//     $('#moreConcertButton').click(function() {
-//         currentConcertPage++;
-//         var existingCount = $('.event-article').length;
-//         console.log($('.event-article').length, existingCount); 
-
-//         $.ajax({
-//             url: '/moreConcerts',
-//             type: 'GET',
-//             data: { page: currentConcertPage },
-//             success: function(data) {
-//                 if (!data.hasNext)
-//                     $('#moreConcertButton').hide();
-//                 $('#search-results2').append(data.content);
-//             },
-//             error: function() {
-//                 alert('Error al cargar más conciertos');
-//             }
-//         });
-//     });
-// });
