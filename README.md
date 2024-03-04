@@ -111,6 +111,27 @@
 ![DiagramaTemplate](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/d8815952-1149-4a8a-8c6e-355bd5348b24)
 
 ## Participación de los miembros del equipo
+### Participación componentes del grupo
+
+	- Diego Del Amo Infante:
+		
+		- Durante esta fase, me he encargado de cambiar los templates a mustache así como de toda la parte de creación de artista y de concierto. Además, me he encargado de los AJAX de las 		pagínas de index y de search y la funcionalidad de borrar conciertos.
+		
+		- Commits más significativos:
+			- Eliminar Concierto: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f109c09dae1e16592d3f0ffc448ee7e05279b0f4
+			- AJAX Search: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/106d0f1008357647eae7a3d69eaa4f83fee39f8b
+			- AJAX Index: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/8f1f06fb7a2563769efcde41bfbf1f66142b535e
+			- Controller adminArtistController: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/21daace72216218605b95248977a8fbfc012146c
+			- Controller adminConcertController: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/db97b46f2ff0bb01fccd30a22bc7fdb27ada8767
+
+
+		- Ficheros más significativos:
+			- adminArtistController.java:https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/adminArtistController.java
+			- adminConcertController.java:https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/adminConcertController.java
+			- IndexController.java:https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/IndexController.java
+			- perfil.js: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/static/perfil.js
+			- searchController.java:https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/SearchController.java
+
 
 ### Jesús Pérez
 
