@@ -1,28 +1,27 @@
 {{>header}}
-    <div id="fondo">
-        <div id="contenedor">
-        <div id="central">
-        <div id="login">
-            <div class="titulo">
-                Bienvenido
-            </div>
-            <form id="formularioLogin" action="/user" method="post">
-                <input type="email" name="email" placeholder="Email" required>
-                
-                <input type="password" placeholder="Contraseña" name="password" required>
-                
-                <button type="submit" title="Login" name="Login">Login</button>
-            </form>
-            <div class="pie-form">
-                {{#error}}
-                <div style="color: red;">{{error}}</div>
-                {{/error}}
-                <a href="signup">Registrarse</a>
+    <div class="background">
+        <div class="container">
+            <div class="center">
+                <div class="login">
+                    <div class="login-title">
+                        Bienvenido
+                    </div>
+                    <form action="/user" method="post">
+                        <input type="email" name="email" placeholder="Email" required>
+                        
+                        <input type="password" placeholder="Contraseña" name="password" required>
+                        
+                        <button type="submit" title="Login" name="Login">Login</button>
+                    </form>
+                    <div class="pie-form">
+                        {{#error}}
+                        <div style="color: red;">{{error}}</div>
+                        {{/error}}
+                        <a href="signup">Registrarse</a>
+                    </div>
+                </div>
             </div>
         </div>
-        
-    </div>
-    </div>
     </div>
 
 {{>footer}}

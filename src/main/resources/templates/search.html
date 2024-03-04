@@ -3,37 +3,9 @@
     <div id="search-main">
         <main id="search-results">
             <div id="search-results2">
-            {{#concerts}}
-            <article class="event-article">
-                <time>
-                    <span class="day">{{getDay}}</span>
-                    <span class="month">{{getMonth}}</span>
-                </time>
-                <div class="event-info">
-                    <h1><a href="/artist/{{#artist}}{{name}}{{/artist}}">{{#artist}}{{name}}{{/artist}}</a></h1>
-                    <p class="date-info">
-                        <span class="weekday">{{getWeekday}}</span>
-                        <span> - </span>
-                        <span class="hour">{{getHour}}</span>
-                    </p>
-                    <p class="venue-info">
-                        <span class="city">{{place}}</span>
-                    </p>
-                </div>
-                <button onclick ="location.href='/payment/{{id}}' ">
-                    <span>Entradas</span>
-                    <img src="/image/point-right.png" width="19px">
-                </button>
-                {{#admin}}
-                    <button class="delete-btn" data-id="{{id}}">
-                       <span>Eliminar</span>
-                        <img src="/image/point-right.png" width="19px">
-                    </button> 
-                {{/admin}}
-            </article>
-            {{/concerts}}
+            
             </div>
-            <button id="moreConcertButton" class="buttonMas">
+            <button id="more-results-button" class="more-results-button">
                 <span></span>
                 <span></span>
                 <span></span>

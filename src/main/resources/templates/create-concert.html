@@ -1,33 +1,26 @@
 {{>header}}
-
-
-    <div id="fondoconcierto">
-        <div id="contenedor">
-            <!-- <div id="central"> -->
-            <div id="concierto-contenedor">
-                <div class="titulo">
+    <div class="background">
+        <div class="container">
+            <div id="concert-container">
+                <div class="login-title">
                     Creación del Concierto
                 </div>
-                <form id="formularioLogin" action="/createConcert" method="post" enctype="multipart/form-data">
-                    <div id="formConcierto">
-                        <!--<div>
-                            <label for="name">Nombre:</label>
-                            <input type="text" id="name" name="name" />
-                        </div>-->
+                <form action="/create-concert" method="post" enctype="multipart/form-data">
+                    <div id="concert-form">
                         
                         <div>
                             <label for="place">Lugar:</label>
                             <input type="text" id="place" name="place" />
                         </div>
                         <div>
-                            <label for="seleccionArtista">Artista:</label>
-                            <select id="seleccionArtista" name="artist">
+                            <label for="artist-selector">Artista:</label>
+                            <select id="artist-selector" name="artist">
                                 {{#artists}}
                                     <option  value="{{id}}">{{name}}</option>
                                 {{/artists}}
                             </select>
                         </div>
-                       <div id="horario">
+                        <div id="schedule">
                             <div>
                                 <label for="date">Fecha:</label>
                                 <input type="date" id="date" name="date" />
@@ -38,16 +31,16 @@
                             </div>
                         </div>
                         <div>
-                            <label id="num"for="numero">Número de Entradas:</label>
-                            <input type="number" id="num_ticket" name="num_ticket" min="0"/>
+                            <label for="num-ticket">Nº Entradas:</label>
+                            <input type="number" id="num-ticket" name="num-ticket" min="0"/>
                         </div>
                         <div>
-                            <label id="price-ticket"for="price">Precio:</label>
+                            <label for="price">Precio:</label>
                             <input type="number" id="price" name="price" min="0" />
                         </div>
                         <div>
-                            <label for="seleccionGenero">Género:</label>
-                            <select id="seleccionGenero" name="genre">
+                            <label for="genre-selector">Género:</label>
+                            <select id="genre-selector" name="genre">
                                 {{#genres}}
                                     <option value="{{id}}">{{genre_type}}</option>
                                 {{/genres}}
@@ -55,19 +48,15 @@
                         </div>
                         
                             <label for="info">Información:</label>
-                            <textarea id="infoConcierto" name="info"></textarea>
+                            <textarea id="concert-info" name="info"></textarea>
                         
                         <button type="submit" title="Crear" name="Crear">Crear
-                            <img src="images/point-right.png" width="19px">
+                            <img src="image/point-right.png" width="19px">
                         </button>
                     </div>
-                    
                 </form>
             </div>
-        <!-- </div> -->
         </div>
-        </div>
-
     </div>
 
 {{>footer}}
