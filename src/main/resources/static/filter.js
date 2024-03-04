@@ -7,6 +7,16 @@ document.addEventListener('DOMContentLoaded', function() {
         currentPage++;
         filter(false);
     });
+
+    let anchors = document.getElementsByClassName('artist-info-anchor');
+    Array.prototype.forEach.call(anchors, function(anchor) {
+        console.log(anchor);
+        anchor.addEventListener('click', function() {
+            let artistName = anchor.getAttribute('artist');
+            artistName = artistName.replace(" ", "");
+            anchor.href = ("/artist/" +  artistName);
+        })
+    });
 });
 
 // Get data of concerts
