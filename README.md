@@ -197,15 +197,15 @@
 	- En esta fase, me he encargado de la lógica del User: que se pueda registrar, que pueda iniciar sesión, que se puedan modificar sus campos en el perfil y diferenciar entre los diferentes roles "ADMIN" y "USER". Por otro lado también me he encargado del AJAX en el historial de tickets en el perfil y la generación de PDF.
 	 
 	- Commits más significativos:
-	    	- [ticket history on user + download ticket pdf](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/b512850b64353182fada075ad122aec9b8a07e7a)
-	    	- [controller/repository/session](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/53d5cceb6659054ad638e30e4f38126dbe218e7e)
-	    	- [Add user persistence/upload img to db on signup](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/eb78ca38b34050b04e31c35bda6d239039f76611)
-	    	- [error page/pdf](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/b31092956bdae155907ea32b3dd6e6df114f7aae)
-	    	- [Profile page/Save profile edited data on database](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/dfab2877566e7597cac394f2a1e2e79ea5832134)
+		- [ticket history on user + download ticket pdf](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/b512850b64353182fada075ad122aec9b8a07e7a)
+		- [controller/repository/session](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/53d5cceb6659054ad638e30e4f38126dbe218e7e)
+		- [Add user persistence/upload img to db on signup](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/eb78ca38b34050b04e31c35bda6d239039f76611)
+		- [error page/pdf](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/b31092956bdae155907ea32b3dd6e6df114f7aae)
+		- [Profile page/Save profile edited data on database](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/dfab2877566e7597cac394f2a1e2e79ea5832134)
 	
 	- Ficheros más significativos:
-	    	- [UserController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/UserController.java)
-	       	- [GlobalControllerAdvice.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/GlobalControllerAdvice.java)
-	       	- [UserService.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/service/UserService.java)
-	       	- [perfil.js](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/static/profile.js)
-	       	- [perfil.html](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/templates/profile.html)
+		- [UserController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/UserController.java)
+		- [GlobalControllerAdvice.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/GlobalControllerAdvice.java)
+		- [UserService.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/service/UserService.java)
+		- [perfil.js](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/static/profile.js)
+		- [perfil.html](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/templates/profile.html)
