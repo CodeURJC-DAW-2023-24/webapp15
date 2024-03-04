@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -69,8 +70,8 @@ public class UserController {
     public String createUser(Model model, @RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
         try {
             // Check if user already exists with the given email
-            List<User> existingUsers = usersRepository.findByEmail(Email);
-            if (!existingUsers.isEmpty()) {
+            Optional<User> existingUser = usersRepository.findByEmail(Email);
+            if (existingUser.isPresent()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
                 return "registro"; // Return back to the registration form
@@ -236,9 +237,9 @@ public class UserController {
 
     @PostMapping("/user")
     public String login(Model model, @RequestParam String email, @RequestParam String password) {
-        List<User> users = usersRepository.findByEmail(email);
-        if (!users.isEmpty()) {
-            User user = users.get(0); // Assuming email is unique and always returns at most one user
+        Optional<User> users = usersRepository.findByEmail(email);
+        if (users.isPresent()) {
+            User user = users.get(); // Assuming email is unique and always returns at most one user
             if (user.getPassword().equals(password)) {
                 session.setUser(user);
                 return "redirect:/";
