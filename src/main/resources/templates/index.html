@@ -1,11 +1,11 @@
 {{>header}}
         {{#mainArtist}}
-        <div class="content-mainArtist">
+        <div class="main-artist-content">
             <img src="/artist/{{name}}/image">
-            <div class="infoMainArtist">
-                <h2 class="nameArtist">{{name}}</h2>
-                <h3 class="description">{{info}}</h3>
-                <button class="buttonEntradas">
+            <div class="main-artist-info">
+                <h2 class="artist-name">{{name}}</h2>
+                <h3 class="artist-description">{{info}}</h3>
+                <button class="tickets-button">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -18,22 +18,22 @@
         <br>
         <div class="elements">
             <main id="main-content">
-                <div class="content-listArtist">
-                    <ul class="listArtist">
+                <div class="artist-list-container">
+                    <ul class="artist-list">
                         {{#secondaryArtists}}
-                            <li class="Artist">
+                            <li class="artist">
                                 <a href="/artist/{{name}}" class="link1">
-                                    <div class="infoArtist">
+                                    <div class="artist-info">
                                         <img src="/artist/{{name}}/image">
                                     </div>
-                                    <h4 class="text1Artist">{{info}}</h4>
-                                    <h3 class="name1Artist">{{name}}</h3>
+                                    <h4 class="artist-info-text">{{info}}</h4>
+                                    <h3 class="artist-name-text">{{name}}</h3>
                                 </a>
                             </li>
                         {{/secondaryArtists}}
                     </ul>
-                    <div class="content-buttonMas">
-                        <button id="moreArtistButton" class="buttonMas">
+                    <div class="more-results-container">
+                        <button id="more-results-button" class="more-results-button">
                             <span></span>
                             <span></span>
                             <span></span>
@@ -46,17 +46,17 @@
             <!-- aqui vendria mas secciones-->
             <section>
                 <div class="section-content">
-                    <ul class="ListSuggestion">
-                        <div class="content-Recomendados">
+                    <ul class="suggestions-list">
+                        <div class="suggestions-content">
                             <h2>Recomendados</h2>
                         </div>
                         {{#recommendedArtists}}
-                            <li class="ArtistSuggestion">
+                            <li class="suggested-artist">
                                 <a href="/artist/{{name}}" class="link1">
-                                    <div class="infoArtistSuggestion">
+                                    <div class="suggested-artist-info">
                                         <img src="/artist/{{name}}/image">
                                     </div>
-                                    <h3 class="name1Artist">{{name}}</h3>
+                                    <h3 class="artist-name-text">{{name}}</h3>
                                 </a>
                             </li>
                         {{/recommendedArtists}}

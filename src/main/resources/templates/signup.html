@@ -1,36 +1,33 @@
 {{>header}}
+    <div class="background">
+        <div class="container">
+            <div class="center">
+                <div class="login">
+                    <div class="login-title">
+                        Registro
+                    </div>
+                    <form action="/user/new" method="post" enctype="multipart/form-data">
+                        <div class="profile-picture">
+                            <img src="image/profile-picture.jpg" alt="Foto de perfil">
+                        </div>
 
-    <div id="fondo">
-        <div id="contenedor">
-        <div id="central">
-        <div id="login">
-            <div class="titulo">
-                Registro
-            </div>
-            <form id="formularioLogin" action="/user/new" method="post" enctype="multipart/form-data">
+                        <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                        <input type="text" name="Name" placeholder="Nombre" required>
+                        
+                        <input type="email" name="Email" placeholder="Correo" required>
+                        
+                        <input type="password" placeholder="Contraseña" name="password" required>
 
-                <div class="profile-picture">
-                    <img src="images/Perfil.jpg" alt="Foto de perfil">
+                        <button type="submit" title="Signup" name="Signup">Registro</button>
+                    </form>
+                    <div class="pie-form">
+                        {{#error}}
+                        <div style="color: red;">{{error}}</div>
+                        {{/error}}
+                        <a href="login">Iniciar Sesión</a>
+                    </div>
                 </div>
-
-                <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
-                <input type="text" name="Name" placeholder="Nombre" required>
-                
-                <input type="email" name="Email" placeholder="Correo" required>
-                
-                <input type="password" placeholder="Contraseña" name="password" required>
-
-                <button type="submit" title="Login" name="Login">Registro</button>
-            </form>
-            <div class="pie-form">
-                {{#error}}
-                <div style="color: red;">{{error}}</div>
-                {{/error}}
-                <a href="login">Iniciar Sesión</a>
             </div>
-        </div>
-        
-        </div>
         </div>
     </div>
 {{>footer}}
