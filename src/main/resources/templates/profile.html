@@ -33,43 +33,17 @@
                 </div>
                 <div class="tickets-history">
                     <h3>Tickets Comprados:</h3>
-                    {{#tickets}}
-                        <article class="event-article">
-                        {{#concert}}
-                            <time>
-                                <span class="day">{{getDay}}</span>
-                                <span class="month">{{getMonth}}</span>
-                            </time>
-                            <div class="event-info">
-                                <h1><a href="/artist/{{#artist}}{{name}}{{/artist}}">{{#artist}}{{name}}{{/artist}}</a></h1>
-                                <p class="date-info">
-                                    <span class="weekday">{{getWeekday}}</span>
-                                    <span> - </span>
-                                    <span class="hour">{{getHour}}</span>
-                                </p>
-                                <p class="venue-info">
-                                    <span class="city">{{place}}</span>
-                                </p>
-                            </div>
-                            {{/concert}}
-                            <button class="download-button" onclick="downloadTicket('{{concert.getId}}', '{{getNum_ticket}}', '{{concert.artist.name}}', '{{user.name}}', '{{concert.getDatetime}}', '{{concert.getHour}}', '{{concert.place}}')">
-                                <span>Descargar</span>
-                                <img src="/image/point-right.png" width="19px">
-                            </button>
-                        </article>
-                    {{/tickets}}
                     {{^tickets}}
                         <p>Historial vacío</p>
                     {{/tickets}}
                 </div>
-                {{#tickets}}
                 <button id="more-ticket-history-button" class="more-results-button">
                     <a>Mas Tickets</a>
                 </button>
-                {{/tickets}}
             {{/user}}
         </div>
     </div>
     </div>
+    <script src="profile.js"></script>
     
 {{>footer}}

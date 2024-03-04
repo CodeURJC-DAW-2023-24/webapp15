@@ -170,7 +170,7 @@ public class UserController {
                 htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
                 htmlBuilder.append("</p>");
                 htmlBuilder.append("</div>");
-                htmlBuilder.append("<button class=\"download-button\" onclick=\"downloadTicket("+ concert.getId() + "," + ticket.getNum_ticket() + "," + concert.getArtist().getName() + "," + session.getUser().getName() + "," + concert.getDatetime() + "," + concert.getHour() + "," + concert.getPlace() + ")\">");
+                htmlBuilder.append("<button class=\"download-button\" concert-id=\"" + concert.getId() + "\" num_ticket=\"" + ticket.getNum_ticket() + "\" artist-name=\"" + concert.getArtist().getName() + "\" user-name=\"" + session.getUser().getName() + "\" date=\"" + concert.getDatetime().toLocalDate().toString() + "\" hour=\"" + concert.getHour() + "\" place=\"" + concert.getPlace() + "\">");
                 htmlBuilder.append("<span>Descargar</span>");
                 htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");

@@ -88,6 +88,9 @@ function getQuery() {
                 page: currentPage,
         },
         success: function(data) {
+            document.getElementById("moreConcertButton").style.display = 'block';
+            if (data == null)
+                document.getElementById("moreConcertButton").style.display = 'none';
             if (!data.hasNext)
                 document.getElementById("moreConcertButton").style.display = 'none';
             clearSearchList();
