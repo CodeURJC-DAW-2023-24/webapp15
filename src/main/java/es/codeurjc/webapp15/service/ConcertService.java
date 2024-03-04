@@ -1,8 +1,10 @@
 package es.codeurjc.webapp15.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,6 +64,14 @@ public class ConcertService {
 
         return new PageImpl<>(query.getResultList());
 	}
+
+    public Long findAmountOfConcertsInAMonth(long month) {
+
+        Query query = entityManager.createQuery("SELECT c.datetime FROM Concert c WHERE EXTRACT(MONTH FROM c.datetime) = :month");
+        query.setParameter("month", month);
+        Logger.getAnonymousLogger().info(String.valueOf(query.getFirstResult()));
+        return (Long) query.getSingleResult();
+    }
 
     public void save(Concert concert) {
         repository.save(concert);
