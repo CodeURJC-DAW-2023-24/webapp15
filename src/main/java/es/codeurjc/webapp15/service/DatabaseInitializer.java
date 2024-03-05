@@ -1,13 +1,12 @@
 package es.codeurjc.webapp15.service;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.webapp15.model.Artist;
@@ -40,55 +39,45 @@ public class DatabaseInitializer {
     @Autowired
     private ConcertRepository concerts;
 
-    private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "/src/main/resources/images/");
-
-
     @PostConstruct
     public void init() throws IOException {
 
         // Sample artists
 
-        Path imagePathSample = IMAGES_FOLDER.resolve("sample.png");
-
         Artist artist1 = new Artist("Shakira", "Descripción de artista 1");
-        Path imagePath = IMAGES_FOLDER.resolve("shakira.jpg");
-        artist1.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath.toFile()), 0));
+        setArtistImage(artist1, "static/images/shakira.jpg");
         artists.save(artist1);
 
         Artist artist2 = new Artist("Taylor Swift", "Descripción de artista 2");
-        Path imagePath2 = IMAGES_FOLDER.resolve("taylor_swift.jpg");
-        artist2.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath2.toFile()), 0));
+        setArtistImage(artist2, "static/images/taylor_swift.jpg");
         artists.save(artist2);
 
         Artist artist3 = new Artist("Kayne West", "Descripción de artista 3");
-        artist3.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
+        setArtistImage(artist3, "static/images/sample.png");
         artists.save(artist3);
 
         Artist artist4 = new Artist("Billie Eilish", "Descripción de artista 4");
-        artist4.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
+        setArtistImage(artist4, "static/images/sample.png");
         artists.save(artist4);
 
         Artist artist5 = new Artist("Quevedo", "Descripción de artista 5");
-        artist5.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
+        setArtistImage(artist5, "static/images/sample.png");
         artists.save(artist5);
 
         Artist artist6 = new Artist("Metallica", "Descripción de artista 6");
-        artist6.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePathSample.toFile()), 0));
+        setArtistImage(artist6, "static/images/sample.png");
         artists.save(artist6);
 
         Artist artist7 = new Artist("Adele", "Descripción de artista 7");
-        Path imagePath7 = IMAGES_FOLDER.resolve("adele.webp");
-        artist7.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath7.toFile()), 0));
+        setArtistImage(artist7, "static/images/adele.webp");
         artists.save(artist7);
 
         Artist artist8 = new Artist("Ariana Grande", "Descripción de artista 8");
-        Path imagePath8 = IMAGES_FOLDER.resolve("ArianaGrande.webp");
-        artist8.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath8.toFile()), 0));
+        setArtistImage(artist8, "static/images/ArianaGrande.webp");
         artists.save(artist8);
 
         Artist artist9 = new Artist("Beyoncé", "Descripción de artista 9");
-        Path imagePath9 = IMAGES_FOLDER.resolve("beyonce.jpg");
-        artist9.setImageFile(BlobProxy.generateProxy(new FileInputStream(imagePath9.toFile()), 0));
+        setArtistImage(artist9, "static/images/beyonce.jpg");
         artists.save(artist9);
 
         // Sample genres
@@ -209,5 +198,10 @@ public class DatabaseInitializer {
         ticket7.setUser(user);
         ticket7.setNum_ticket(2);
         ticketRepository.save(ticket7);   
+    }
+
+    private void setArtistImage(Artist artist, String path) throws IOException {
+        Resource image = new ClassPathResource(path);
+        artist.setImageFile(BlobProxy.generateProxy(image.getInputStream(), image.contentLength()));
     }
 }
