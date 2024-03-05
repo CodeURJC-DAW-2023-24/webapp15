@@ -1,25 +1,44 @@
-const ctx = document.getElementById('chart');
+let data = [];
+let months = [];
 
-let months = getNext6Months()
+fetch('/amount-of-concerts-by-month')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(json) {
+        console.log(json)
+        data = Array.from(json).map((x) => x.count);
+        months = Array.from(json).map(x => new Date(x.date.year, (x.date.month - 1)).toLocaleString('default', { month: 'long' }));
+        console.log(months);
 
-new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: months,
-    datasets: [{
-      label: '# of concerts',
-      data: [12, 19, 3, 5, 2, 3],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
+        createChart();
+    })
+
+function createChart() {
+    const ctx = document.getElementById('chart');
+
+    let months_old = getNext6Months()
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: months,
+            datasets: [{
+                label: '# of concerts',
+                data: data,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+}
 
 function getNext6Months() {
     let months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -33,5 +52,3 @@ function getNext6Months() {
     console.log(list);
     return list;
 }
-
-getNext6Months();

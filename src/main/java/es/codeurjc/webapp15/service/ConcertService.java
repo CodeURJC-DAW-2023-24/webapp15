@@ -65,12 +65,14 @@ public class ConcertService {
         return new PageImpl<>(query.getResultList());
 	}
 
-    public List<Long> countConcertsByMonthInRange(long months) {
+    public List<Object> countConcertsByMonthInRange(long months) {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime plusMonths = now.plusMonths(months);
 
-        Query query = entityManager.createQuery("SELECT MONTH(c.datetime), COUNT(c.datetime) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY MONTH(c.datetime)");
+        Query query = entityManager.createQuery("SELECT new map(new map(YEAR(c.datetime) as year, MONTH(c.datetime) as month) as date, COUNT(c) as count) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY YEAR(c.datetime), MONTH(c.datetime)");
+
+        // Query query = entityManager.createQuery("SELECT MONTH(c.datetime), COUNT(c.datetime) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY MONTH(c.datetime)");
         query.setParameter("now", now);
         query.setParameter("plusmonths", plusMonths);
         Logger.getAnonymousLogger().info(String.valueOf(query.getFirstResult()));
