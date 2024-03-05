@@ -133,13 +133,13 @@ public class SearchController {
             htmlBuilder.append("</div>");
             htmlBuilder.append("<button onclick=\"location.href =\'/payment/" + concert.getId().toString() + "\'\">");
             htmlBuilder.append("<span>Entradas</span>");
-            htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
+            htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
             htmlBuilder.append("</button>");
             if (globalControllerAdvice.globalAdminModel()) {
                 
                 htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
                 htmlBuilder.append("<span>Eliminar</span>");
-                htmlBuilder.append("<img src=\"image/point-right.png\" width=\"19px\">");
+                htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
                 
             }

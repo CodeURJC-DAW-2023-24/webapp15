@@ -172,7 +172,7 @@ public class UserController {
                 htmlBuilder.append("</div>");
                 htmlBuilder.append("<button class=\"download-button\" concert-id=\"" + concert.getId() + "\" num_ticket=\"" + ticket.getNum_ticket() + "\" artist-name=\"" + concert.getArtist().getName() + "\" user-name=\"" + session.getUser().getName() + "\" date=\"" + concert.getDatetime().toLocalDate().toString() + "\" hour=\"" + concert.getHour() + "\" place=\"" + concert.getPlace() + "\">");
                 htmlBuilder.append("<span>Descargar</span>");
-                htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
+                htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
                 htmlBuilder.append("</article>");
             }
