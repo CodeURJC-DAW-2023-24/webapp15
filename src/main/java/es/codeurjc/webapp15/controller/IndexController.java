@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -110,6 +111,7 @@ public class IndexController {
         return htmlBuilder.toString();
     }
 
+    // TODO Do it with a SQL query
     public List<Artist> getRecomendArtists(User user){
         List<Ticket> ticket_list = tickets.findByUser(user);
         Set<Artist> artist_set = new HashSet<>();
@@ -123,16 +125,16 @@ public class IndexController {
         return artist_list;
     }
 
-    @GetMapping("/number-of-concerts-per-month")
-    public ResponseEntity<Object> concertsPerMonth() {
-        Logger.getAnonymousLogger().info("WAAAAAAAAA");
-        List<Long> list = new ArrayList<>();
-        int month = LocalDate.now().getDayOfMonth();
+    @GetMapping("/amount-of-concerts-by-month")
+    public ResponseEntity<Object> concertsPerMonth(@RequestParam Optional<Long> months) {
 
-        for (int i = 0; i < 6; i ++) {
-            list.add(concertService.findAmountOfConcertsInAMonth((month + i) % 12));
+        if (months.isEmpty())
+            months = Optional.of(Long.valueOf(6));
+        else if (months.get() > 24){
+            months = Optional.of(Long.valueOf(24));
         }
 
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(concertService.countConcertsByMonthInRange(months.get()));
+
     }
 }
