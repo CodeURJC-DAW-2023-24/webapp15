@@ -1,0 +1,49 @@
+{{>header}}
+        <div id="profile-container" class="container">
+    <div>
+        <div id="profile-content" class="">
+            {{#user}}
+                <div class="profile-header">
+                    <div id="profile-picture-container">
+                        <img src="/user/image/{{id}}" alt="User Profile" class="profile-image" id="profileImage">
+                        <input type="file" id="imageInput" class="edit-input" style="display:none;" onchange="previewImage(this)">
+                        <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
+                    </div>
+                    <!-- For Name -->
+                    <div class="field-section">
+                        <h2 class="title">Nombre:</h2>
+                        <div class="edit-container">
+                            <p class="user-name" id="userName">{{name}}</p>
+                            <input type="text" id="nameInput" class="edit-input" style="display:none;">
+                            <button class="edit-button" id="editNameBtn" onclick="editField('userName', 'nameInput', 'saveNameBtn', 'editNameBtn')">Editar</button>
+                            <button id="saveNameBtn" class="save-button" onclick="saveField('userName', 'nameInput', 'saveNameBtn', 'editNameBtn')" style="display:none;">Guardar</button>
+                        </div>
+                    </div>
+        
+                    <!-- For Email -->
+                    <div class="field-section">
+                        <h2 class="title">Email:</h2>
+                        <div class="edit-container">
+                            <p class="user-email" id="userEmail">{{email}}</p>
+                            <input type="email" id="emailInput" class="edit-input" style="display:none;">
+                            <button class="edit-button" id="editEmailBtn" onclick="editField('userEmail', 'emailInput', 'saveEmailBtn', 'editEmailBtn')">Editar</button>
+                            <button id="saveEmailBtn" class="save-button" onclick="saveField('userEmail', 'emailInput', 'saveEmailBtn', 'editEmailBtn')" style="display:none;">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tickets-history">
+                    <h3>Tickets Comprados:</h3>
+                    {{^tickets}}
+                        <p>Historial vacío</p>
+                    {{/tickets}}
+                </div>
+                <button id="more-ticket-history-button" class="more-results-button">
+                    <a>Mas Tickets</a>
+                </button>
+            {{/user}}
+        </div>
+    </div>
+    </div>
+    <script src="profile.js"></script>
+    
+{{>footer}}

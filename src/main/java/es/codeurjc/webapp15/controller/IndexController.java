@@ -1,12 +1,19 @@
 package es.codeurjc.webapp15.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
-import es.codeurjc.webapp15.model.Genre;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.ArtistRepository;
-import es.codeurjc.webapp15.repository.ConcertRepository;
-import es.codeurjc.webapp15.repository.GenreRepository;
 import es.codeurjc.webapp15.repository.TicketRepository;
+import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.UserSession;
 
 
@@ -39,6 +44,11 @@ public class IndexController {
 
     @Autowired
     private UserSession session;
+
+    @Autowired
+    private ConcertService concertService;
+
+    private final int pageSize = 4;
     
     @GetMapping("/")
     public String indexController(Model model) {
@@ -68,45 +78,60 @@ public class IndexController {
 
     
     @GetMapping("/moreArtists")
-    public ResponseEntity<String> moreArtists(@RequestParam("existingCount") int existingCount) {
-        
-        if((existingCount+1) < artists.findAll().size()){
-            int pageSize = 4; 
-            int pageNumber = existingCount / pageSize;
-            int offset = (pageNumber * pageSize) + 1; // First id element array
+    public ResponseEntity<Object> moreArtists(@RequestParam("page") int page) {
 
-            List<Artist> allArtists = artists.findAll();
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Artist> pageQuery = artists.findAll(pageable);
 
-            List<Artist> moreArtists = null;
-            if(offset+pageSize <= allArtists.size()){
-                moreArtists = allArtists.subList(offset, offset+pageSize);
-            }
-            if(offset+pageSize > allArtists.size()){
-                moreArtists = allArtists.subList(offset, allArtists.size());
-            }
-            
-            String html = "";
-            for (Artist artist : moreArtists) {
-                html += "<li class=\"Artist\">";
-                html += "<a href=\"" + artist.getURI() + "\" class=\"link1\">";
-                html += "<div class=\"infoArtist\">";
-                html += "<img src=\"" + artist.getImageFile() + "\">";
-                html += "</div>";
-                html += "<h4 class=\"text1Artist\">" + artist.getInfo() + "</h4>";
-                html += "<h3 class=\"name1Artist\">" + artist.getName() + "</h3>";
-                html += "</a>";
-                html += "</li>";
-            }
+        if (pageQuery.hasContent()) {
 
-            return ResponseEntity.ok(html);
+            Map<String, Object> map = new HashMap<>();
+             
+            map.put("content", htmlBuilder(pageQuery.getContent()));
+
+            boolean hasNext = artists.findAll(PageRequest.of(page+1, pageSize)).hasContent();
+            map.put("hasNext", hasNext);
+                
+            return ResponseEntity.ok(map);
         }
         return ResponseEntity.noContent().build();
-    } 
+    }
+        
+    private String htmlBuilder(List<Artist> artistList) {
+        StringBuilder htmlBuilder = new StringBuilder();
+        for (Artist artist : artistList) {
+            htmlBuilder.append("<li class=\"Artist\">");
+            htmlBuilder.append("<a href=\"" + artist.getURI() + "\" class=\"link1\">");
+            htmlBuilder.append("<div class=\"infoArtist\">");
+            htmlBuilder.append("<img src=\"" + artist.getImageFile() + "\">");
+            htmlBuilder.append("</div>");
+            htmlBuilder.append("<h4 class=\"text1Artist\">" + artist.getInfo() + "</h4>");
+            htmlBuilder.append("<h3 class=\"name1Artist\">" + artist.getName() + "</h3>");
+            htmlBuilder.append("</a>") ;  
+            htmlBuilder.append("</li>");
+        }
 
+        return htmlBuilder.toString();
+    }
+
+    // TODO Do it with a SQL query
     public List<Artist> getRecomendArtists(User user){
         List<Ticket> ticket_list = tickets.findByUser(user);
         List<Concert> concert_list = tickets.findByTicket(ticket_list);
         List<Artist> artist_list = concerts.findByConcert(concert_list);
         return artist_list;
+    }
+
+    @GetMapping("/amount-of-concerts-by-month")
+    public ResponseEntity<Object> concertsPerMonth(@RequestParam Optional<Long> months) {
+
+        if (months.isEmpty())
+            months = Optional.of(Long.valueOf(6));
+        else if (months.get() > 24){
+            months = Optional.of(Long.valueOf(24));
+        }
+
+        return ResponseEntity.ok(concertService.countConcertsByMonthInRange(months.get()));
+
     }
 }

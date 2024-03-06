@@ -1,9 +1,10 @@
 package es.codeurjc.webapp15.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,8 +46,6 @@ public class ConcertService {
         if (locations != null && !locations.isEmpty())
             jpql.append(" AND c.place IN :locations");
 
-        // System.out.println(locations.size() + " " +  artists.size());
-
         if (artists != null && !artists.isEmpty())
             jpql.append(" AND c.artist.name IN :artists");
         
@@ -63,13 +62,22 @@ public class ConcertService {
         query.setFirstResult(page.getPageNumber() * page.getPageSize());
         query.setMaxResults(page.getPageSize());
 
-        List<Concert> results = query.getResultList();
-
         return new PageImpl<>(query.getResultList());
-
-
-		
 	}
+
+    public List<Object> countConcertsByMonthInRange(long months) {
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime plusMonths = now.plusMonths(months);
+
+        Query query = entityManager.createQuery("SELECT new map(new map(YEAR(c.datetime) as year, MONTH(c.datetime) as month) as date, COUNT(c) as count) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY YEAR(c.datetime), MONTH(c.datetime)");
+
+        // Query query = entityManager.createQuery("SELECT MONTH(c.datetime), COUNT(c.datetime) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY MONTH(c.datetime)");
+        query.setParameter("now", now);
+        query.setParameter("plusmonths", plusMonths);
+        Logger.getAnonymousLogger().info(String.valueOf(query.getFirstResult()));
+        return query.getResultList();
+    }
 
     public void save(Concert concert) {
         repository.save(concert);

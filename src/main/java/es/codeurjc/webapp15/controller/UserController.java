@@ -1,6 +1,5 @@
 package es.codeurjc.webapp15.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,13 +53,13 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String registro(Model model) {
+    public String signup(Model model) {
 
         User user = session.getUser();
         if (user != null) {
             return "redirect:/";
         } else {
-            return "registro";
+            return "signup";
         }
     }
 
@@ -73,7 +71,7 @@ public class UserController {
             if (!existingUsers.isEmpty()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
-                return "registro"; // Return back to the registration form
+                return "signup"; // Return back to the registration form
             }
 
             User user = new User(Name, password, "USER");
@@ -91,7 +89,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Ha ocurrido un error.");
-            return "register"; // Redirect back to the registration page with an error message
+            return "signup"; // Redirect back to the registration page with an error message
         }
     }
 
@@ -138,7 +136,7 @@ public class UserController {
             // Directly add the tickets to the model
             model.addAttribute("tickets", userTickets);
 
-            return "perfil"; // Ensure "perfil" is the correct view name
+            return "profile";
         } else {
             return "redirect:/login";
         }
@@ -172,9 +170,9 @@ public class UserController {
                 htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
                 htmlBuilder.append("</p>");
                 htmlBuilder.append("</div>");
-                htmlBuilder.append("<button class=\"download-button\" onclick=\"downloadTicket("+ concert.getId() + "," + ticket.getNum_ticket() + "," + concert.getArtist().getName() + "," + session.getUser().getName() + "," + concert.getDatetime() + "," + concert.getHour() + "," + concert.getPlace() + ")\">");
+                htmlBuilder.append("<button class=\"download-button\" concert-id=\"" + concert.getId() + "\" num_ticket=\"" + ticket.getNum_ticket() + "\" artist-name=\"" + concert.getArtist().getName() + "\" user-name=\"" + session.getUser().getName() + "\" date=\"" + concert.getDatetime().toLocalDate().toString() + "\" hour=\"" + concert.getHour() + "\" place=\"" + concert.getPlace() + "\">");
                 htmlBuilder.append("<span>Descargar</span>");
-                htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
+                htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
                 htmlBuilder.append("</article>");
             }

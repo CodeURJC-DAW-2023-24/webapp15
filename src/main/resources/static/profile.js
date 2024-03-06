@@ -1,106 +1,55 @@
-let currentArtistPage = 0;
-let currentConcertPage = 0;
-
-
-//AJAX in /index
-$(document).ready(function() {
-    $('#moreArtistButton').click(function() {
-        currentArtistPage++;
-        var existingCount = $('.listArtist li').length; 
-
-        $.ajax({
-            url: '/moreArtists',
-            type: 'GET',
-            data: { page: currentArtistPage },
-            success: function(data) {
-                if (data.trim() === '') {
-                    $('#moreArtistButton').hide();
-                } else {
-                    $('.listArtist').append(data);
-                }
-            },
-            error: function() {
-                alert('Error al cargar más artistas');
-            }
-        });
-    });
-});
-
-//AJAX in /search
-$(document).ready(function() {
-    $('#moreConcertButton').click(function() {
-        currentConcertPage++;
-        var existingCount = $('.event-article').length;
-        console.log($('.event-article').length, existingCount); 
-
-        $.ajax({
-            url: '/moreConcerts',
-            type: 'GET',
-            data: { page: currentConcertPage },
-            success: function(data) {
-                if (!data.hasNext)
-                    $('#moreConcertButton').hide();
-                $('#search-results2').append(data.content);
-            },
-            error: function() {
-                alert('Error al cargar más conciertos');
-            }
-        });
-    });
-});
-
+let currentTicketPage = 0;
 
 //AJAX in /profile
 $(document).ready(function() {
-    $('#moreTicketsButton').click(function() {
-        currentConcertPage++;
-        var existingCount = $('.event-article').length;
-        console.log($('.event-article').length, existingCount); 
+    loadMoreTickets(currentTicketPage);
 
-        $.ajax({
-            url: '/moreTickets',
-            type: 'GET',
-            data: { page: currentConcertPage },
-            success: function(data) {
-                if (!data.hasNext)
-                    $('#moreTicketsButton').hide();
-                $('.tickets-history').append(data.content);
-            },
-            error: function() {
-                alert('Error al cargar más conciertos');
-            }
-        });
+    $('.more-results-button').click(function() {
+        currentTicketPage++;
+        loadMoreTickets(currentTicketPage);
     });
 });
+
+function loadMoreTickets(page) {
+    $.ajax({
+        url: '/moreTickets',
+        type: 'GET',
+        data: { page: page },
+        success: function(data) {
+            if (data == null)
+                $('#more-ticket-history-button').hide();
+            if (!data.hasNext)
+                $('#more-ticket-history-button').hide();
+            $('.tickets-history').append(data.content);
+            addDownloadButtonListeners();
+        },
+        error: function() {
+            alert('Error al cargar más conciertos');
+        }
+    });
+}
 
 // Delete concert in /search
-document.addEventListener("DOMContentLoaded", function() {
+function addDownloadButtonListeners() {
   
-    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const downloadButtons = document.querySelectorAll('.download-button');
     
     
-    deleteButtons.forEach(button => {
+    downloadButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const concertId = button.getAttribute('data-id');
-            const confirmation = confirm('¿Estás seguro de que quieres eliminar este concierto?');
-            if (confirmation) {
-                fetch(`/search/${concertId}`, {
-                    method: 'DELETE'
-                })
-                .then(response => {
-                    if (response.ok) {
-                        // Eliminación exitosa, puedes realizar alguna acción adicional si es necesario
-                        button.parentNode.remove(); // Eliminar el elemento HTML del concierto eliminado
-                        alert('Concierto eliminado correctamente');
-                    } else {
-                        alert('Hubo un problema al intentar eliminar el concierto.');
-                    }
-                })
-                .catch(error => console.error('Error al eliminar el concierto:', error));
-            }
+            const concertId = button.getAttribute('concert-id');
+            const numTicket = button.getAttribute('num_ticket');
+            const artistName = button.getAttribute('artist-name');
+            const userName = button.getAttribute('user-name');
+            const date = button.getAttribute('date');
+            const hour = button.getAttribute('hour');
+            const place = button.getAttribute('place');
+            
+            downloadTicket(concertId, numTicket, artistName, userName, date, hour, place);
+
         });
     });
-});
+}
 
 
 
@@ -220,7 +169,7 @@ function downloadTicket(ticketId, num_ticket, eventName, name, date, time, locat
     doc.text(`Fecha: ${date}`, 10, 110)
     doc.text(`Hora: ${time}`, 10, 120);
     doc.text(`Lugar: ${location}`, 10, 130);
-    doc.text(`Número de entradas: ${num_ticket}`, 10, 140);
+    doc.text(`Numero de entradas: ${num_ticket}`, 10, 140);
 
     // Include the QR code image
     const qrImg2 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIMAAASDAgMAAACXZRdkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJUExURf///z8/PwAAAABE24UAAAfdSURBVHja7d2xceMwEAVQjgMFKoVVXBNKVMJVwSacK3AgscqL7ASzxAIkJfr0fioI2H1Id8BhkMV8ICBEiBAhQoQIERJChAgRIkSIECEhRIgQIUKECBESQoQIESJEiBAhIUSIECFChAgREkKECBEiRIgQISFEiBAhQoQIERJChAgRIkSIECEhRIgQoeMLnecVuffsMn3/adtdujIRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFC/4PQ7Xvt2LHLPZ48fJ7Q45LO9ZBCn/kG+oS+8gOjp0MK/ck38JcQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKE+oTqM22nROHxQT3tl4hTKJQ4iBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIEfpFQmVV8UFlVfVRx3IaciBEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoTeRGho6C1eMjcgEiJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQr9RqJ6MUENvLc4lYiGUCCFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAi1CT0u6VwPKfSZb2DuEurJoYR68jyh+FO9T1tCiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIHU5om8Qf/B3qQ4r3ntua9mmEECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgR2lAoMRiY+Jpv4inBVQOTLQeVV/HT/rpJT0KECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRGh7oXi/YdsJxK5atjmIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgReopQQ/v3hl2GNaOOC0sSQ4rFL7ewJkKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRGhXoaKqOJnn+4qq4m8CtyAeYdKTECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRWhbqSjwY2NJ+AjFekkhXLYQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiNCeQg37/WSvdwLjJXFu9Qud180xEiJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQo2vDcaFJ4YU411ariLxlGBcy0L7hAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSI0GuEVs0xfvRUlbiKoS7UNaQY70KIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAjtINT1CGBiArGlqnr75W2N4cDkuecqCBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQoR2EtknXO4ENhQ89VxE/SEiIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAg9RSg+ciE944VxuoTmhvbjcgkRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIEKE9hYaeqoreWjJ1tL/uKggRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIEKEXC4319qf6kWMDVaKWbUOIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAi9SGhVWt4sHMPCz/WrSBx0bjCbCBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQoR2FWvab670lZgd73gmcG2YqE48jxh8fJkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChI4rVA4G1qtKCK2bYyxqmeNyF/Z7XNK5vqfQV77uEyFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAgRIkSIECFChAi9qVB9dvAUDym29JYYA0y03zPqGIcQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBE6nFBijnHeSWjVkokQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBH6PUJFVQuvDTY4lxn3OYgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBHaVaiehdcGx7k966YhY6EWREKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBEiRIgQIUKECBFaEnpc0rm+p9C8pjdC7b0Va291xHgCca4LDfFtESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQoQIESJEiBAhQq8REkKECBEiRIgQISFEiBAhQoQIERJChAgRIkSIECEhRIgQIUKECBESQoQIESJEiBAhIUSIECFChAgREkKECBEiRIgQIUIICBEiRIgQIUKEhBAhQoSOLfQPo9dNYRDWvZ8AAAAASUVORK5CYII='; // Your base64-encoded image string here
