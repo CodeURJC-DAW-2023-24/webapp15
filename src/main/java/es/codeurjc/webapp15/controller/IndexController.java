@@ -25,6 +25,7 @@ import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.ArtistRepository;
+import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.repository.TicketRepository;
 import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.UserSession;
