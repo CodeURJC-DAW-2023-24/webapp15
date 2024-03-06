@@ -32,6 +32,9 @@ public class IndexController {
     private ArtistRepository artists;
 
     @Autowired
+    private ConcertRepository concerts;
+
+    @Autowired
     private TicketRepository tickets;
 
     @Autowired
@@ -102,14 +105,8 @@ public class IndexController {
 
     public List<Artist> getRecomendArtists(User user){
         List<Ticket> ticket_list = tickets.findByUser(user);
-        Set<Artist> artist_set = new HashSet<>();
-        for (Ticket ticket : ticket_list) {
-            Concert concert = ticket.getConcert();
-            Artist artist = concert.getArtist();
-            artist_set.add(artist);
-        }
-        List<Artist> artist_list;
-        artist_list = List.copyOf(artist_set);
+        List<Concert> concert_list = tickets.findByTicket(ticket_list);
+        List<Artist> artist_list = concerts.findByConcert(concert_list);
         return artist_list;
     }
 }
