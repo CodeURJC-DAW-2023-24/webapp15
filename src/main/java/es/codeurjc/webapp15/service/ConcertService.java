@@ -13,15 +13,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.webapp15.repository.ConcertRepository;
+import es.codeurjc.webapp15.repository.TicketRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import es.codeurjc.webapp15.model.Concert;
+import es.codeurjc.webapp15.model.Ticket;
 
 @Service
 public class ConcertService {
     @Autowired
     private ConcertRepository repository;
 
+    @Autowired
+    private TicketRepository ticketRepository;
     @Autowired
     private EntityManager entityManager;
 
@@ -84,6 +88,23 @@ public class ConcertService {
     }
 
     public void delete(long id) {
-        repository.deleteById(id);
+         // Search concert in BBDD
+         Optional<Concert> optionalConcert = repository.findById(id);
+         if (optionalConcert.isPresent()) {
+             Concert concert = optionalConcert.get();
+             
+             // Delete tickets of this concert
+             List<Ticket> tickets = concert.getTickets();
+             if (tickets != null) {
+                 for (Ticket ticket : tickets) {
+                     ticketRepository.delete(ticket);
+                 }
+             }
+             
+             // Delete concert
+             repository.deleteById(id);
+         
+     }
+ 
     }
 }
