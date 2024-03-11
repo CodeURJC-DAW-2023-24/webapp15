@@ -2,6 +2,9 @@ package es.codeurjc.webapp15.model;
 
 import java.sql.Blob;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Column;
@@ -11,17 +14,25 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Artist {
+
+    // /**
+    //  * InnerArtist
+    //  */
+    // public interface InnerArtist {}
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(MinimalView.class)
 	private Long id;
 
+    @JsonView(MinimalView.class)
     private String name;
 
     @Column(columnDefinition = "TEXT")
     private String info;
 
     @Lob
+    @JsonIgnore
     private Blob imageFile;
 
     public Artist() {}
@@ -43,6 +54,7 @@ public class Artist {
         return name;
     }
 
+    @JsonView(MinimalView.class)
     public String getURI() {
         return name.toLowerCase().replace(' ', '-');
     }

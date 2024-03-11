@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -16,6 +22,12 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Concert {
+
+    // /**
+    //  * InnerConcert
+    //  */
+    // public interface InnerConcert {}
+    public interface ConcertComplete extends MinimalView {}
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,12 +42,15 @@ public class Concert {
     private String info;
     
     @ManyToOne
+    @JsonView(MinimalView.class)
     private Artist artist;
 
     @ManyToOne
+    @JsonView(MinimalView.class)
     private Genre genre;
 
     @OneToMany(mappedBy = "concert")
+    @JsonView(ConcertComplete.class)
     private List<Ticket> tickets;
 
     public Concert(){}
@@ -99,6 +114,7 @@ public class Concert {
         this.info = info;
     }
 
+    @JsonIgnore
     public Artist getId_artist() {
         return artist;
     }
@@ -131,19 +147,23 @@ public class Concert {
         this.genre = genre;
     }
 
+    @JsonIgnore
     public String getHour() {
         DateTimeFormatter f = DateTimeFormatter.ofPattern( "HH:mm" );
         return datetime.format(f);
     }
 
+    @JsonIgnore
     public String getWeekday() {
         return datetime.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH).toLowerCase();
     }
 
+    @JsonIgnore
     public int getDay() {
         return datetime.getDayOfMonth();
     }
 
+    @JsonIgnore
     public String getMonth() {
         return datetime.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
     }

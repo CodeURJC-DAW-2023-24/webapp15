@@ -2,6 +2,9 @@ package es.codeurjc.webapp15.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,20 +14,28 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Genre{
 
+    // /**
+    //  * InnerGenre
+    //  */
+    // public interface InnerGenre {}
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(MinimalView.class)
 	private Long id;
 
+    @JsonView(MinimalView.class)
     private String genre_type;
 
     @OneToMany(mappedBy="genre")
+    @JsonIgnore
     private List<Concert> concerts;
 
     public Genre(){}
 
     public Genre(String genre_type){
 
-        this.genre_type=genre_type;
+        this.genre_type = genre_type;
     }
 
     public Long getId() {
