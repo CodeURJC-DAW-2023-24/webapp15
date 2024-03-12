@@ -1,12 +1,15 @@
 package es.codeurjc.webapp15.model;
 
 import java.sql.Blob;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +37,10 @@ public class Artist {
     @Lob
     @JsonIgnore
     private Blob imageFile;
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Concert> concerts;
 
     public Artist() {}
 
