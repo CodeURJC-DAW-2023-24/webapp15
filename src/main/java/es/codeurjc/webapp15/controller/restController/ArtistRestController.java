@@ -6,8 +6,10 @@ import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.service.ArtistService;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.Optional;
 
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -72,6 +76,28 @@ public class ArtistRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Artist> putArtist(@PathVariable Long id, @RequestBody Artist updatedArtist) throws SQLException {
+
+        if (artistService.exist(id)) {
+            
+            // Mantain current image
+            Artist storedArtist = artistService.findById(id).get();
+            if (storedArtist.getImageFile() != null) {
+                updatedArtist.setImageFile(BlobProxy.generateProxy(storedArtist.getImageFile().getBinaryStream(), storedArtist.getImageFile().length()));
+            }
+
+            updatedArtist.setId(id);
+            artistService.save(updatedArtist);
+
+            return new ResponseEntity<>(updatedArtist, HttpStatus.OK);
+
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     
     
