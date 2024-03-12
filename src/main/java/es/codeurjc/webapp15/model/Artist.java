@@ -31,6 +31,10 @@ public class Artist {
     @JsonView(MinimalView.class)
     private String name;
 
+    @Column(unique = true)
+    @JsonView(MinimalView.class)
+    private String uri;
+
     @Column(columnDefinition = "TEXT")
     private String info;
 
@@ -46,6 +50,7 @@ public class Artist {
 
     public Artist(String name, String info) {
         this.name = name;
+        setUri();
         this.info = info;
     }
 
@@ -61,13 +66,22 @@ public class Artist {
         return name;
     }
 
-    @JsonView(MinimalView.class)
-    public String getURI() {
+    public String getUri() {
+        return uri;
+    }
+
+    @JsonIgnore
+    public String getUriFromName(String name) {
         return name.toLowerCase().replace(' ', '-');
+    }
+
+    private void setUri() {
+        this.uri = name.toLowerCase().replace(' ', '-');
     }
 
     public void setName(String name) {
         this.name = name;
+        setUri();
     }
 
     public String getInfo() {

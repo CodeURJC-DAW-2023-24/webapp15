@@ -4,18 +4,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.service.ArtistService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import java.net.URI;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,9 +57,9 @@ public class ArtistRestController {
 
         // Redirect to error page
         if (concerts.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Query couldn't find any item");
         
-        return new ResponseEntity<>(concerts.getContent(), HttpStatus.OK);
+        return ResponseEntity.ok(concerts.getContent());
 
     }
 
@@ -61,20 +71,28 @@ public class ArtistRestController {
         if (artist.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         
-        return new ResponseEntity<>(artist.get(), HttpStatus.OK);
+        return ResponseEntity.ok(artist.get());
 
     }
 
     @PostMapping("")
-    public ResponseEntity<Artist> createArtist(@RequestBody Artist artist) {
+    public ResponseEntity<Object> createArtist(@RequestBody Artist artist) {
         try {
+
+            // Check artist name is not null
+            if (artist.getName() == null)
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Artist name cannot be null");
+            
             artistService.save(artist);
-            // Location doesn't return the expected value
-            URI location = fromCurrentRequest().path("artists/{id}").buildAndExpand(artist.getId()).toUri();
+
+            URI location = fromCurrentRequest().path("/{id}").buildAndExpand(artist.getId()).toUri();
             return ResponseEntity.created(location).body(artist);
         }
-        catch (EmptyResultDataAccessException e) {
+        catch (HttpMessageNotReadableException | EmptyResultDataAccessException ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (DataIntegrityViolationException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Unique index or primary key violation");
         }
 
     }
