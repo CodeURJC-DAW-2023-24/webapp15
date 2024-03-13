@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +48,15 @@ public class UserService {
         } else {
             throw new Exception("User not found");
         }
+    }
+    public void save(User user) {
+		userRepository.save(user);
+	}
+
+    public List<User> findByEmail(String Email){
+        return userRepository.findByEmail(Email);
+    }
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
     }
 }

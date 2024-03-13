@@ -25,16 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
-import es.codeurjc.webapp15.repository.TicketRepository;
-import es.codeurjc.webapp15.repository.UserRepository;
+import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserService;
 import es.codeurjc.webapp15.service.UserSession;
 
 @Controller
 public class UserController {
-
-    @Autowired
-    private UserRepository usersRepository;
 
     @Autowired
     private UserService userService; // Assuming you have a UserService
@@ -43,7 +39,7 @@ public class UserController {
     private UserSession session;
 
     @Autowired
-    private TicketRepository ticketRepository;
+    private TicketService ticketService;
 
     @GetMapping("/logout")
     public String cerrarSesion(Model model) {
@@ -67,7 +63,8 @@ public class UserController {
     public String createUser(Model model, @RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
         try {
             // Check if user already exists with the given email
-            List<User> existingUsers = usersRepository.findByEmail(Email);
+            List<User> existingUsers = userService.findByEmail(Email);
+           
             if (!existingUsers.isEmpty()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
@@ -82,7 +79,7 @@ public class UserController {
                 user.setImage(true);
             }
             
-            usersRepository.save(user);
+            userService.save(user);
             session.setUser(user);
             
             return "redirect:/"; // Redirect to homepage or user profile page after successful login
@@ -107,7 +104,7 @@ public class UserController {
     @GetMapping("/user/image/{userId}")
     public ResponseEntity<byte[]> getUserImage(@PathVariable("userId") Long userId) {
         try {
-            User user = usersRepository.findById(userId).get(); // Implement this method to find user by ID
+            User user = userService.findById(userId).get(); // Implement this method to find user by ID
             if (user != null && user.getImg_user() != null) {
                 byte[] imageBytes = user.getImg_user().getBytes(1, (int) user.getImg_user().length());
                 HttpHeaders headers = new HttpHeaders();
@@ -124,7 +121,7 @@ public class UserController {
     public String profile(Model model) {
         User user = session.getUser(); // Assuming 'session' is your way of retrieving the currently logged-in user.
         if (user != null) {
-            List<Ticket> ticketList = ticketRepository.findByUserId(user.getId(), PageRequest.of(0, 6)).getContent();
+            List<Ticket> ticketList = ticketService.findByUserId(user.getId(), PageRequest.of(0, 6)).getContent();
             // Fetch the first 6 tickets for the user
             // Adjust the end index if the list size is less than 6
             int endIndex = Math.min(ticketList.size(), 6);
@@ -145,7 +142,7 @@ public class UserController {
     @GetMapping("/moreTickets")
     public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
         Logger.getAnonymousLogger().info(Integer.toString(page));
-        Page<Ticket> pageQuery = ticketRepository.findByUserId(session.getUser().getId(), PageRequest.of(page, 6));
+        Page<Ticket> pageQuery = ticketService.findByUserId(session.getUser().getId(), PageRequest.of(page, 6));
         if (pageQuery.hasContent()) {
 
             Map<String, Object> map = new HashMap<>();
@@ -179,7 +176,7 @@ public class UserController {
                     
             map.put("content", htmlBuilder);
 
-            boolean hasNext = ticketRepository.findAll(PageRequest.of(page+1, 6)).hasContent();
+            boolean hasNext = ticketService.findAllPage(PageRequest.of(page+1, 6)).hasContent();
             map.put("hasNext", hasNext);
                 
             return ResponseEntity.ok(map);
@@ -222,7 +219,7 @@ public class UserController {
 
             user.setImg_user(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
             user.setImage(true);
-            usersRepository.save(user);
+            userService.save(user);
 
             session.setUser(user);
 
@@ -234,7 +231,7 @@ public class UserController {
 
     @PostMapping("/user")
     public String login(Model model, @RequestParam String email, @RequestParam String password) {
-        List<User> users = usersRepository.findByEmail(email);
+        List<User> users = userService.findByEmail(email);
         if (!users.isEmpty()) {
             User user = users.get(0); // Assuming email is unique and always returns at most one user
             if (user.getPassword().equals(password)) {

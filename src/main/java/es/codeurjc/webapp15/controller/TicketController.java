@@ -13,25 +13,25 @@ import org.springframework.ui.Model;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
-import es.codeurjc.webapp15.repository.ConcertRepository;
+import es.codeurjc.webapp15.service.ConcertService;
+import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserSession;
-import es.codeurjc.webapp15.repository.TicketRepository;
 
 @Controller
 public class TicketController {
 
     @Autowired
-    private ConcertRepository concertRepository;
+    private ConcertService concertService;
 
     @Autowired
-    private TicketRepository ticketRepository;
+    private TicketService TicketService;
 
     @Autowired
     private UserSession session;
 
     @GetMapping("/payment/{id}")
     public String processPayment(Model model, @PathVariable long id){
-        Optional<Concert> concert = concertRepository.findById(id);
+        Optional<Concert> concert = concertService.findById(id);
         if (concert.isPresent()){
             model.addAttribute("concert", concert.get());
         }
@@ -41,18 +41,18 @@ public class TicketController {
 
     @PostMapping("/payment/{id}")
     public String paymentComplete(Model model, @RequestParam Integer num_ticket, @PathVariable long id){
-        Optional<Concert> concert = concertRepository.findById(id);
+        Optional<Concert> concert = concertService.findById(id);
         if (concert.isPresent()){
             Integer left = concert.get().getNum_tickets();
             left = left - num_ticket;
             concert.get().setNum_tickets(left);
-            concertRepository.save(concert.get());
+            concertService.save(concert.get());
             User user = session.getUser();
             Ticket ticket = new Ticket();
             ticket.setConcert(concert.get());
             ticket.setUser(user);
             ticket.setNum_ticket(num_ticket);
-            ticketRepository.save(ticket);            
+            TicketService.save(ticket);            
         }
         return "redirect:/";
     }

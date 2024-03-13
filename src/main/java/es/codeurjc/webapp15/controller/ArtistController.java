@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
-import es.codeurjc.webapp15.repository.ArtistRepository;
-import es.codeurjc.webapp15.repository.ConcertRepository;
+import es.codeurjc.webapp15.service.ArtistService;
+import es.codeurjc.webapp15.service.ConcertService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -28,22 +28,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ArtistController {
 
+    @Autowired 
+    private ArtistService artistService;
+
     @Autowired
-    private ArtistRepository artists;
-    @Autowired
-    private ConcertRepository concerts;  
+    private ConcertService concertService; 
 
     @GetMapping("/artist/{artistName}")
     public String artistController (Model model, @PathVariable String artistName) {
 
         artistName = artistName.toLowerCase().replace('-', ' ');
-        Artist artist = artists.findFirstByNameIgnoreCase(artistName);
+        Artist artist = artistService.findFirstByNameIgnoreCase(artistName);
 
         if (artist == null) {
             return "error";
         }
 
-        Page<Concert> concertList = concerts.findByArtistName(artist.getName(), PageRequest.of(0, 10));
+        Page<Concert> concertList = concertService.findByArtistName(artistName, PageRequest.of(0, 10));
         model.addAttribute("artist", artist);
         model.addAttribute("concerts", concertList.getContent());
         return "info-artist";
@@ -53,7 +54,7 @@ public class ArtistController {
     public ResponseEntity<Object> getArtistImage(@PathVariable String artistName) throws SQLException {
         
         artistName = artistName.toLowerCase().replace('-', ' ');
-        Artist artist = artists.findFirstByNameIgnoreCase(artistName);
+        Artist artist = artistService.findFirstByNameIgnoreCase(artistName);
 
         if (artist == null)
             return ResponseEntity.notFound().build();
