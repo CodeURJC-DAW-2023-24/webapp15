@@ -1,29 +1,18 @@
 package es.codeurjc.webapp15.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import es.codeurjc.webapp15.service.RepositoryUserDetailsService;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    /*@Value("${security.user}")
-    private String username;
-
-    @Value("${security.encodedPassword}")
-    private String encodedPassword;*/
 
     @Autowired
     public RepositoryUserDetailsService userDetailService;
@@ -53,16 +42,19 @@ public class SecurityConfiguration {
                     .requestMatchers("/search*").permitAll()
                     .requestMatchers("/signup").permitAll()
                     .requestMatchers("/artist/*").permitAll()
-                    .requestMatchers("/user/*").permitAll()
-                    .requestMatchers("/css/*", "/js/*", "/images/*").permitAll()
+                    .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                     .requestMatchers("/user/new").permitAll()
+                    .requestMatchers("/error/**").permitAll()
+                    .requestMatchers("/index/**").permitAll()
+                    .requestMatchers("/info_artist/**").permitAll()
+                    .requestMatchers("/login/**").permitAll()
+                    .requestMatchers("/signup/**").permitAll()
                     //Private PAGES
-                    .requestMatchers("/profile").permitAll()
-                    .requestMatchers("/payment/*").permitAll()
-                    .requestMatchers("/createArtist").permitAll()
-                    .requestMatchers("/createConcert").permitAll()
+                    .requestMatchers("/profile").hasAnyRole("USER")
+                    .requestMatchers("/payment/*").hasAnyRole("USER")
+                    .requestMatchers("/createArtist").hasAnyRole("ADMIN")
+                    .requestMatchers("/createConcert").hasAnyRole("ADMIN")
             )
-
             .formLogin(formLogin -> formLogin
                     .loginPage("/login")
                     .failureUrl("/error")
@@ -76,7 +68,7 @@ public class SecurityConfiguration {
             );
     
         // Disable CSRF at the moment
-        http.csrf(csrf -> csrf.disable());
+        //http.csrf(csrf -> csrf.disable());
         
         return http.build();
     }

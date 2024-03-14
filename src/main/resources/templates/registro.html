@@ -13,14 +13,12 @@
                     <img src="images/Perfil.jpg" alt="Foto de perfil">
                 </div>
 
-                <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
-                <input type="text" name="Name" placeholder="Nombre" required>
-                
-                <input type="email" name="Email" placeholder="Correo" required>
-                
+                <input type="file" name="image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                <input type="text" name="name" placeholder="Nombre" required>                
+                <input type="email" name="email" placeholder="Correo" required>
                 <input type="password" placeholder="Contraseña" name="password" required>
-
-                <button type="submit" title="Login" name="Login">Registro</button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+                <button type="submit" title="Login" name="login">Registro</button>
             </form>
             <div class="pie-form">
                 {{#error}}

@@ -13,10 +13,13 @@
                 </div>
                 
                 <input type="file" name="Image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
 
                 <input type="text" name="Name" placeholder="Nombre" required>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
                 
                 <input type="text" name="Info" placeholder="Información" required>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
 
                 <button onclick="location.href='/'" type="submit" title="Login" name="Login" >Registro</button>
             </form>

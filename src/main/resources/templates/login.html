@@ -6,12 +6,12 @@
             <div class="titulo">
                 Bienvenido
             </div>
-            <form id="formularioLogin" action="/user" method="post">
-                <input type="email" name="email" placeholder="Email" required>
-                
+            <form id="formularioLogin" action="/login" method="post">
+                <input type="email" name="username" placeholder="Email" required>                
                 <input type="password" placeholder="Contraseña" name="password" required>
-                
+                <input type="hidden" name="_csrf" value="{{token}}"/>
                 <button type="submit" title="Login" name="Login">Login</button>
+                
             </form>
             <div class="pie-form">
                 {{#error}}

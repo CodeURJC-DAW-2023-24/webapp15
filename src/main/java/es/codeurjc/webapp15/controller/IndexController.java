@@ -1,9 +1,10 @@
 package es.codeurjc.webapp15.controller;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,22 +12,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
-import es.codeurjc.webapp15.model.Genre;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.ArtistRepository;
-import es.codeurjc.webapp15.repository.ConcertRepository;
-import es.codeurjc.webapp15.repository.GenreRepository;
 import es.codeurjc.webapp15.repository.TicketRepository;
-import es.codeurjc.webapp15.service.UserSession;
+import es.codeurjc.webapp15.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @Controller
 public class IndexController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ArtistRepository artists;
@@ -34,11 +36,29 @@ public class IndexController {
     @Autowired
     private TicketRepository tickets;
 
-    @Autowired
-    private UserSession session;
+    @ModelAttribute("user")
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            Optional <User> user = userRepository.findByEmail(principal.getName());
+            if (user.isPresent()){
+                if (user.get().isRole("USER")){
+                    model.addAttribute("user", true);
+                }
+                if (user.get().isRole("ADMIN")){
+                    model.addAttribute("admin", true);
+                }
+            }
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
     
     @GetMapping("/")
-    public String indexController(Model model) {
+    public String indexController(Model model, HttpServletRequest request) {
 
         Page<Artist> artistList = artists.findAll(PageRequest.of(0, 10));
 
@@ -46,9 +66,12 @@ public class IndexController {
         List<Artist> secondaryArtists = artistList.getContent().subList(0, 4);
         List<Artist> recommendedArtists;
 
-        User user = session.getUser();
-        if (user != null){
-            recommendedArtists = getRecomendArtists(user);
+        Principal principal = request.getUserPrincipal();
+
+        if(principal != null) {
+            Optional<User> user = userRepository.findByEmail(principal.getName());
+            recommendedArtists = getRecomendArtists(user.get());
+
             if (recommendedArtists.isEmpty()){
                 recommendedArtists = artistList.getContent().subList(0, 4);
             }
@@ -83,7 +106,7 @@ public class IndexController {
             }
             
             String html = "";
-            for (Artist artist : moreArtists) {
+            for (Artist artist : moreArtists) { //aqui no se que pasa
                 html += "<li class=\"Artist\">";
                 html += "<a href=\"" + artist.getURI() + "\" class=\"link1\">";
                 html += "<div class=\"infoArtist\">";

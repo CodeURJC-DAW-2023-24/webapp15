@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.webapp15.model.Artist;
@@ -40,7 +41,10 @@ public class DatabaseInitializer {
     @Autowired
     private ConcertRepository concerts;
 
-    private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "/src/main/resources/images/");
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    private static final Path IMAGES_FOLDER = Paths.get(System.getProperty("user.dir"), "/src/main/resources/static/images/");
 
 
     @PostConstruct
@@ -126,11 +130,11 @@ public class DatabaseInitializer {
 
         // Users Example
 
-        User admin = new User("admin", "admin", "ADMIN");
+        User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN");
         admin.setEmail("admin@admin.com");
         usersRepository.save(admin);
 
-        User user = new User("user", "user", "USER");
+        User user = new User("user", passwordEncoder.encode("user"), "USER");
         user.setEmail("user@user.com");
         usersRepository.save(user);
 

@@ -1,12 +1,11 @@
 package es.codeurjc.webapp15.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,25 +17,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.service.ConcertService;
-
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class SearchController {
+
+    @ModelAttribute("user")
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("user", request.isUserInRole("USER"));
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
 
     @Autowired
     private ConcertRepository concerts;
 
     @Autowired
 	private ConcertService concertService;
-
-    @Autowired
-    private GlobalControllerAdvice globalControllerAdvice;
 
     private final int pageSize = 6;
     
@@ -137,14 +147,14 @@ public class SearchController {
             htmlBuilder.append("<span>Entradas</span>");
             htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
             htmlBuilder.append("</button>");
-            if (globalControllerAdvice.globalAdminModel()) {
+            /*if (globalControllerAdvice.globalAdminModel(model, request)) { //esto no vale porque se ha cambiado el model admin
                 
                 htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
                 htmlBuilder.append("<span>Eliminar</span>");
                 htmlBuilder.append("<img src=\"image/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
-                
-            }
+           
+            } */
             htmlBuilder.append("</article>");
         }
 

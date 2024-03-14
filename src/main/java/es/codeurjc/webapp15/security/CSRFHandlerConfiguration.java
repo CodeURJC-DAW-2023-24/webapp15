@@ -1,4 +1,4 @@
-/*package es.codeurjc.webapp15.security;
+package es.codeurjc.webapp15.security;
 
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
@@ -32,4 +32,4 @@ class CSRFHandlerInterceptor implements HandlerInterceptor {
             }
         }
     }
-}*/
+}
