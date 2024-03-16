@@ -51,7 +51,7 @@ public class IndexController {
                 }
             }
             model.addAttribute("logged", true);
-            model.addAttribute("userName", principal.getName());
+            model.addAttribute("user", principal.getName()); //aqui coge el email
         } else {
             model.addAttribute("logged", false);
         }
@@ -71,14 +71,15 @@ public class IndexController {
         if(principal != null) {
             Optional<User> user = userRepository.findByEmail(principal.getName());
             recommendedArtists = getRecomendArtists(user.get());
-
+            model.addAttribute("user", user);
             if (recommendedArtists.isEmpty()){
                 recommendedArtists = artistList.getContent().subList(0, 4);
             }
         } else {
             recommendedArtists = artistList.getContent().subList(0, 4);
+            model.addAttribute("logged", false);
         }
-
+      
         model.addAttribute("mainArtist", mainArtist);
         model.addAttribute("secondaryArtists", secondaryArtists);
         model.addAttribute("recommendedArtists", recommendedArtists);

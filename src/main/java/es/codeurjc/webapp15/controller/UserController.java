@@ -36,14 +36,21 @@ import es.codeurjc.webapp15.service.UserSession;
 public class UserController {
 
     @ModelAttribute("user")
-    public void addAttributes(Model model, HttpServletRequest request) {
+    public void addAttributes(Model model, HttpServletRequest request){
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
+            Optional <User> user = userRepository.findByEmail(principal.getName());
+            if (user.isPresent()){
+                if (user.get().isRole("USER")){
+                    model.addAttribute("user", true);
+                }
+                if (user.get().isRole("ADMIN")){
+                    model.addAttribute("admin", true);
+                }
+            }
             model.addAttribute("logged", true);
             model.addAttribute("userName", principal.getName());
-            model.addAttribute("user", request.isUserInRole("USER"));
-            model.addAttribute("admin", request.isUserInRole("ADMIN"));
         } else {
             model.addAttribute("logged", false);
         }
@@ -156,6 +163,7 @@ public class UserController {
             session.setUser(user);
 
             // Directly add the tickets to the model
+            model.addAttribute("user", user);
             model.addAttribute("tickets", userTickets);
 
             return "perfil"; // Ensure "perfil" is the correct view name
