@@ -172,7 +172,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/moreTickets")
+    @GetMapping("/more-tickets")
     public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
         Logger.getAnonymousLogger().info(Integer.toString(page));
         Page<Ticket> pageQuery = ticketRepository.findByUserId(session.getUser().getId(), PageRequest.of(page, 6));

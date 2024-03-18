@@ -43,11 +43,12 @@ public class SecurityConfiguration {
                     .requestMatchers("/signup").permitAll()
                     .requestMatchers("/artist/**").permitAll()
                     .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                    .requestMatchers("**.css", "**.js").permitAll()
                     .requestMatchers("/user/new").permitAll()
                     .requestMatchers("/error/**").permitAll()
                     .requestMatchers("/index/**").permitAll()
                     .requestMatchers("/info_artist/**").permitAll()
+                    .requestMatchers("concert-list-data", "get-concerts", "amount-of-concerts-by-month").permitAll()
+                    .requestMatchers("more-tickets").permitAll()
                     .requestMatchers("/login/**").permitAll()
                     .requestMatchers("/signup/**").permitAll()
                     //Private PAGES
