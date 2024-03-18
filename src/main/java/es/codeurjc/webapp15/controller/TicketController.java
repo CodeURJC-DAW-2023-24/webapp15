@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class TicketController {
     private UserRepository userRepository;
 
     @GetMapping("/payment/{id}")
-    public String proccesPayment(Model model, @PathVariable long id){
+    public String processPayment(Model model, @PathVariable long id){
         Optional<Concert> concert = concertRepository.findById(id);
         if (concert.isPresent()){
             model.addAttribute("concert", concert.get());

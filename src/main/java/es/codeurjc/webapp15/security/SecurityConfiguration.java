@@ -41,8 +41,9 @@ public class SecurityConfiguration {
                     .requestMatchers("/").permitAll()
                     .requestMatchers("/search*").permitAll()
                     .requestMatchers("/signup").permitAll()
-                    .requestMatchers("/artist/*").permitAll()
+                    .requestMatchers("/artist/**").permitAll()
                     .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                    .requestMatchers("**.css", "**.js").permitAll()
                     .requestMatchers("/user/new").permitAll()
                     .requestMatchers("/error/**").permitAll()
                     .requestMatchers("/index/**").permitAll()
@@ -52,8 +53,8 @@ public class SecurityConfiguration {
                     //Private PAGES
                     .requestMatchers("/profile").hasAnyRole("USER")
                     .requestMatchers("/payment/*").hasAnyRole("USER")
-                    .requestMatchers("/createArtist").hasAnyRole("ADMIN")
-                    .requestMatchers("/createConcert").hasAnyRole("ADMIN")
+                    .requestMatchers("/create-artist").hasAnyRole("ADMIN")
+                    .requestMatchers("/create-concert").hasAnyRole("ADMIN")
             )
             .formLogin(formLogin -> formLogin
                     .loginPage("/login")

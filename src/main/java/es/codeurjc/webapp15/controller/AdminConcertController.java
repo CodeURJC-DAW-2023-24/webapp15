@@ -1,6 +1,5 @@
 package es.codeurjc.webapp15.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
@@ -9,27 +8,14 @@ import java.sql.Time;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
-
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.Repository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Genre;
@@ -40,7 +26,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import es.codeurjc.webapp15.service.ConcertService;
 
 @Controller
-public class adminConcertController {
+public class AdminConcertController {
+    
 
 	@ModelAttribute("user")
     public void addAttributes(Model model, HttpServletRequest request){
@@ -67,16 +54,16 @@ public class adminConcertController {
 
 
 
-    @GetMapping("/createConcert")
+    @GetMapping("/create-concert")
 	public String createConcertController(Model model) {
         
         model.addAttribute("artists", artistService.findAll());
         model.addAttribute("genres", genreService.findAll());
 
-		return "createConcert";
+		return "create-concert";
 	}
 
-    @PostMapping("/createConcert")
+    @PostMapping("/create-concert")
 	public String newConcert(Model model,@RequestParam String place,Long artist,String date,String time,Integer num_ticket,Float price,Long genre, String info) throws IOException {
 		Concert concert = new Concert();
 		concert.setPlace(place);

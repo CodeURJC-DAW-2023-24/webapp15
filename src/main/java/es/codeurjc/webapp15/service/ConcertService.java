@@ -1,9 +1,10 @@
 package es.codeurjc.webapp15.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,15 +13,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.webapp15.repository.ConcertRepository;
+import es.codeurjc.webapp15.repository.TicketRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import es.codeurjc.webapp15.model.Concert;
+import es.codeurjc.webapp15.model.Ticket;
 
 @Service
 public class ConcertService {
     @Autowired
     private ConcertRepository repository;
 
+    @Autowired
+    private TicketRepository ticketRepository;
     @Autowired
     private EntityManager entityManager;
 
@@ -45,8 +50,6 @@ public class ConcertService {
         if (locations != null && !locations.isEmpty())
             jpql.append(" AND c.place IN :locations");
 
-        // System.out.println(locations.size() + " " +  artists.size());
-
         if (artists != null && !artists.isEmpty())
             jpql.append(" AND c.artist.name IN :artists");
         
@@ -63,19 +66,45 @@ public class ConcertService {
         query.setFirstResult(page.getPageNumber() * page.getPageSize());
         query.setMaxResults(page.getPageSize());
 
-        List<Concert> results = query.getResultList();
-
         return new PageImpl<>(query.getResultList());
-
-
-		
 	}
+
+    public List<Object> countConcertsByMonthInRange(long months) {
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime plusMonths = now.plusMonths(months);
+
+        Query query = entityManager.createQuery("SELECT new map(new map(YEAR(c.datetime) as year, MONTH(c.datetime) as month) as date, COUNT(c) as count) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY YEAR(c.datetime), MONTH(c.datetime)");
+
+        // Query query = entityManager.createQuery("SELECT MONTH(c.datetime), COUNT(c.datetime) FROM Concert c WHERE c.datetime BETWEEN :now AND :plusmonths GROUP BY MONTH(c.datetime)");
+        query.setParameter("now", now);
+        query.setParameter("plusmonths", plusMonths);
+        Logger.getAnonymousLogger().info(String.valueOf(query.getFirstResult()));
+        return query.getResultList();
+    }
 
     public void save(Concert concert) {
         repository.save(concert);
     }
 
     public void delete(long id) {
-        repository.deleteById(id);
+         // Search concert in BBDD
+         Optional<Concert> optionalConcert = repository.findById(id);
+         if (optionalConcert.isPresent()) {
+             Concert concert = optionalConcert.get();
+             
+             // Delete tickets of this concert
+             List<Ticket> tickets = concert.getTickets();
+             if (tickets != null) {
+                 for (Ticket ticket : tickets) {
+                     ticketRepository.delete(ticket);
+                 }
+             }
+             
+             // Delete concert
+             repository.deleteById(id);
+         
+     }
+ 
     }
 }

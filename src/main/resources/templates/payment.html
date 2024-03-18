@@ -1,15 +1,13 @@
 {{>header}}
-<div id="search-main">
-<main id="search-results">
     
-    <div id = "payment-background";>
-        <div id="contenedor">
+    <div id="payment-background">
+        <div class="container">
         <div>
-        <div id="login">
-            <div class="titulo">
+        <div class="login">
+            <div class="login-title">
                 Comprar Entradas
             </div>
-            <form id="payment-form" method ="post" action="/payment/{{#concert}}{{id}}{{/concert}}" enctype="multipart/form-data">
+            <form method ="post" action="/payment/{{#concert}}{{id}}{{/concert}}" enctype="multipart/form-data">
                 <label for="ccnum">Número de Cuenta Bancaria</label>
                 <input type="" name="target-number" placeholder="Número de Cuenta Bancaria" required>
                 <input type="hidden" name="_csrf" value="{{token}}"/>
@@ -26,7 +24,7 @@
                 <input type="text" id="cvv" name="cvv" placeholder="CVV">
                 <input type="hidden" name="_csrf" value="{{token}}"/>
 
-                <label id="num"for="numero">Número de Entradas:</label>
+                <label for="num_ticket">Número de Entradas:</label>
                 <input type="number" id="num_ticket" name="num_ticket" min="0"/>
                 <input type="hidden" name="_csrf" value="{{token}}"/>
                 
@@ -58,7 +56,5 @@
         </div>
         </div>
     </div>
-</main>
-</div>
 
 {{>footer}}

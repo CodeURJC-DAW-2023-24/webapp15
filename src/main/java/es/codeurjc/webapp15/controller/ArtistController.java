@@ -57,7 +57,7 @@ public class ArtistController {
         Page<Concert> concertList = concerts.findByArtistName(artist.getName(), PageRequest.of(0, 10));
         model.addAttribute("artist", artist);
         model.addAttribute("concerts", concertList.getContent());
-        return "info_artist";
+        return "info-artist";
     }
 
     @GetMapping("/artist/{artistName}/image")

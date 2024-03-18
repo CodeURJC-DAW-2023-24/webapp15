@@ -3,37 +3,9 @@
     <div id="search-main">
         <main id="search-results">
             <div id="search-results2">
-            {{#concerts}}
-            <article class="event-article">
-                <time>
-                    <span class="day">{{getDay}}</span>
-                    <span class="month">{{getMonth}}</span>
-                </time>
-                <div class="event-info">
-                    <h1><a href="/artist/{{#artist}}{{name}}{{/artist}}">{{#artist}}{{name}}{{/artist}}</a></h1>
-                    <p class="date-info">
-                        <span class="weekday">{{getWeekday}}</span>
-                        <span> - </span>
-                        <span class="hour">{{getHour}}</span>
-                    </p>
-                    <p class="venue-info">
-                        <span class="city">{{place}}</span>
-                    </p>
-                </div>
-                <button onclick ="location.href='/payment/{{id}}' ">
-                    <span>Entradas</span>
-                    <img src="/image/point-right.png" width="19px">
-                </button>
-                {{#admin}}
-                    <button class="delete-btn" data-id="{{id}}">
-                       <span>Eliminar</span>
-                        <img src="/image/point-right.png" width="19px">
-                    </button> 
-                {{/admin}}
-            </article>
-            {{/concerts}}
+            
             </div>
-            <button id="moreConcertButton" class="buttonMas">
+            <button id="more-results-button" class="more-results-button">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -47,30 +19,30 @@
 
             <button id="location-list-button" data-bs-toggle="collapse" data-bs-target="#location-list" aria-expanded="false" aria-controls="location-list">
                 <span>Lugar</span>
-                <img src="image/point-right.png" width="20px">
+                <img src="images/point-right.png" width="20px">
             </button>
             <ul class="collapse" id="location-list">
             </ul>
 
             <button id="artist-list-button" data-bs-toggle="collapse" data-bs-target="#artist-list" aria-expanded="false" aria-controls="artist-list">
                 <span>Artista</span>
-                <img src="image/point-right.png" width="20px">
+                <img src="images/point-right.png" width="20px">
             </button>
             <ul class="collapse" id="artist-list">
             </ul>
 
             <button id="dates-button" data-bs-toggle="collapse" data-bs-target="#dates-list" aria-expanded="false" aria-controls="dates-list">
                 <span>Fecha</span>
-                <img src="image/point-right.png" width="20px">
+                <img src="images/point-right.png" width="20px">
             </button>
             <ul class="collapse" id="dates-list">
                 <li class="date-form"><label><span>Desde:</span><input id="after-date" type="date"></label>
-                    <button class="send-date-form"><img src="image/point-right.png" width="20px"></button>
-                    <button class="reset-date-form"><img src="image/restart-icon.png" width="20px"></button>
+                    <button class="send-date-form"><img src="images/point-right.png" width="20px"></button>
+                    <button class="reset-date-form"><img src="images/restart-icon.png" width="20px"></button>
                 </li>
                 <li class="date-form"><label><span>Hasta:</span><input id="after-date" type="date"></label>
-                    <button class="send-date-form"><img src="image/point-right.png" width="20px"></button>
-                    <button class="reset-date-form"><img src="image/restart-icon.png" width="20px"></button>
+                    <button class="send-date-form"><img src="images/point-right.png" width="20px"></button>
+                    <button class="reset-date-form"><img src="images/restart-icon.png" width="20px"></button>
                 </li>
             </ul>
         </aside>

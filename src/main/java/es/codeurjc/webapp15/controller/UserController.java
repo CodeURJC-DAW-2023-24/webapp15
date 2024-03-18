@@ -85,12 +85,12 @@ public class UserController {
     private TicketRepository ticketRepository;
 
     @GetMapping("/signup")
-    public String registro(Model model, HttpServletRequest request) {
+    public String signup(Model model, HttpServletRequest request) {
 
         Principal principal = request.getUserPrincipal();
 
         if (principal == null) {
-            return "registro";
+            return "signup";
         } else {
             return "redirect:/";
         }
@@ -105,7 +105,7 @@ public class UserController {
             if (existingUsers.isPresent()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
-                return "registro"; // Return back to the registration form
+                return "signup"; // Return back to the registration form
             }
 
             userService.createUser(name, email, password, image, "ROLES");
@@ -114,7 +114,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Ha ocurrido un error.");
-            return "register"; // Redirect back to the registration page with an error message
+            return "signup"; // Redirect back to the registration page with an error message
         }
     }
 
@@ -166,7 +166,7 @@ public class UserController {
             model.addAttribute("user", user);
             model.addAttribute("tickets", userTickets);
 
-            return "perfil"; // Ensure "perfil" is the correct view name
+            return "profile";
         } else {
             return "redirect:/login";
         }
@@ -205,7 +205,7 @@ public class UserController {
                         + session.getUser().getName() + "," + concert.getDatetime() + "," + concert.getHour() + ","
                         + concert.getPlace() + ")\">");
                 htmlBuilder.append("<span>Descargar</span>");
-                htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
+                htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
                 htmlBuilder.append("</article>");
             }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 
 
@@ -20,5 +21,12 @@ public interface ConcertRepository extends JpaRepository<Concert,Long> {
 
     @Query("SELECT DISTINCT c.artist.name FROM Concert c")
     List<String> findArtists();
+
+    @Query("SELECT c.artist " +
+           "FROM Concert c " +
+           "WHERE c IN :concert_list " +
+           "GROUP BY c.artist " +
+           "ORDER BY COUNT(c.artist) DESC")
+    List<Artist> findByConcert(List<Concert> concert_list);
 }
 

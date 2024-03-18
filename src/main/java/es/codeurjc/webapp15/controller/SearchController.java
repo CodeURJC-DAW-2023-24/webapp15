@@ -123,7 +123,7 @@ public class SearchController {
         return list;
     }
 
-    private String htmlBuilder (List<Concert> concertList) {
+    private String htmlBuilder(List<Concert> concertList) {
         StringBuilder htmlBuilder = new StringBuilder();
 
         for (Concert concert : concertList) {
@@ -133,7 +133,7 @@ public class SearchController {
             htmlBuilder.append("<span class=\"month\">" + concert.getMonth() + "</span>");
             htmlBuilder.append("</time>");
             htmlBuilder.append("<div class=\"event-info\">");
-            htmlBuilder.append("<h1><a>" + concert.getArtist().getName() + "</a></h1>");
+            htmlBuilder.append("<h1><a href=\"/artist/" + concert.getArtist().getName() + "\" class=\"artist-info-anchor\" artist=\"" + concert.getArtist().getName() + "\">" + concert.getArtist().getName() + "</a></h1>");
             htmlBuilder.append("<p class=\"date-info\">");
             htmlBuilder.append("<span class=\"weekday\">" + concert.getWeekday() + "</span>");
             htmlBuilder.append("<span> - </span>");
@@ -145,13 +145,13 @@ public class SearchController {
             htmlBuilder.append("</div>");
             htmlBuilder.append("<button onclick=\"location.href =\'/payment/" + concert.getId().toString() + "\'\">");
             htmlBuilder.append("<span>Entradas</span>");
-            htmlBuilder.append("<img src=\"/image/point-right.png\" width=\"19px\">");
+            htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
             htmlBuilder.append("</button>");
             /*if (globalControllerAdvice.globalAdminModel(model, request)) { //esto no vale porque se ha cambiado el model admin
                 
                 htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
                 htmlBuilder.append("<span>Eliminar</span>");
-                htmlBuilder.append("<img src=\"image/point-right.png\" width=\"19px\">");
+                htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
            
             } */
