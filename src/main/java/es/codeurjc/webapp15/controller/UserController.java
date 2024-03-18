@@ -108,7 +108,7 @@ public class UserController {
                 return "signup"; // Return back to the registration form
             }
 
-            userService.createUser(name, email, password, image, "ROLES");
+            userService.createUser(name, email, password, image, "USER");
 
             return "redirect:/"; // Redirect to homepage or user profile page after successful login
         } catch (Exception e) {
