@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 function loadMoreTickets(page) {
     $.ajax({
-        url: '/moreTickets',
+        url: '/more-tickets',
         type: 'GET',
         data: { page: page },
         success: function(data) {

@@ -6,19 +6,17 @@
                     <div class="login-title">
                         Bienvenido
                     </div>
-                    <form action="/user" method="post">
-                        <input type="email" name="email" placeholder="Email" required>
-                        
-                        <input type="password" placeholder="Contraseña" name="password" required>
-                        
-                        <button type="submit" title="Login" name="Login">Login</button>
-                    </form>
-                    <div class="pie-form">
-                        {{#error}}
-                        <div style="color: red;">{{error}}</div>
-                        {{/error}}
-                        <a href="signup">Registrarse</a>
-                    </div>
+                <form id="login-form" action="/login" method="post">
+                    <input type="email" name="username" placeholder="Email" required>                
+                    <input type="password" placeholder="Contraseña" name="password" required>
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                    <button type="submit" title="Login" name="Login">Login</button>
+                </form>
+                <div class="pie-form">
+                    {{#error}}
+                    <div style="color: red;">{{error}}</div>
+                    {{/error}}
+                    <a href="signup">Registrarse</a>
                 </div>
             </div>
         </div>

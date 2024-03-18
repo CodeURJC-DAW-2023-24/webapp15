@@ -1,6 +1,12 @@
 package es.codeurjc.webapp15.controller;
 
 import java.io.IOException;
+import java.net.URI;
+import java.security.Principal;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
@@ -15,13 +22,28 @@ import es.codeurjc.webapp15.model.Genre;
 
 import es.codeurjc.webapp15.service.ArtistService;
 import es.codeurjc.webapp15.service.GenreService;
+import jakarta.servlet.http.HttpServletRequest;
 import es.codeurjc.webapp15.service.ConcertService;
 
 @Controller
 public class AdminConcertController {
     
 
-     @Autowired
+	@ModelAttribute("user")
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+            model.addAttribute("user", request.isUserInRole("USER"));
+            model.addAttribute("admin", request.isUserInRole("ADMIN"));
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
+    
+    @Autowired
 	private ArtistService artistService;
 
     @Autowired

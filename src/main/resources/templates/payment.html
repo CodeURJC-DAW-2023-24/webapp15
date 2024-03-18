@@ -10,14 +10,24 @@
             <form method ="post" action="/payment/{{#concert}}{{id}}{{/concert}}" enctype="multipart/form-data">
                 <label for="ccnum">Número de Cuenta Bancaria</label>
                 <input type="" name="target-number" placeholder="Número de Cuenta Bancaria" required>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+
                 <label for="expmonth">Fecha de expedición (MES)</label>
                 <input type="text" id="expmonth" name="expmonth" placeholder="Mes Expedición">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+
                 <label for="expyear">Fecha de expedición (AÑO)</label>
                 <input type="text" id="expyear" name="expyear" placeholder="Año Espedición">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" name="cvv" placeholder="CVV">
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+
                 <label for="num_ticket">Número de Entradas:</label>
                 <input type="number" id="num_ticket" name="num_ticket" min="0"/>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+                
                 <button type="submit" title="Buy" name="Buy">Comprar</button>
             </form>
         </div>

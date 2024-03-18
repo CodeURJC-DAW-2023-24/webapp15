@@ -1,10 +1,11 @@
 package es.codeurjc.webapp15.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
-
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,75 +17,99 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.repository.TicketRepository;
 import es.codeurjc.webapp15.repository.UserRepository;
 import es.codeurjc.webapp15.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import es.codeurjc.webapp15.service.UserSession;
 
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserRepository usersRepository;
+    @ModelAttribute("user")
+    public void addAttributes(Model model, HttpServletRequest request){
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            Optional <User> user = userRepository.findByEmail(principal.getName());
+            if (user.isPresent()){
+                if (user.get().isRole("USER")){
+                    model.addAttribute("user", true);
+                }
+                if (user.get().isRole("ADMIN")){
+                    model.addAttribute("admin", true);
+                }
+            }
+            model.addAttribute("logged", true);
+            model.addAttribute("userName", principal.getName());
+        } else {
+            model.addAttribute("logged", false);
+        }
+    }
+
+    @ModelAttribute("tickets")
+    public List<Ticket> globalTicketsModel(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            Optional<User> user = userRepository.findByEmail(principal.getName());
+            if (user.isPresent()) {
+                return user.get().getTickets();
+            }
+        }
+        return null;
+    }
 
     @Autowired
-    private UserService userService; // Assuming you have a UserService
+    private UserRepository userRepository;
 
     @Autowired
     private UserSession session;
 
     @Autowired
+    private UserRepository usersRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
     private TicketRepository ticketRepository;
 
-    @GetMapping("/logout")
-    public String cerrarSesion(Model model) {
-
-        session.setUser(null);
-        return "redirect:/";
-    }
-
     @GetMapping("/signup")
-    public String signup(Model model) {
+    public String signup(Model model, HttpServletRequest request) {
 
-        User user = session.getUser();
-        if (user != null) {
-            return "redirect:/";
-        } else {
+        Principal principal = request.getUserPrincipal();
+
+        if (principal == null) {
             return "signup";
+        } else {
+            return "redirect:/";
         }
     }
 
     @PostMapping("/user/new")
-    public String createUser(Model model, @RequestParam MultipartFile Image, @RequestParam String Name, @RequestParam String Email, @RequestParam String password) {
+    public String createUser(Model model, @RequestParam MultipartFile image, @RequestParam String name,
+            @RequestParam String email, @RequestParam String password) {
         try {
             // Check if user already exists with the given email
-            List<User> existingUsers = usersRepository.findByEmail(Email);
-            if (!existingUsers.isEmpty()) {
+            Optional<User> existingUsers = usersRepository.findByEmail(email);
+            if (existingUsers.isPresent()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
                 return "signup"; // Return back to the registration form
             }
 
-            User user = new User(Name, password, "USER");
-            user.setEmail(Email);
+            userService.createUser(name, email, password, image, "USER");
 
-            if (!Image.isEmpty()) {
-                user.setImg_user(BlobProxy.generateProxy(Image.getInputStream(), Image.getSize()));
-                user.setImage(true);
-            }
-            
-            usersRepository.save(user);
-            session.setUser(user);
-            
             return "redirect:/"; // Redirect to homepage or user profile page after successful login
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,14 +118,15 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/login")
-    public String login(Model model) {
-        User user = session.getUser();
-        if (user != null) {
-            return "redirect:/";
-        } else {
+    public String login(Model model, HttpServletRequest request) {
+
+        Principal principal = request.getUserPrincipal();
+
+        if (principal == null) {
             return "login";
+        } else {
+            return "redirect:/";
         }
     }
 
@@ -121,9 +147,12 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
-        User user = session.getUser(); // Assuming 'session' is your way of retrieving the currently logged-in user.
-        if (user != null) {
+    public String profile(Model model, HttpServletRequest request) {
+
+        String principal = request.getUserPrincipal().getName();
+        User user = userRepository.findByEmail(principal).orElseThrow();
+
+        if (principal != null) {
             List<Ticket> ticketList = ticketRepository.findByUserId(user.getId(), PageRequest.of(0, 6)).getContent();
             // Fetch the first 6 tickets for the user
             // Adjust the end index if the list size is less than 6
@@ -134,6 +163,7 @@ public class UserController {
             session.setUser(user);
 
             // Directly add the tickets to the model
+            model.addAttribute("user", user);
             model.addAttribute("tickets", userTickets);
 
             return "profile";
@@ -142,7 +172,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/moreTickets")
+    @GetMapping("/more-tickets")
     public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
         Logger.getAnonymousLogger().info(Integer.toString(page));
         Page<Ticket> pageQuery = ticketRepository.findByUserId(session.getUser().getId(), PageRequest.of(page, 6));
@@ -170,18 +200,21 @@ public class UserController {
                 htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
                 htmlBuilder.append("</p>");
                 htmlBuilder.append("</div>");
-                htmlBuilder.append("<button class=\"download-button\" concert-id=\"" + concert.getId() + "\" num_ticket=\"" + ticket.getNum_ticket() + "\" artist-name=\"" + concert.getArtist().getName() + "\" user-name=\"" + session.getUser().getName() + "\" date=\"" + concert.getDatetime().toLocalDate().toString() + "\" hour=\"" + concert.getHour() + "\" place=\"" + concert.getPlace() + "\">");
+                htmlBuilder.append("<button class=\"download-button\" onclick=\"downloadTicket(" + concert.getId() + ","
+                        + ticket.getNum_ticket() + "," + concert.getArtist().getName() + ","
+                        + session.getUser().getName() + "," + concert.getDatetime() + "," + concert.getHour() + ","
+                        + concert.getPlace() + ")\">");
                 htmlBuilder.append("<span>Descargar</span>");
                 htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
                 htmlBuilder.append("</button>");
                 htmlBuilder.append("</article>");
             }
-                    
+
             map.put("content", htmlBuilder);
 
-            boolean hasNext = ticketRepository.findAll(PageRequest.of(page+1, 6)).hasContent();
+            boolean hasNext = ticketRepository.findAll(PageRequest.of(page + 1, 6)).hasContent();
             map.put("hasNext", hasNext);
-                
+
             return ResponseEntity.ok(map);
         }
         return ResponseEntity.noContent().build();
@@ -230,19 +263,5 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to update image");
         }
-    }
-
-    @PostMapping("/user")
-    public String login(Model model, @RequestParam String email, @RequestParam String password) {
-        List<User> users = usersRepository.findByEmail(email);
-        if (!users.isEmpty()) {
-            User user = users.get(0); // Assuming email is unique and always returns at most one user
-            if (user.getPassword().equals(password)) {
-                session.setUser(user);
-                return "redirect:/";
-            }
-        }
-        model.addAttribute("error", "Email o Contraseña no válido");
-        return "login"; // Return to login page if authentication fails
     }
 }

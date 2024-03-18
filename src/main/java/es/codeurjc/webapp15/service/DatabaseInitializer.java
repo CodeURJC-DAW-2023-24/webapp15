@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,9 @@ public class DatabaseInitializer {
     @Autowired
     private ConcertRepository concerts;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     @PostConstruct
     public void init() throws IOException {
 
@@ -148,11 +152,11 @@ public class DatabaseInitializer {
 
         // Users Example
 
-        User admin = new User("admin", "admin", "ADMIN");
+        User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN");
         admin.setEmail("admin@admin.com");
         usersRepository.save(admin);
 
-        User user = new User("user", "user", "USER");
+        User user = new User("user", passwordEncoder.encode("user"), "USER");
         user.setEmail("user@user.com");
         usersRepository.save(user);
 

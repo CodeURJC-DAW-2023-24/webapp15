@@ -9,6 +9,6 @@ import es.codeurjc.webapp15.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByName(String Name);
-    List<User> findByEmail(String Email);
     Optional<User> findById(long id);
+    Optional<User> findByEmail(String Email);
 }

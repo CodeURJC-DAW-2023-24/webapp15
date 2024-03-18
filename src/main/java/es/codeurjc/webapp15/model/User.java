@@ -25,7 +25,7 @@ public class User {
 	private Long id;
 
 	private String name;
-	private String password;
+	private String encodedPassword;
 
 	@Column(unique = true)
     private String email;
@@ -43,9 +43,9 @@ public class User {
 	public User() {
 	}
 
-	public User(String name, String password, String... roles) {
+	public User(String name, String encodedPassword, String... roles) {
 		this.name = name;
-		this.password = password;
+		this.encodedPassword = encodedPassword;
 		this.roles = List.of(roles);
 	}
 
@@ -57,12 +57,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getEncodedPassword() {
+		return encodedPassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setEncodedPassword(String encodedPassword) {
+		this.encodedPassword = encodedPassword;
 	}
 
     public String getEmail() {
