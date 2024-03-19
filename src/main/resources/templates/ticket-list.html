@@ -1,0 +1,29 @@
+{{#tickets}}
+<article class="event-article">
+    <time>
+        <span class="day">{{#concert}}{{getDay}}{{/concert}}</span>
+        <span class="month">{{#concert}}{{getMonth}}{{/concert}}</span>
+    </time>
+    <div class="event-info">
+        <h1><a>{{#concert}}{{#getArtist}}{{getName}}{{/getArtist}}{{/concert}}</a></h1>
+        <p class="date-info">
+        <span class="weekday">{{#concert}}{{getWeekday}}{{/concert}}</span>
+        <span> - </span>
+        <span class="hour">{{#concert}}{{getHour}}{{/concert}}</span>
+        </p>
+        <p class="venue-info">
+        <span class="city">{{#concert}}{{getPlace}}{{/concert}}</span>
+        </p>
+    </div>
+    <button class="download-button">
+    <span>Descargar</span>
+    <img src="/images/point-right.png" width="19px">
+    </button>
+</article>
+{{/tickets}}
+
+{{#hasNext}}
+<button id="more-ticket-history-button" class="more-results-button">
+    <a>Mas Tickets</a>
+</button>
+{{/hasNext}}

@@ -16,12 +16,12 @@ function loadMoreTickets(page) {
         type: 'GET',
         data: { page: page },
         success: function(data) {
-            if (data == null)
-                $('#more-ticket-history-button').hide();
-            if (!data.hasNext)
-                $('#more-ticket-history-button').hide();
-            $('.tickets-history').append(data.content);
-            addDownloadButtonListeners();
+            console.log(data)
+            $('#more-ticket-history-button').hide();
+            if (data != null) {
+                $('.tickets-history').append(data);
+                addDownloadButtonListeners();
+            }
         },
         error: function() {
             alert('Error al cargar más conciertos');
