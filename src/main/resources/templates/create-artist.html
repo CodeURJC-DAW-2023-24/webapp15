@@ -17,7 +17,7 @@
                         <input type="text" name="Name" placeholder="Nombre" required>
                         
                         <input type="text" name="Info" placeholder="Información" required>
-
+                        <input type="hidden" name="_csrf" value="{{token}}"/>
                         <button onclick="location.href='/'" type="submit" title="Submit" name="Submit">Crear</button>
                     </form>
                 </div>

@@ -152,7 +152,7 @@ public class DatabaseInitializer {
 
         // Users Example
 
-        User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN");
+        User admin = new User("admin", passwordEncoder.encode("admin"), "ADMIN", "USER");
         admin.setEmail("admin@admin.com");
         usersRepository.save(admin);
 

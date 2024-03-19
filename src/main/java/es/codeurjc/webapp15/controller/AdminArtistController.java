@@ -49,19 +49,19 @@ public class AdminArtistController {
     }
 
     @GetMapping("/create-artist")
-	public String createArtistController(Model model) {
+	public String createArtistController(Model model, HttpServletRequest httpServletRequest) {
 
 		return "create-artist";
 	}
     
     @PostMapping("/create-artist")
-	public String newArtist(Model model,  @RequestParam MultipartFile Image,String Name, String Info) throws IOException {
+	public String newArtist(Model model,  @RequestParam MultipartFile Image, String Name, String Info, HttpServletRequest httpServletRequest) throws IOException {
 
 
         Artist artist = new Artist();
 		if (!Image.isEmpty()) {
 			artist.setImageFile(BlobProxy.generateProxy(Image.getInputStream(), Image.getSize()));
-	    	// artist.setImage(true);
+	    	//artist.setImage(true);
 		}
        
         artist.setName(Name);
