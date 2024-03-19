@@ -3,11 +3,6 @@ let currentTicketPage = 0;
 //AJAX in /profile
 $(document).ready(function() {
     loadMoreTickets(currentTicketPage);
-
-    $('.more-results-button').click(function() {
-        currentTicketPage++;
-        loadMoreTickets(currentTicketPage);
-    });
 });
 
 function loadMoreTickets(page) {
@@ -17,15 +12,26 @@ function loadMoreTickets(page) {
         data: { page: page },
         success: function(data) {
             console.log(data)
-            $('#more-ticket-history-button').hide();
+            $('#more-ticket-history-button').remove();
             if (data != null) {
                 $('.tickets-history').append(data);
+                addMoreResultsButtonListener();
                 addDownloadButtonListeners();
             }
         },
         error: function() {
             alert('Error al cargar más conciertos');
         }
+    });
+}
+
+function addMoreResultsButtonListener() {
+
+    const button = document.getElementById('more-ticket-history-button');
+
+    button.addEventListener('click', function() {
+        currentTicketPage++;
+        loadMoreTickets(currentTicketPage);
     });
 }
 
