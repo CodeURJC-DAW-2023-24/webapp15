@@ -26,21 +26,25 @@ import org.springframework.web.multipart.MultipartFile;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
-import es.codeurjc.webapp15.repository.TicketRepository;
-import es.codeurjc.webapp15.repository.UserRepository;
+import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import es.codeurjc.webapp15.service.UserSession;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TicketService ticketService;
 
     @ModelAttribute("user")
     public void addAttributes(Model model, HttpServletRequest request){
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Optional <User> user = userRepository.findByEmail(principal.getName());
+            Optional <User> user = userService.findByEmail(principal.getName());
             if (user.isPresent()){
                 if (user.get().isRole("USER")){
                     model.addAttribute("user", true);
@@ -61,28 +65,13 @@ public class UserController {
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Optional<User> user = userRepository.findByEmail(principal.getName());
+            Optional<User> user = userService.findByEmail(principal.getName());
             if (user.isPresent()) {
                 return user.get().getTickets();
             }
         }
         return null;
     }
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserSession session;
-
-    @Autowired
-    private UserRepository usersRepository;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private TicketRepository ticketRepository;
 
     @GetMapping("/signup")
     public String signup(Model model, HttpServletRequest request) {
@@ -101,8 +90,9 @@ public class UserController {
             @RequestParam String email, @RequestParam String password) {
         try {
             // Check if user already exists with the given email
-            Optional<User> existingUsers = usersRepository.findByEmail(email);
-            if (existingUsers.isPresent()) {
+            Optional<User> existingUser = userService.findByEmail(email);
+           
+            if (existingUser.isPresent()) {
                 // User exists, so we return an error message
                 model.addAttribute("error", "El email ya está en uso");
                 return "signup"; // Return back to the registration form
@@ -111,6 +101,7 @@ public class UserController {
             userService.createUser(name, email, password, image, "USER");
 
             return "redirect:/"; // Redirect to homepage or user profile page after successful login
+
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "Ha ocurrido un error.");
@@ -133,7 +124,7 @@ public class UserController {
     @GetMapping("/user/image/{userId}")
     public ResponseEntity<byte[]> getUserImage(@PathVariable("userId") Long userId) {
         try {
-            User user = usersRepository.findById(userId).get(); // Implement this method to find user by ID
+            User user = userService.findById(userId).get(); // Implement this method to find user by ID
             if (user != null && user.getImg_user() != null) {
                 byte[] imageBytes = user.getImg_user().getBytes(1, (int) user.getImg_user().length());
                 HttpHeaders headers = new HttpHeaders();
@@ -147,35 +138,35 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, HttpServletRequest request) {
+    public String profilea(Model model, HttpServletRequest request) {
 
         String principal = request.getUserPrincipal().getName();
-        User user = userRepository.findByEmail(principal).orElseThrow();
+        Optional<User> user = userService.findByEmail(principal);
 
-        if (principal != null) {
-            List<Ticket> ticketList = ticketRepository.findByUserId(user.getId(), PageRequest.of(0, 6)).getContent();
+        if (user.isPresent()) {
+            List<Ticket> ticketList = ticketService.findByUserId(user.get().getId(), PageRequest.of(0, 6)).getContent();
             // Fetch the first 6 tickets for the user
             // Adjust the end index if the list size is less than 6
             int endIndex = Math.min(ticketList.size(), 6);
             List<Ticket> userTickets = ticketList.subList(0, endIndex);
 
-            user.setTickets(userTickets);
-            session.setUser(user);
-
             // Directly add the tickets to the model
-            model.addAttribute("user", user);
+            model.addAttribute("user", user.get());
             model.addAttribute("tickets", userTickets);
 
             return "profile";
+
         } else {
             return "redirect:/login";
         }
     }
 
     @GetMapping("/more-tickets")
-    public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page) {
-        Logger.getAnonymousLogger().info(Integer.toString(page));
-        Page<Ticket> pageQuery = ticketRepository.findByUserId(session.getUser().getId(), PageRequest.of(page, 6));
+    public ResponseEntity<Object> moreConcerts(@RequestParam("page") int page, HttpServletRequest request) {
+
+        String principal = request.getUserPrincipal().getName();
+        Optional<User> user = userService.findByEmail(principal);
+        Page<Ticket> pageQuery = ticketService.findByUserId(user.get().getId(), PageRequest.of(page, 6));
         if (pageQuery.hasContent()) {
 
             Map<String, Object> map = new HashMap<>();
@@ -202,7 +193,7 @@ public class UserController {
                 htmlBuilder.append("</div>");
                 htmlBuilder.append("<button class=\"download-button\" onclick=\"downloadTicket(" + concert.getId() + ","
                         + ticket.getNum_ticket() + "," + concert.getArtist().getName() + ","
-                        + session.getUser().getName() + "," + concert.getDatetime() + "," + concert.getHour() + ","
+                        + user.get().getName() + "," + concert.getDatetime() + "," + concert.getHour() + ","
                         + concert.getPlace() + ")\">");
                 htmlBuilder.append("<span>Descargar</span>");
                 htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
@@ -212,7 +203,7 @@ public class UserController {
 
             map.put("content", htmlBuilder);
 
-            boolean hasNext = ticketRepository.findAll(PageRequest.of(page + 1, 6)).hasContent();
+            boolean hasNext = ticketService.findAllPage(PageRequest.of(page+1, 6)).hasContent();
             map.put("hasNext", hasNext);
 
             return ResponseEntity.ok(map);
@@ -221,13 +212,14 @@ public class UserController {
     }
 
     @PostMapping("/user/update/name")
-    public ResponseEntity<?> updateUserName(@RequestBody Map<String, String> payload) {
-        Long userId = session.getUser().getId();
+    public ResponseEntity<?> updateUserName(@RequestBody Map<String, String> payload, HttpServletRequest request) {
+        String principal = request.getUserPrincipal().getName();
+        Optional<User> user = userService.findByEmail(principal);
+        Long userId = user.get().getId();
         // Extract the new name from the payload
         String newName = payload.get("value");
         User updatedUser = userService.updateUserName(userId, newName);
         if (updatedUser != null) {
-            session.setUser(updatedUser);
             return ResponseEntity.ok().body("User name updated successfully");
         } else {
             return ResponseEntity.badRequest().body("User not found");
@@ -235,13 +227,14 @@ public class UserController {
     }
 
     @PostMapping("/user/update/email")
-    public ResponseEntity<?> updateUserEmail(@RequestBody Map<String, String> payload) {
-        Long userId = session.getUser().getId();
+    public ResponseEntity<?> updateUserEmail(@RequestBody Map<String, String> payload, HttpServletRequest request) {
+        String principal = request.getUserPrincipal().getName();
+        Optional<User> user = userService.findByEmail(principal);
+        Long userId = user.get().getId();
         // Extract the new email from the payload
         String newEmail = payload.get("value");
         User updatedUser = userService.updateUserEmail(userId, newEmail);
         if (updatedUser != null) {
-            session.setUser(updatedUser);
             return ResponseEntity.ok().body("User email updated successfully");
         } else {
             return ResponseEntity.badRequest().body("User not found");
@@ -249,15 +242,14 @@ public class UserController {
     }
 
     @PostMapping("/user/update/image")
-    public ResponseEntity<?> updateUserImage(@RequestParam("imageFile") MultipartFile file) {
+    public ResponseEntity<?> updateUserImage(@RequestParam("imageFile") MultipartFile file, HttpServletRequest request) {
         try {
-            User user = session.getUser();
+            String principal = request.getUserPrincipal().getName();
+            User user = userService.findByEmail(principal).get();
 
             user.setImg_user(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
             user.setImage(true);
-            usersRepository.save(user);
-
-            session.setUser(user);
+            userService.save(user);
 
             return ResponseEntity.ok("Image updated successfully");
         } catch (Exception e) {

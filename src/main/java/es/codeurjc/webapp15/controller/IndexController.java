@@ -8,12 +8,10 @@ import java.util.Set;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
-import java.util.logging.Logger;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,37 +27,34 @@ import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
-import es.codeurjc.webapp15.repository.ArtistRepository;
-import es.codeurjc.webapp15.repository.TicketRepository;
-import es.codeurjc.webapp15.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import es.codeurjc.webapp15.repository.ConcertRepository;
-import es.codeurjc.webapp15.repository.TicketRepository;
+import es.codeurjc.webapp15.service.ArtistService;
 import es.codeurjc.webapp15.service.ConcertService;
+import es.codeurjc.webapp15.service.TicketService;
+import es.codeurjc.webapp15.service.UserService;
 import es.codeurjc.webapp15.service.UserSession;
 
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
+    @Autowired
+    private TicketService ticketService;
 
     @Autowired
-    private UserRepository userRepository;
+    private ArtistService artistService;
 
     @Autowired
-    private ArtistRepository artists;
+    private ConcertService concertService;
 
     @Autowired
-    private ConcertRepository concerts;
-
-    @Autowired
-    private TicketRepository tickets;
+    private UserService userService;
 
     @ModelAttribute("user")
     public void addAttributes(Model model, HttpServletRequest request){
 
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
-            Optional <User> user = userRepository.findByEmail(principal.getName());
+            Optional<User> user = userService.findByEmail(principal.getName());
             if (user.isPresent()){
                 if (user.get().isRole("USER")){
                     model.addAttribute("user", true);
@@ -74,18 +69,13 @@ public class IndexController {
             model.addAttribute("logged", false);
         }
     }
-    @Autowired
-    private UserSession session;
-
-    @Autowired
-    private ConcertService concertService;
 
     private final int pageSize = 4;
     
     @GetMapping("/")
     public String indexController(Model model, HttpServletRequest request) {
 
-        Page<Artist> artistList = artists.findAll(PageRequest.of(0, 10));
+        Page<Artist> artistList = artistService.findAllPage(PageRequest.of(0, 10));
 
         Artist mainArtist = artistList.getContent().getFirst();
         List<Artist> secondaryArtists = artistList.getContent().subList(0, 4);
@@ -94,7 +84,7 @@ public class IndexController {
         Principal principal = request.getUserPrincipal();
 
         if(principal != null) {
-            Optional<User> user = userRepository.findByEmail(principal.getName());
+            Optional<User> user = userService.findByEmail(principal.getName());
             recommendedArtists = getRecomendArtists(user.get());
             model.addAttribute("user", user);
             if (recommendedArtists.isEmpty()){
@@ -117,7 +107,7 @@ public class IndexController {
     public ResponseEntity<Object> moreArtists(@RequestParam("page") int page) {
 
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Artist> pageQuery = artists.findAll(pageable);
+        Page<Artist> pageQuery = artistService.findAllPage(pageable);
 
         if (pageQuery.hasContent()) {
 
@@ -125,7 +115,7 @@ public class IndexController {
              
             map.put("content", htmlBuilder(pageQuery.getContent()));
 
-            boolean hasNext = artists.findAll(PageRequest.of(page+1, pageSize)).hasContent();
+            boolean hasNext = artistService.findAllPage(PageRequest.of(page+1, pageSize)).hasContent();
             map.put("hasNext", hasNext);
                 
             return ResponseEntity.ok(map);
@@ -152,9 +142,10 @@ public class IndexController {
 
     // TODO Do it with a SQL query
     public List<Artist> getRecomendArtists(User user){
-        List<Ticket> ticket_list = tickets.findByUser(user);
-        List<Concert> concert_list = tickets.findByTicket(ticket_list);
-        List<Artist> artist_list = concerts.findByConcert(concert_list);
+
+        List<Ticket> ticket_list = ticketService.findByUser(user);
+        List<Concert> concert_list = ticketService.findByTicket(ticket_list);
+        List<Artist> artist_list = concertService.findByConcert(concert_list);
         return artist_list;
     }
 

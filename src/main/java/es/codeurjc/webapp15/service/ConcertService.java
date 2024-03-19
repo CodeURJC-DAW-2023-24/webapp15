@@ -1,6 +1,5 @@
 package es.codeurjc.webapp15.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +8,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +16,19 @@ import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.repository.TicketRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 
 @Service
 public class ConcertService {
+
     @Autowired
     private ConcertRepository repository;
 
     @Autowired
     private TicketRepository ticketRepository;
+
     @Autowired
     private EntityManager entityManager;
 
@@ -40,7 +43,19 @@ public class ConcertService {
     public List<Concert> findAll() {
         return repository.findAll();
     }
-
+    public Page<Concert> findAllPage(PageRequest page) {
+        return repository.findAll(page);
+    }
+    public List<String> findLocations(){
+        return repository.findLocations();
+    }
+    public List<String> findArtists(){
+        return repository.findArtists();
+    }
+    
+    public List<Artist> findByConcert(List<Concert> concerts){
+        return repository.findByConcert(concerts);
+    }
     public Page<Concert> findConcerts(Pageable page, List<String> locations, List<String> artists,
                                       Optional<LocalDateTime> before, Optional<LocalDateTime> after,
                                       Optional<Float> priceLowerThan, Optional<Float> priceHigherThan) {
@@ -106,5 +121,9 @@ public class ConcertService {
          
      }
  
+    }
+
+    public  Page<Concert> findByArtistName(String name, Pageable page){
+        return repository.findByArtistName(name,page);
     }
 }

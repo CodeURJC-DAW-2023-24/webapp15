@@ -14,10 +14,12 @@ import org.springframework.ui.Model;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
-import es.codeurjc.webapp15.repository.ConcertRepository;
+import es.codeurjc.webapp15.service.ConcertService;
+import es.codeurjc.webapp15.service.TicketService;
+import es.codeurjc.webapp15.service.UserService;
+import es.codeurjc.webapp15.service.UserSession;
+
 import jakarta.servlet.http.HttpServletRequest;
-import es.codeurjc.webapp15.repository.TicketRepository;
-import es.codeurjc.webapp15.repository.UserRepository;
 
 @Controller
 public class TicketController {
@@ -37,17 +39,17 @@ public class TicketController {
     }
 
     @Autowired
-    private ConcertRepository concertRepository;
+    private ConcertService concertService;
 
     @Autowired
-    private TicketRepository ticketRepository;
+    private TicketService TicketService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping("/payment/{id}")
     public String processPayment(Model model, @PathVariable long id){
-        Optional<Concert> concert = concertRepository.findById(id);
+        Optional<Concert> concert = concertService.findById(id);
         if (concert.isPresent()){
             model.addAttribute("concert", concert.get());
         }
@@ -58,19 +60,21 @@ public class TicketController {
     @PostMapping("/payment/{id}")
     public String paymentComplete(Model model, @RequestParam Integer num_ticket, @PathVariable long id, HttpServletRequest request){
 
-        Optional<Concert> concert = concertRepository.findById(id);
+        Optional<Concert> concert = concertService.findById(id);
         if (concert.isPresent()){
             Integer left = concert.get().getNum_tickets();
             left = left - num_ticket;
             concert.get().setNum_tickets(left);
-            concertRepository.save(concert.get()); //aqui no se como guardar el concierto 
+            concertService.save(concert.get());
             String principal = request.getUserPrincipal().getName();
-            User user = userRepository.findByEmail(principal).orElseThrow();
-            Ticket ticket = new Ticket();
-            ticket.setConcert(concert.get());
-            ticket.setUser(user);
-            ticket.setNum_ticket(num_ticket);
-            ticketRepository.save(ticket);            
+            Optional<User> user = userService.findByEmail(principal);
+            if (user.isPresent()) {
+                Ticket ticket = new Ticket();
+                ticket.setConcert(concert.get());
+                ticket.setUser(user.get());
+                ticket.setNum_ticket(num_ticket);
+                TicketService.save(ticket);
+            }      
         }
         return "redirect:/";
     }

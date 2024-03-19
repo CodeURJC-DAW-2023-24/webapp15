@@ -22,4 +22,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT t.concert FROM Ticket t WHERE t IN :ticket_list")
     List<Concert> findByTicket(List<Ticket> ticket_list);
+
 }

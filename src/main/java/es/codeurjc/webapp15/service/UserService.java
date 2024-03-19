@@ -71,4 +71,15 @@ public class UserService {
 
         return user;
     }
+    
+    public void save(User user) {
+		userRepository.save(user);
+	}
+
+    public Optional<User> findByEmail(String Email){
+        return userRepository.findByEmail(Email);
+    }
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
+    }
 }

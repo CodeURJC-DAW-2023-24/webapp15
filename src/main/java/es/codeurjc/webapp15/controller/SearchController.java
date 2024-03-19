@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import es.codeurjc.webapp15.model.Concert;
-import es.codeurjc.webapp15.repository.ConcertRepository;
 import es.codeurjc.webapp15.service.ConcertService;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -43,16 +42,13 @@ public class SearchController {
     }
 
     @Autowired
-    private ConcertRepository concerts;
-
-    @Autowired
 	private ConcertService concertService;
 
     private final int pageSize = 6;
     
     @GetMapping("/search")
     public String searchController(Model model) {
-        Page<Concert> concert = concerts.findAll(PageRequest.of(0, 6,Sort.by("datetime")));
+        Page<Concert> concert = concertService.findAllPage(PageRequest.of(0, 6,Sort.by("datetime")));
         List<Concert> concertList = concert.getContent().subList(0,6);
 
         model.addAttribute("concerts", concertList);
@@ -68,10 +64,10 @@ public class SearchController {
     public ResponseEntity<Object> getConcertListData() {
         Map<String, Object> map = new HashMap<>();
 
-        List<String> locations = concerts.findLocations();
+        List<String> locations = concertService.findLocations();
         map.put("locations", locations);
 
-        List<String> artists = concerts.findArtists();
+        List<String> artists = concertService.findArtists();
         map.put("artists", artists);
 
         return ResponseEntity.ok(map);
