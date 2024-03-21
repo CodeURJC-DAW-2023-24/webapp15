@@ -1,0 +1,41 @@
+{{#concerts}}
+<article class="event-article">
+    <time>
+        <span class="day">{{getDay}}</span>
+        <span class="month">{{getMonth}}</span>
+    </time>
+    <div class="event-info">
+        {{#getArtist}}
+        <h1><a href="/artist/{{getURI}}" class="artist-info-anchor" artist="{{getName}}">{{getName}}</a></h1>
+        {{/getArtist}}
+        <p class="date-info">
+            <span class="weekday">{{getWeekday}}</span>
+            <span> - </span>
+            <span class="hour">{{getHour}}</span>
+        </p>
+        <p class="venue-info">
+            <span class="city">{{getPlace}}</span>
+        </p>
+    </div>
+    <!-- <button onclick="location.href ='/payment/" + concert.getId().toString() + "'"> -->
+    <button concertId="{{getId}}" class="tickets-concert-list-button">
+        <span>Entradas</span>
+        <img src="/images/point-right.png" width="19px">
+    </button>
+    {{#admin}}
+    <button class="delete-btn" data-id="" + concert.getId() + "">
+        <span>Eliminar</span>
+        <img src="images/point-right.png" width="19px">
+    </button>
+    {{/admin}}
+</article>
+{{/concerts}}
+{{#hasNext}}
+<button id="more-results-button" class="more-results-button">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <a>Mas Conciertos</a>
+</button>
+{{/hasNext}}

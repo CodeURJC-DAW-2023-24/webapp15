@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -75,9 +76,10 @@ public class SearchController {
 
 
     @GetMapping("/get-concerts")
-    public ResponseEntity<Object> getConcerts(@RequestParam("locations") String[] locations,
-                                              @RequestParam("artists") String[] artists,
-                                              @RequestParam("page") int page) {
+    public String getConcerts(Model model, HttpServletRequest request,
+                                @RequestParam("locations") String[] locations,
+                                @RequestParam("artists") String[] artists,
+                                @RequestParam("page") int page) {
 
         List<String> locationList = formatJSONArrayToList(locations);
         List<String> artistList = formatJSONArrayToList(artists);
@@ -85,18 +87,15 @@ public class SearchController {
         Pageable pageable = PageRequest.of(page, pageSize);
 
         Page<Concert> pageQuery = concertService.findConcerts(pageable, locationList, artistList, null, null, null, null);
-        if (pageQuery.hasContent()) {
 
-            Map<String, Object> map = new HashMap<>();
-             
-            map.put("content", htmlBuilder(pageQuery.getContent()));
+        model.addAttribute("concerts", pageQuery.getContent());
 
-            boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, null, null, null, null).hasContent();
-            map.put("hasNext", hasNext);
-                
-            return ResponseEntity.ok(map);
-        }
-        return ResponseEntity.noContent().build();
+        boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, null, null, null, null).hasContent();
+        model.addAttribute("hasNext", hasNext);
+
+        model.addAttribute("admin", request.isUserInRole("ADMIN"));
+            
+        return "concert-list";
     }
 
 
@@ -117,43 +116,5 @@ public class SearchController {
         }
 
         return list;
-    }
-
-    private String htmlBuilder(List<Concert> concertList) {
-        StringBuilder htmlBuilder = new StringBuilder();
-
-        for (Concert concert : concertList) {
-            htmlBuilder.append("<article class=\"event-article\">");
-            htmlBuilder.append("<time>");
-            htmlBuilder.append("<span class=\"day\">" + concert.getDay() + "</span>");
-            htmlBuilder.append("<span class=\"month\">" + concert.getMonth() + "</span>");
-            htmlBuilder.append("</time>");
-            htmlBuilder.append("<div class=\"event-info\">");
-            htmlBuilder.append("<h1><a href=\"/artist/" + concert.getArtist().getName() + "\" class=\"artist-info-anchor\" artist=\"" + concert.getArtist().getName() + "\">" + concert.getArtist().getName() + "</a></h1>");
-            htmlBuilder.append("<p class=\"date-info\">");
-            htmlBuilder.append("<span class=\"weekday\">" + concert.getWeekday() + "</span>");
-            htmlBuilder.append("<span> - </span>");
-            htmlBuilder.append("<span class=\"hour\">" + concert.getHour() + "</span>");
-            htmlBuilder.append("</p>");
-            htmlBuilder.append("<p class=\"venue-info\">");
-            htmlBuilder.append("<span class=\"city\">" + concert.getPlace() + "</span>");
-            htmlBuilder.append("</p>");
-            htmlBuilder.append("</div>");
-            htmlBuilder.append("<button onclick=\"location.href =\'/payment/" + concert.getId().toString() + "\'\">");
-            htmlBuilder.append("<span>Entradas</span>");
-            htmlBuilder.append("<img src=\"/images/point-right.png\" width=\"19px\">");
-            htmlBuilder.append("</button>");
-            /*if (globalControllerAdvice.globalAdminModel(model, request)) { //esto no vale porque se ha cambiado el model admin
-                
-                htmlBuilder.append("<button class=\"delete-btn\" data-id=\"" + concert.getId() + "\">");
-                htmlBuilder.append("<span>Eliminar</span>");
-                htmlBuilder.append("<img src=\"images/point-right.png\" width=\"19px\">");
-                htmlBuilder.append("</button>");
-           
-            } */
-            htmlBuilder.append("</article>");
-        }
-
-        return htmlBuilder.toString();
     }
 }
