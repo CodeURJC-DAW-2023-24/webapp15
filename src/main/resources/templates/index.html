@@ -20,27 +20,8 @@
             <main id="main-content">
                 <div class="artist-list-container">
                     <ul id="secondary-artist-list" class="artist-list">
-                        {{#secondaryArtists}}
-                            <li class="artist">
-                                <a href="/artist/{{name}}" class="link1">
-                                    <div class="artist-info">
-                                        <img src="/artist/{{name}}/image">
-                                    </div>
-                                    <h4 class="artist-info-text">{{info}}</h4>
-                                    <h3 class="artist-name-text">{{name}}</h3>
-                                </a>
-                            </li>
-                        {{/secondaryArtists}}
+                        <!-- Loaded with AJAX -->
                     </ul>
-                    <div class="more-results-container">
-                        <!-- <button id="more-results-button" class="more-results-button">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <p>Mas Artistas</p>
-                        </button> -->
-                    </div>
                     <div>
                         <canvas id="chart"></canvas>
                     </div>

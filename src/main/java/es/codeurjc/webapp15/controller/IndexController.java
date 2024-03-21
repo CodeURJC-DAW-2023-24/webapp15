@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,41 +104,19 @@ public class IndexController {
     }
 
     
-    @GetMapping("/moreArtists")
-    public ResponseEntity<Object> moreArtists(@RequestParam("page") int page) {
+    @GetMapping("/more-artists")
+    public String moreArtists(Model model, @RequestParam("page") int page) {
 
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Artist> pageQuery = artistService.findAllPage(pageable);
+        Logger.getAnonymousLogger().info(pageQuery.getContent().get(0).getName());
+            
+        model.addAttribute("artists", pageQuery.getContent());
 
-        if (pageQuery.hasContent()) {
-
-            Map<String, Object> map = new HashMap<>();
-             
-            map.put("content", htmlBuilder(pageQuery.getContent()));
-
-            boolean hasNext = artistService.findAllPage(PageRequest.of(page+1, pageSize)).hasContent();
-            map.put("hasNext", hasNext);
-                
-            return ResponseEntity.ok(map);
-        }
-        return ResponseEntity.noContent().build();
-    }
-        
-    private String htmlBuilder(List<Artist> artistList) {
-        StringBuilder htmlBuilder = new StringBuilder();
-        for (Artist artist : artistList) {
-            htmlBuilder.append("<li class=\"Artist\">");
-            htmlBuilder.append("<a href=\"" + artist.getURI() + "\" class=\"link1\">");
-            htmlBuilder.append("<div class=\"infoArtist\">");
-            htmlBuilder.append("<img src=\"" + artist.getImageFile() + "\">");
-            htmlBuilder.append("</div>");
-            htmlBuilder.append("<h4 class=\"text1Artist\">" + artist.getInfo() + "</h4>");
-            htmlBuilder.append("<h3 class=\"name1Artist\">" + artist.getName() + "</h3>");
-            htmlBuilder.append("</a>") ;  
-            htmlBuilder.append("</li>");
-        }
-
-        return htmlBuilder.toString();
+        boolean hasNext = artistService.findAllPage(PageRequest.of(page+1, pageSize)).hasContent();
+        model.addAttribute("hasNext", hasNext);
+            
+        return "artist-list";
     }
 
     // TODO Do it with a SQL query
