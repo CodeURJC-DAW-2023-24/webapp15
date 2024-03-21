@@ -33,13 +33,10 @@
                 </div>
                 <div class="tickets-history">
                     <h3>Tickets Comprados:</h3>
-                    {{^tickets}}
+                    {{^hasTickets}}
                         <p>Historial vacío</p>
-                    {{/tickets}}
+                    {{/hasTickets}}
                 </div>
-                <button id="more-ticket-history-button" class="more-results-button">
-                    <a>Mas Tickets</a>
-                </button>
             {{/user}}
         </div>
     </div>

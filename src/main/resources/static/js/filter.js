@@ -3,14 +3,8 @@ let currentPage = 0;
 document.addEventListener('DOMContentLoaded', function() {
     filter(true);
 
-    document.getElementById('more-results-button').addEventListener('click', function() {
-        currentPage++;
-        filter(false);
-    });
-
     let anchors = document.getElementsByClassName('artist-info-anchor');
     Array.prototype.forEach.call(anchors, function(anchor) {
-        console.log(anchor);
         anchor.addEventListener('click', function() {
             let artistName = anchor.getAttribute('artist');
             artistName = artistName.replace(" ", "-");
@@ -66,7 +60,6 @@ function generateArtistsCheckboxes(artists) {
 // Add listeners to filters checkboxes
 function addFiltersListeners() {
     let filters = document.querySelectorAll(".filter");
-    console.log(filters);
     filters.forEach(f => {
         f.addEventListener("change", function(){
             currentPage = 0;
@@ -108,20 +101,44 @@ function getQuery(isNewQuery) {
                 page: currentPage,
         },
         success: function(data) {
-            document.getElementById("more-results-button").style.display = 'block';
-            if (data == null)
-                document.getElementById("more-results-button").style.display = 'none';
-            if (!data.hasNext)
-                document.getElementById("more-results-button").style.display = 'none';
+            const button = document.getElementById("more-results-button");
+            if (button)
+                button.remove();
             if (isNewQuery)
                 clearSearchList();
-            document.getElementById("search-results2").insertAdjacentHTML('beforeend', data.content);
+            document.getElementById("search-results").insertAdjacentHTML('beforeend', data);
+            addMoreResultsButtonListener();
+            addTicketButtonListeners();
             addDeleteButtonListeners();
         },
         error: function() {
             alert('Error al cargar más conciertos');
         }
     });
+}
+
+function addMoreResultsButtonListener() {
+
+    const button = document.getElementById("more-results-button");
+    if (button) {
+        button.addEventListener('click', function() {
+            currentPage++;
+            filter(false);
+        });
+    }
+
+}
+
+function addTicketButtonListeners() {
+
+    const ticketButtons = document.querySelectorAll('.tickets-concert-list-button');
+
+    ticketButtons.forEach(button => {
+        let id = button.getAttribute("concertId");
+        button.addEventListener('click', function() {
+            window.location.href = "/payment/" + id;
+        })
+    })
 }
 
 function addDeleteButtonListeners() {
@@ -138,8 +155,8 @@ function addDeleteButtonListeners() {
                 })
                 .then(response => {
                     if (response.ok) {
-                        // Eliminación exitosa, puedes realizar alguna acción adicional si es necesario
-                        button.parentNode.remove(); // Eliminar el elemento HTML del concierto eliminado
+                        // Successful removal
+                        button.parentNode.remove();
                         alert('Concierto eliminado correctamente');
                     } else {
                         alert('Hubo un problema al intentar eliminar el concierto.');

@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/index/**").permitAll()
                     .requestMatchers("/info_artist/**").permitAll()
                     .requestMatchers("concert-list-data", "get-concerts", "amount-of-concerts-by-month").permitAll()
-                    .requestMatchers("more-tickets").permitAll()
+                    .requestMatchers("more-artists", "more-tickets").permitAll()
                     .requestMatchers("/login/**").permitAll()
                     .requestMatchers("/signup/**").permitAll()
                     //Private PAGES

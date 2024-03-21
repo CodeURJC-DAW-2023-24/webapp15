@@ -1,0 +1,20 @@
+{{#artists}}
+    <li class="artist">
+        <a href="/artist/{{getURI}}" class="link1">
+            <div class="artist-info">
+                <img src="/artist/{{getName}}/image">
+            </div>
+            <h4 class="artist-info-text">{{getInfo}}</h4>
+            <h3 class="artist-name-text">{{getName}}</h3>
+        </a>
+    </li>
+{{/artists}}
+{{#hasNext}}
+    <button id="more-artists-button" class="more-results-button">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <p>Mas Artistas</p>
+    </button>
+{{/hasNext}}
