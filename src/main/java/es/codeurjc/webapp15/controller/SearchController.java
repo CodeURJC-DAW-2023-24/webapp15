@@ -59,7 +59,7 @@ public class SearchController {
     public ResponseEntity<String> deleteConcert(@PathVariable Long id) {
         concertService.delete(id);
         return new ResponseEntity<>("Concierto eliminado correctamente", HttpStatus.OK);
-    }
+}
 
     @GetMapping("/concert-list-data")
     public ResponseEntity<Object> getConcertListData() {

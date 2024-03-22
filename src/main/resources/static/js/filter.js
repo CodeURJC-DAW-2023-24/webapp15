@@ -162,7 +162,10 @@ function addDeleteButtonListeners() {
                         alert('Hubo un problema al intentar eliminar el concierto.');
                     }
                 })
-                .catch(error => console.error('Error al eliminar el concierto:', error));
+                .catch(error => {
+                    console.error('Error en la solicitud DELETE:', error);
+                    alert('Error en la solicitud DELETE');
+                });
             }
         });
     });

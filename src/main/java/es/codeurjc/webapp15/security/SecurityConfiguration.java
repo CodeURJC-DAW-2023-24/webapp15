@@ -3,6 +3,7 @@ package es.codeurjc.webapp15.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +36,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authenticationProvider(authenticationProvider());
+        http.csrf().ignoringRequestMatchers("/search/**");
         http
             .authorizeHttpRequests(authorize -> authorize
                     //Public PAGES
@@ -56,6 +58,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/payment/*").hasAnyRole("USER")
                     .requestMatchers("/create-artist").hasAnyRole("ADMIN")
                     .requestMatchers("/create-concert").hasAnyRole("ADMIN")
+                    .requestMatchers("/search/**").hasRole("ADMIN")
             )
             .formLogin(formLogin -> formLogin
                     .loginPage("/login")
@@ -68,6 +71,7 @@ public class SecurityConfiguration {
                     .logoutSuccessUrl("/")
                     .permitAll()
             );
+            
     
         // Disable CSRF at the moment
         //http.csrf(csrf -> csrf.disable());
