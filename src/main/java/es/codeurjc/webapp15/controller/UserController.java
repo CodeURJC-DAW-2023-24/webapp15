@@ -150,7 +150,7 @@ public class UserController {
             boolean hasTickets = ticketService.findByUserId(user.get().getId(), PageRequest.of(0, 1)).hasContent();
 
             model.addAttribute("user", user.get());
-            model.addAttribute("tickets", hasTickets);
+            model.addAttribute("hasTickets", hasTickets);
 
             return "profile";
 
@@ -167,7 +167,7 @@ public class UserController {
         Page<Ticket> pageQuery = ticketService.findByUserId(user.get().getId(), PageRequest.of(page, 6));
 
         model.addAttribute("tickets", pageQuery.getContent());
-
+        model.addAttribute("user", user.get());
         boolean hasNext = ticketService.findAllPage(PageRequest.of(page+1, 6)).hasContent();
         model.addAttribute("hasNext", hasNext);
 

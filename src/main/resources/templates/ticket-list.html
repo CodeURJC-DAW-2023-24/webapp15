@@ -1,5 +1,6 @@
 {{#tickets}}
 <article class="event-article">
+    
     <time>
         <span class="day">{{#concert}}{{getDay}}{{/concert}}</span>
         <span class="month">{{#concert}}{{getMonth}}{{/concert}}</span>
@@ -14,16 +15,23 @@
         <p class="venue-info">
         <span class="city">{{#concert}}{{getPlace}}{{/concert}}</span>
         </p>
+        <p class="venue-info">
+            <span class="name">{{#user}}<em>Nombre:</em> {{getName}} {{/user}}</span>
+        </p>
+        <p class="venue-info">
+            <span class="numticket">{{#concert}}<em>Entradas:</em> {{getNum_ticket}} tickets{{/concert}}</span>
+        </p>
+       
     </div>
-    <button class="download-button">
+    <button class="download-button" data-id="{{#concert}}{{getId}}{{/concert}}">
     <span>Descargar</span>
     <img src="/images/point-right.png" width="19px">
-    </button>
+    </button>   
 </article>
 {{/tickets}}
-
 {{#hasNext}}
 <button id="more-ticket-history-button" class="more-results-button">
     <a>Mas Tickets</a>
 </button>
 {{/hasNext}}
+
