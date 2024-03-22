@@ -17,7 +17,6 @@ import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserService;
-import es.codeurjc.webapp15.service.UserSession;
 
 import jakarta.servlet.http.HttpServletRequest;
 

@@ -1,17 +1,9 @@
 package es.codeurjc.webapp15.controller;
 
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +24,6 @@ import es.codeurjc.webapp15.service.ArtistService;
 import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserService;
-import es.codeurjc.webapp15.service.UserSession;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -65,7 +56,7 @@ public class IndexController {
                 }
             }
             model.addAttribute("logged", true);
-            model.addAttribute("user", principal.getName()); //aqui coge el email
+            model.addAttribute("user", principal.getName());
         } else {
             model.addAttribute("logged", false);
         }
@@ -119,7 +110,7 @@ public class IndexController {
         return "artist-list";
     }
 
-    // TODO Do it with a SQL query
+    
     public List<Artist> getRecomendArtists(User user){
 
         List<Ticket> ticket_list = ticketService.findByUser(user);

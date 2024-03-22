@@ -1,12 +1,7 @@
 package es.codeurjc.webapp15.controller;
 
 import java.io.IOException;
-import java.net.URI;
 import java.security.Principal;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
