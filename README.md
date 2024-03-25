@@ -108,7 +108,8 @@
 ![DiagramaUML](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/77e64ce6-355a-424c-8cb6-2203ab79a148)
 
 ### Diagrama de templates y clases
-![DiagramaTemplate](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/d8815952-1149-4a8a-8c6e-355bd5348b24)
+<img width="895" alt="Captura de pantalla 2024-03-25 a las 19 48 09" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/44c2fbbe-9c2b-42ea-af6d-d940d7b49a1b">
+
 
 ## Participación de los miembros del equipo
 
