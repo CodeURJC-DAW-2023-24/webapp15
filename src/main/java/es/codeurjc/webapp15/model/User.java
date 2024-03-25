@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.sql.Blob;
 
 import jakarta.persistence.Column;
@@ -20,18 +23,31 @@ import jakarta.persistence.OneToMany;
 @SessionScope
 public class User {
 
+	// /**
+	//  * MinimalUser
+	//  */
+	// public interface MinimalUser {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView(MinimalView.class)
 	private Long id;
 
+	@JsonView(MinimalView.class)
 	private String name;
+
+	@JsonIgnore
 	private String encodedPassword;
 
 	@Column(unique = true)
+	@JsonView(MinimalView.class)
     private String email;
 
 	@Lob
+	@JsonIgnore
 	private Blob img_user;
+
+	@JsonIgnore
 	private boolean image;
 
 	@ElementCollection(fetch = FetchType.EAGER)

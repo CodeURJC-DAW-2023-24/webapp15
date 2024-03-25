@@ -1,5 +1,9 @@
 package es.codeurjc.webapp15.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GeneratedValue;
@@ -8,17 +12,25 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Ticket {
+
+    // /**
+    //  * MinimalTicket
+    //  */
+    // public interface MinimalTicket {}
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(MinimalView.class)
 	private Long id;
 
     @ManyToOne
     private User user;
 
-    @ManyToOne 
+    @ManyToOne
+    @JsonView(MinimalView.class)
     private Concert concert;
 
+    @JsonView(MinimalView.class)
     private Integer num_ticket;
 
     public Integer getNum_ticket() {
