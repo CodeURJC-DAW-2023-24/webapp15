@@ -40,6 +40,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authorize -> authorize
                     //Public PAGES
                     .requestMatchers("/").permitAll()
+                    .requestMatchers("/api/**").permitAll()
                     .requestMatchers("/search*").permitAll()
                     .requestMatchers("/signup").permitAll()
                     .requestMatchers("/artist/**").permitAll()
@@ -54,6 +55,7 @@ public class SecurityConfiguration {
                     .requestMatchers("/signup/**").permitAll()
                     //Private PAGES
                     .requestMatchers("/profile").hasAnyRole("USER")
+                    .requestMatchers("/user/update/**", "/user/image/**").hasAnyRole("USER")
                     .requestMatchers("/payment/*").hasAnyRole("USER")
                     .requestMatchers("/create-artist").hasAnyRole("ADMIN")
                     .requestMatchers("/create-concert").hasAnyRole("ADMIN")
