@@ -3,6 +3,7 @@ package es.codeurjc.webapp15.controller.restController;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,42 +20,26 @@ import java.util.logging.Logger;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 
-//TODO: Not tested because security is not done
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
     
     @Autowired
-    private UserService userService;
-
-    @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<Object> logout(@RequestBody String entity) {
-        //TODO: process POST request        
-        
-        return ResponseEntity.notFound().build();
-    }
-    
-    
+    private UserService userService;    
 
     @GetMapping("/me")
     public ResponseEntity<Object> me(HttpServletRequest request) {
@@ -140,6 +125,40 @@ public class UserRestController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> putUser(@PathVariable Long id, @RequestBody User updatedUser) throws SQLException {
+
+        if (userService.exist(id)) {
+            
+            // Mantain current image
+            User storedUser = userService.findById(id).get();
+            if (storedUser.getImg_user() != null) {
+                updatedUser.setImg_user(BlobProxy.generateProxy(storedUser.getImg_user().getBinaryStream(), storedUser.getImg_user().length()));
+            }
+
+            updatedUser.setId(id);
+            userService.save(updatedUser);
+
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Artist> deleteUser(@PathVariable Long id) {
+
+        try {
+            userService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (EmptyResultDataAccessException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
     
     

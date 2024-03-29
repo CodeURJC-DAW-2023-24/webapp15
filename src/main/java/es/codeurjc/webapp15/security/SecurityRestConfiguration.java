@@ -1,12 +1,9 @@
 package es.codeurjc.webapp15.security;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,16 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
-
-import es.codeurjc.webapp15.service.UserService;
 
 @Controller
 @EnableWebSecurity
 public class SecurityRestConfiguration extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-    @Autowired
-    private UserService userService;
+    // @Autowired
+    // private UserService userService;
    /*  @Autowired
     private EncoderConfiguration passwordEncoder;
     @Autowired
@@ -67,15 +61,15 @@ public class SecurityRestConfiguration extends SecurityConfigurerAdapter<Default
                         .requestMatchers("/api/concerts/**").permitAll()
                         .requestMatchers("/api/concerts").permitAll()
                         .requestMatchers("/api/artists/**").permitAll()
-                       
-
+                        .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers("/api/login/**").permitAll()
+                        .requestMatchers("/api/logout").permitAll()
                 )
                 .httpBasic().disable()
                 .formLogin().disable();
         // Disable csrf only for the api
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        //http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
