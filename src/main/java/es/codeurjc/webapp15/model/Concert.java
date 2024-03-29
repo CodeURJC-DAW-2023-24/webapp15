@@ -51,6 +51,7 @@ public class Concert {
 
     @OneToMany(mappedBy = "concert")
     @JsonView(ConcertComplete.class)
+    @JsonIgnore
     private List<Ticket> tickets;
 
     public Concert(){}

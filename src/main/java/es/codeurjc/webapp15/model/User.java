@@ -7,6 +7,8 @@ import org.springframework.web.context.annotation.SessionScope;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import es.codeurjc.webapp15.model.Ticket.TicketComplete;
+
 import java.sql.Blob;
 
 import jakarta.persistence.Column;
@@ -54,6 +56,8 @@ public class User {
 	private List<String> roles;
 
 	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+	@JsonView(TicketComplete.class)
+	@JsonIgnore
 	private List<Ticket> tickets;
 
 	public User() {

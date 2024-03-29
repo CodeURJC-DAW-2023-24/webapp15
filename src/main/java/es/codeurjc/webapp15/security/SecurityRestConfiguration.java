@@ -64,6 +64,8 @@ public class SecurityRestConfiguration extends SecurityConfigurerAdapter<Default
                         .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/login/**").permitAll()
                         .requestMatchers("/api/logout").permitAll()
+                        .requestMatchers("/api/tickets/**").permitAll()
+
                 )
                 .httpBasic().disable()
                 .formLogin().disable();

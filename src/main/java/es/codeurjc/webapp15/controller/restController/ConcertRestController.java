@@ -77,7 +77,7 @@ public class ConcertRestController {
         return new ResponseEntity<>(concert.get(), HttpStatus.OK);
     }
     
-      // View search concerts
+    // View search concerts
     @GetMapping("/get-concerts")
     @Operation(summary = "Search concerts")
     @ApiResponse(responseCode = "200", description = "Concerts retrieved")
