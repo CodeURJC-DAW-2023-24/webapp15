@@ -76,13 +76,16 @@ public class ArtistRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Object> createArtist(@RequestBody Artist artist) {
+    public ResponseEntity<Object> createArtist(@RequestParam("name") String name,@RequestParam("info") String info) {
         try {
-
+            Artist artist = new Artist();
             // Check artist name is not null
-            if (artist.getName() == null)
+            if (name == null)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Artist name cannot be null");
             
+            artist.setName(name);
+            artist.setInfo(info);
+
             artistService.save(artist);
 
             URI location = fromCurrentRequest().path("/{id}").buildAndExpand(artist.getId()).toUri();
@@ -96,6 +99,7 @@ public class ArtistRestController {
         }
 
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Artist> putArtist(@PathVariable Long id, @RequestBody Artist updatedArtist) throws SQLException {
