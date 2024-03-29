@@ -67,7 +67,7 @@ public class SecurityRestConfiguration extends SecurityConfigurerAdapter<Default
                         .requestMatchers("/api/concerts/**").permitAll()
                         .requestMatchers("/api/concerts").permitAll()
                         .requestMatchers("/api/artists/**").permitAll()
-                       
+                        .requestMatchers("/api/tickets/**").permitAll()
 
                 )
                 .httpBasic().disable()
