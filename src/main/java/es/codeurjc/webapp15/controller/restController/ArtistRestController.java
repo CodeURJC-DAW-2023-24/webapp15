@@ -49,7 +49,7 @@ public class ArtistRestController {
     private ArtistService artistService;
 
     @GetMapping("")
-    public ResponseEntity<Object> getArtists(@RequestParam int page, @RequestParam int size) {
+    public ResponseEntity<Object> getArtists(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
         
         size = Math.min(size, 20);
         
