@@ -16,7 +16,6 @@ import java.net.URI;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
+
 
 
 @RestController
@@ -160,8 +160,4 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
-    
-    
-
 }
