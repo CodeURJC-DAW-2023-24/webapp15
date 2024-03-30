@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                     .requestMatchers("more-artists", "more-tickets").permitAll()
                     .requestMatchers("/login/**").permitAll()
                     .requestMatchers("/signup/**").permitAll()
+                    .requestMatchers("api/**").permitAll()
                     //Private PAGES
                     .requestMatchers("/profile").hasAnyRole("USER")
                     .requestMatchers("/payment/*").hasAnyRole("USER")
