@@ -227,16 +227,15 @@ public class UserRestController {
     })
 
     @PostMapping("/register")
-    public ResponseEntity<User> createUser(HttpServletRequest httpServletRequest, @RequestBody User newUser,@RequestParam String password){
-        if((newUser.getEmail() == null) || (password==null) ||(newUser.getName()==null)){
+    public ResponseEntity<User> createUser(HttpServletRequest httpServletRequest, @RequestBody User newUser){
+        if((newUser.getEmail() == null) || (newUser.getEncodedPassword()==null) ||(newUser.getName()==null)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         if(userService.existEmail(newUser.getEmail())){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } else {
-            String encode = passwordEncoder.encode(password);
-            newUser.setEncodedPassword(encode);
+            newUser.setEncodedPassword(passwordEncoder.encode(newUser.getEncodedPassword()));
             userService.save(newUser);
             URI location = fromCurrentRequest().build().toUri();
             return ResponseEntity.created(location).build();

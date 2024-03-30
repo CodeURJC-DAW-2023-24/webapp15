@@ -24,11 +24,7 @@ import jakarta.persistence.OneToMany;
 @Entity(name = "UserTable")
 @SessionScope
 public class User {
-
-	// /**
-	//  * MinimalUser
-	//  */
-	// public interface MinimalUser {}
+ public interface MinimalUser extends MinimalView {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +34,7 @@ public class User {
 	@JsonView(MinimalView.class)
 	private String name;
 
-	@JsonIgnore
+	@JsonView(MinimalView.class)
 	private String encodedPassword;
 
 	@Column(unique = true)
