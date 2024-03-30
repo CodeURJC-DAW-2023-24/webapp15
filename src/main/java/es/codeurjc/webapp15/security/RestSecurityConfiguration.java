@@ -55,13 +55,18 @@ public class RestSecurityConfiguration{
 		http
 			.authorizeHttpRequests(authorize -> authorize
                     // PRIVATE ENDPOINTS poner todos los apis 
-                    .requestMatchers(HttpMethod.POST,"/api/artists/").hasRole("USER")
+                    .requestMatchers(HttpMethod.POST,"/api/artists/").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/artists/**").hasRole("USER")
                     .requestMatchers(HttpMethod.DELETE,"/api/artists/**").hasRole("ADMIN")
 
-					.requestMatchers(HttpMethod.POST,"/api/concerts").hasRole("USER")
+					.requestMatchers(HttpMethod.POST,"/api/concerts").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT,"/api/concerts**").hasRole("USER")
                     .requestMatchers(HttpMethod.DELETE,"/api/concerts**").hasRole("ADMIN")
+
+					//pago
+
+					//busqueda
+
 					// PUBLIC ENDPOINTS
 					.anyRequest().permitAll()
 			);
