@@ -40,7 +40,7 @@ public class SecurityRestConfiguration extends SecurityConfigurerAdapter<Default
     }*/
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
+    public AuthenticationManager authenticationRestManager(AuthenticationConfiguration authConfiguration) throws Exception {
         return authConfiguration.getAuthenticationManager();
     }
 
