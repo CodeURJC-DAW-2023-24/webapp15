@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import es.codeurjc.webapp15.model.Concert.ConcertComplete;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GeneratedValue;
@@ -14,10 +15,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Ticket {
 
-    // /**
-    //  * MinimalTicket
-    //  */
-    // public interface MinimalTicket {}
+    public interface TicketComplete extends MinimalView {}
     
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,12 +23,11 @@ public class Ticket {
 	private Long id;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonView(MinimalView.class)
     private User user;
 
     @ManyToOne
     @JsonView(MinimalView.class)
-    @JsonIgnore
     private Concert concert;
 
     @JsonView(MinimalView.class)

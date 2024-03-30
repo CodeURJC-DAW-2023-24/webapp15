@@ -4,16 +4,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.service.ArtistService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 
 import java.net.URI;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -23,7 +17,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,13 +69,16 @@ public class ArtistRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Object> createArtist(@RequestBody Artist artist) {
+    public ResponseEntity<Object> createArtist(@RequestParam("name") String name,@RequestParam("info") String info) {
         try {
-
+            Artist artist = new Artist();
             // Check artist name is not null
-            if (artist.getName() == null)
+            if (name == null)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Artist name cannot be null");
             
+            artist.setName(name);
+            artist.setInfo(info);
+
             artistService.save(artist);
 
             URI location = fromCurrentRequest().path("/{id}").buildAndExpand(artist.getId()).toUri();
@@ -96,6 +92,7 @@ public class ArtistRestController {
         }
 
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Artist> putArtist(@PathVariable Long id, @RequestBody Artist updatedArtist) throws SQLException {
