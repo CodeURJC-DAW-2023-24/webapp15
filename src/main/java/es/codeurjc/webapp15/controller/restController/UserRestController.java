@@ -157,6 +157,46 @@ public class UserRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @PutMapping("/newname")
+    public ResponseEntity<User> changeInfo(HttpServletRequest request, @RequestBody String name) throws SQLException {
+        if(name==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            User user = userService.findByEmail(principal.getName()).get();
+            if((user.getName() != name)){
+                    user.setName(name);
+                    userService.save(user);
+                    return new ResponseEntity<>(user,HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    @PutMapping("/newImage")
+    public ResponseEntity<User> changeInfo(HttpServletRequest request, @RequestBody MultipartFile image) throws SQLException {
+        if(image==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            User user = userService.findByEmail(principal.getName()).get();
+            if((user.getImg_user() != image)){
+                try {
+                    user.setImg_user(BlobProxy.generateProxy(image.getInputStream(), image.getSize()));
+                    user.setImage(true);
+                    userService.save(user);
+
+                    
+                    return new ResponseEntity<>(user,HttpStatus.OK);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Artist> deleteUser(@PathVariable Long id) {

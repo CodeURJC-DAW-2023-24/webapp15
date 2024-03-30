@@ -4,7 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.service.ArtistService;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.net.URI;
 import java.sql.SQLException;
@@ -69,26 +70,22 @@ public class ArtistRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Object> createArtist(@RequestParam("name") String name,@RequestParam("info") String info) {
-        try {
-            Artist artist = new Artist();
-            // Check artist name is not null
-            if (name == null)
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Artist name cannot be null");
-            
-            artist.setName(name);
-            artist.setInfo(info);
+    @Operation(summary = "Create a new artist")
+    @ApiResponse(responseCode = "201", description = "Artist created")
+    @ApiResponse(responseCode = "400", description = "Artist not created")
+    @ApiResponse(responseCode = "403", description = "User not authorized")
+    public ResponseEntity<Object> createArtist(@RequestBody Artist artist) {
 
+        if((artist.getName()==null) || (artist.getInfo()==null)){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Artist name or Artist info cannot be null");
+        }
+        else if(artistService.findFirstByNameIgnoreCase(artist.getName())!=null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Artist exists");
+        }
+        else{            
             artistService.save(artist);
-
             URI location = fromCurrentRequest().path("/{id}").buildAndExpand(artist.getId()).toUri();
             return ResponseEntity.created(location).body(artist);
-        }
-        catch (HttpMessageNotReadableException | EmptyResultDataAccessException ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        catch (DataIntegrityViolationException ex) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Unique index or primary key violation");
         }
 
     }

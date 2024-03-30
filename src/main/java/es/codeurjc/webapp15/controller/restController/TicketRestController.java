@@ -1,6 +1,7 @@
 package es.codeurjc.webapp15.controller.restController;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,24 +83,23 @@ public class TicketRestController {
     @ApiResponse(responseCode = "201", description = "Ticket created")
     @ApiResponse(responseCode = "400", description = "Ticket not created")
     @ApiResponse(responseCode = "403", description = "User not authorized")
-    public ResponseEntity<Ticket> createTicket(@RequestParam("num_ticket") Integer num_ticket, @RequestParam("id_user") long id,@RequestParam("user") HttpServletRequest request) {
-        
-        Optional<Concert> concert = concertService.findById(id);
-        if (concert.isPresent()){
-            Integer left = concert.get().getNum_tickets();
-            left = left - num_ticket;
-            concert.get().setNum_tickets(left);
-            concertService.save(concert.get());
-            String principal = request.getUserPrincipal().getName();
-            Optional<User> user = userService.findByEmail(principal);
-            if (user.isPresent()) {
-                Ticket ticket = new Ticket();
-                ticket.setConcert(concert.get());
-                ticket.setUser(user.get());
-                ticket.setNum_ticket(num_ticket);
-                ticketService.save(ticket);
-                return ResponseEntity.created(URI.create("/api/concerts/" + ticket.getId())).body(ticket);
-            }      
+    public ResponseEntity<Ticket> createTicket(@RequestParam("num_ticket") Integer num_ticket, @RequestParam("id_user") long id,HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        if (principal != null) {
+            User user = userService.findByEmail(principal.getName()).get();
+            Optional<Concert> concert = concertService.findById(id);
+            if (concert.isPresent()){
+                Integer left = concert.get().getNum_tickets();
+                left = left - num_ticket;
+                concert.get().setNum_tickets(left);
+                concertService.save(concert.get());
+                    Ticket ticket = new Ticket();
+                    ticket.setConcert(concert.get());
+                    ticket.setUser(user);
+                    ticket.setNum_ticket(num_ticket);
+                    ticketService.save(ticket);
+                    return ResponseEntity.created(URI.create("/api/concerts/" + ticket.getId())).body(ticket); 
+            }
         }
             return ResponseEntity.notFound().build();
     }
