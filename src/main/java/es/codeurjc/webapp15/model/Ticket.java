@@ -1,6 +1,7 @@
 package es.codeurjc.webapp15.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -24,10 +25,12 @@ public class Ticket {
 	private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JsonView(MinimalView.class)
+    @JsonIgnore
     private Concert concert;
 
     @JsonView(MinimalView.class)
