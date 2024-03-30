@@ -64,13 +64,8 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
+
                         // PRIVATE ENDPOINTS
-                        .requestMatchers(HttpMethod.GET,"/api/concerts").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/concerts/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/artists").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/artists/**").permitAll()
-
-
                         .requestMatchers(HttpMethod.GET,"/api/tickets").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.GET,"/api/users/**").hasAnyRole("USER","ADMIN")
 
@@ -116,7 +111,7 @@ public class SecurityConfiguration {
 
         http.authenticationProvider(authenticationProvider());
 
-        // esta linea no la puse yo preguntar porque??????????????????????????
+        //si se quita esta linea no deja borrar los conciertos
         http.csrf().ignoringRequestMatchers("/search/**");
 
         http
