@@ -215,3 +215,20 @@
 
 ## Diagrama de clases(ACTUALIZACIÓN)
 ![DiagramaFase3](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/61629095-b7f9-4fbe-af1d-b36579efe53c)
+
+- Jesús Pérez
+
+	- Durante la fase 3 he estado trabajando principalmente en la implementacion de API REST. De forma más concreta en los métodos http para el RestController de entradas de conciertos. Adicionalmente he realizado algunas funciones, también de API REST como el registrar usuario e implementado todas las @ApiResponses dentro de los RestControllers. Por último he participado activamente en la resolución de errores en lo relacionado a API REST.
+
+	- Commits más significativos:
+	- [TicketRestController](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/63ecead85b99ef27d55c9a8d80b1f2a3ca8b7613)
+	- [Register user](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/2939e2165944a3a7c07274431e8e084791c0520c)
+	- [ApiResponses artist](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/bc9f979d7079bfe61784c344400fc521a3b56872)
+	- [ApiResponses concert](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/e4414193193c5bcb8fea40a29397ee7f985401f2)
+	- [ApiResponses Tickets](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/e1fcf2dc608cb05ab7f63aff94a2ff2cccd64af9)
+
+	- Ficheros más significativos:
+	- [TicketRestControler.java](https://github.com/CodeURJC-DAW-2023-4/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/TicketRestController.java)
+	- [UserRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/UserRestController.java)
+	- [ConcertRestController](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/ConcertRestController.java)
+	- [ArtistRestController](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/ArtistRestController.java)
