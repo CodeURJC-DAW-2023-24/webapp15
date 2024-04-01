@@ -104,10 +104,11 @@
 
 <img width="995" alt="DiagramaNavegacion" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/50c79558-a6de-43a0-a348-f01fb8783c1a">
 
-### Diagrama de entidades bases de datos
+# FASE 2
+## Diagrama de entidades bases de datos
 ![DiagramaUML](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/77e64ce6-355a-424c-8cb6-2203ab79a148)
 
-### Diagrama de templates y clases
+## Diagrama de templates y clases
 <img width="895" alt="Captura de pantalla 2024-03-25 a las 19 48 09" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/44c2fbbe-9c2b-42ea-af6d-d940d7b49a1b">
 
 
@@ -210,3 +211,7 @@
 		- [UserService.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/service/UserService.java)
 		- [perfil.js](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/static/profile.js)
 		- [perfil.html](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/templates/profile.html)
+# FASE 3
+
+## Diagrama de clases(ACTUALIZACIÓN)
+![DiagramaFase3](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/61629095-b7f9-4fbe-af1d-b36579efe53c)
