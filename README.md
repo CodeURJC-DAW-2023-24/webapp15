@@ -218,6 +218,55 @@
 ## Diagrama de clases(ACTUALIZACIÓN)
 ![DiagramaFase3](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/61629095-b7f9-4fbe-af1d-b36579efe53c)
 
+## Instrucciones de ejecución de la aplicación dockerizada
+- Tener instalado:
+	- git
+	- docker
+	- plugin docker compose
+- Una vez se tiene instalado lo anterior, se debe clonar el repositorio de github del proyecto con el siguiente comando:
+	- git clone https://github.com/CodeURJC-DAW-2023-24/webapp15.git
+- Luego se debe de ir a la carpeta docker dentro de backend:
+	- cd backend/docker
+- Y por último ejecutar docker compose:
+	- docker compose up -d
+- Cuando termine se termine de inicializar todo, se puede visitar la web en la siguiente url:
+	- https://localhost:8443 (si lo estás usando en tu ordenador local)
+	- https://10.100.139.56:8443 (si estás conectado a la vpn de la urjc)
+## Construcción de la imagen de docker
+- El script create_image.sh, dentro de la carpeta docker, se encarga tanto de construirla como de subirla al dockerhub. Para ejecutar dicho script se tiene que ir al path en donde se encuentra create_image.sh y ejecutarlo.
+
+## Desplegar en la máquina virtual de la urjc
+- Lo primero que hay que hacer es instalar docker y su plugin docker compose:
+  # Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+- Ahora necesitamos que el usuario con el que estamos conectado pueda usar docker sin la necesidad de usar el comando "sudo", para ello lo añadiremos al grupo de docker con el siguiente comando:
+   sudo usermod -aG docker $USER
+- Una vez hecho esto, cerraremos sesión y volveremos a iniciarla para que se apliquen los cambios.
+- A continuación seguiremos los pasos explicados en el apartado anterior "Instrucciones de ejecución de la aplicación dockerizada".
+
+## URL de la aplicación y credenciales de ejemplo:
+- URL: https://10.100.139.56:8443
+- credenciales de ejemplo:
+	- usuario normal:
+   		- email: user@user.com
+       		- password: user
+         - usuario admin:
+           	- email: admin@admin.com
+           	- password: admin
+
 ## Participación de los miembros del equipo
 - Diego Del Amo Infante
   	- Durante esta fase, me he encargado de la implementación de la API REST donde me he encargado de toda la parte de la Api REST relacionado con el ticket, los POST y DELETES de las APIS. Además, me he encargado de la APi correspondiente a la autentificación y, además, de la resolución de errores que han ido surgiendo a lo largo de la fase.
