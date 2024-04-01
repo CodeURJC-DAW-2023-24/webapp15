@@ -302,13 +302,13 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 - Xavier Medina Salas
   	- En la fase 3 me he encargado de la rama de seguridad de la aplicación, implementando la RestSecurity y actualizandolo para que funcione con API Rest. En particular me he encargado de agregar la caperta de JW a la seguridad, de agregar las dependencias en el pom, también de la nueva implementación de la SecurityConfiguration junto con el tratamiento de filtro de las solicitudes.
-	-Commits mas significativos:
+  	- Commits mas significativos:
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/ac6d76e27afd8e1aa8495d88ab103f1a9cf3d829
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/eeac0a417b4d3d83fe10cf881e6d9d4940db4df9
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/a51781f8c0a777cf20b1bd8d1b6d6b6f9a259771
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f9de619e66e6dc8b3328a7ae486aa925443e27d8
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/c0d49316065c7a437c8e1204754f1351cefb74f7
-	-Ficheros mas significativos:
+	- Ficheros mas significativos:
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/backend/src/main/java/es/codeurjc/webapp15/security/jwt
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/security/SecurityConfiguration.java
 		-https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/pom.xml
