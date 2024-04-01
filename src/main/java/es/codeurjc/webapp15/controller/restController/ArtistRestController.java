@@ -156,7 +156,7 @@ public class ArtistRestController {
     @ApiResponses(value = {
     @ApiResponse(
     responseCode = "200",
-    description = "Artist updated corectly",
+    description = "Artist updated correctly",
     content = {@Content(
     mediaType = "application/json",
     schema = @Schema(implementation=Artist.class)
@@ -199,7 +199,7 @@ public class ArtistRestController {
     @ApiResponses(value = {
     @ApiResponse(
     responseCode = "204",
-    description = "Artist deleted corectly",
+    description = "Artist deleted correctly",
     content = {@Content(
     mediaType = "application/json",
     schema = @Schema(implementation=Artist.class)

@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 
 import es.codeurjc.webapp15.service.ConcertService;
@@ -42,8 +41,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/concerts")
 public class ConcertRestController {
     
-
-    int pageSize = 6; 
 
     @Autowired
     private ConcertService concertService;
@@ -71,7 +68,7 @@ public class ConcertRestController {
     )
     })
     @GetMapping("")
-    public ResponseEntity<List<Concert>> getConcerts(@RequestParam(value = "page", defaultValue = "0") int page,
+    public ResponseEntity<List<Concert>> getConcerts(@RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "pageSize", defaultValue = "6") int pageSize,
                                                         @RequestParam(value = "locations", defaultValue = "") String[] locations,
                                                         @RequestParam(value = "artists", defaultValue = "") String[] artists) {
         List<String> locationList = formatJSONArrayToList(locations);
@@ -80,7 +77,6 @@ public class ConcertRestController {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("datetime"));
         Page<Concert> concerts = concertService.findConcerts(pageable,locationList,artistList,null,null,null,null);
         if (concerts.isEmpty()){
-            System.out.println(concerts);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     
