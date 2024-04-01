@@ -20,9 +20,12 @@ import java.net.URI;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +41,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
-
+class NewUser {
+    public String email;
+    public String name;
+    public String password;
+}
 
 @RestController
 @RequestMapping("/api/users")
@@ -57,7 +64,9 @@ public class UserRestController {
         if (principal != null) {
             Optional<User> user = userService.findByEmail(principal.getName());
             if (user.isPresent()) {
-                return ResponseEntity.ok(user.get().getId());
+                if (user.get().isRole("ADMIN") || user.get().isRole("USER")) {
+                    return ResponseEntity.ok(user);
+                }
             }
         }
 
@@ -74,7 +83,10 @@ public class UserRestController {
             if (user.isPresent()) {
                 if (user.get().isRole("ADMIN") ||
                     user.get().isRole("USER") && user.get().getId() == id) {
-                        return ResponseEntity.ok(user);
+                        Optional<User> requestedUser = userService.findById(id);
+                        if (requestedUser.isPresent()) {
+                            return ResponseEntity.ok(userService.findById(id));
+                        }
                     }
             }
         }
@@ -82,58 +94,103 @@ public class UserRestController {
         return ResponseEntity.notFound().build();
     }
 
+    @Operation (summary = "Registers a new user")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "201",
+            description = "User registered correctly",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Bad request, maybe one of the user attributes is missing or the type is not valid"
+        ),
+        @ApiResponse(
+            responseCode = "409",
+            description = "User already exists"
+        )
+    })
+
+    @PostMapping("")
+    public ResponseEntity<User> createUser(HttpServletRequest httpServletRequest, @RequestBody NewUser userBody){
+        if((userBody.email == null) || (userBody.name == null) || (userBody.password == null)){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if(userService.existEmail(userBody.email)){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } else {
+            String encodedPassword = passwordEncoder.encode(userBody.password);
+            User newUser = new User(userBody.email, userBody.name, encodedPassword, "USER");
+            userService.save(newUser);
+
+            String id = Long.toString(newUser.getId());
+            URI uri = fromCurrentRequest().path("/").build().toUri().resolve(id);
+            return ResponseEntity.created(uri).build();
+        }
+    }
+
     @GetMapping("/{id}/image")
-    public ResponseEntity<Object> getUserImage(@PathVariable Long id, HttpServletRequest request) {
-        
+    public ResponseEntity<Object> getUserImage(@PathVariable Long id, HttpServletRequest request) throws SQLException {
+
         Principal principal = request.getUserPrincipal();
-        if (principal != null) {
-            Optional<User> user = userService.findByEmail(principal.getName());
-            if (user.isPresent()) {
-                if (user.get().isRole("ADMIN") ||
-                    (user.get().isRole("USER") && user.get().getId() == id) &&
-                    user.get().getImg_user() != null) {
-                        try {
-                            byte[] imageBytes = user.get().getImg_user().getBytes(1, (int) user.get().getImg_user().length());
-                            HttpHeaders headers = new HttpHeaders();
-                            headers.setContentType(MediaType.IMAGE_JPEG); // Or the correct content type of your image
-                            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-                        }
-                        catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    }
-            }
+        if (principal == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<User> user = userService.findByEmail(principal.getName());
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (user.get().getImg_user() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (user.get().isRole("ADMIN") ||
+            user.get().isRole("USER") && user.get().getId() == id) {
+
+                Resource file = new InputStreamResource(user.get().getImg_user().getBinaryStream());
+
+                return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                .contentLength(user.get().getImg_user().length())
+                .body(file);
         }
 
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}/image")
-    public ResponseEntity<Object> postUserImage(@PathVariable Long id, @RequestParam("imageFile") MultipartFile file, HttpServletRequest request) {
+    public ResponseEntity<Object> postUserImage(@PathVariable Long id, @RequestParam("imageFile") MultipartFile file, HttpServletRequest request) throws IOException {
 
         Principal principal = request.getUserPrincipal();
-        if (principal != null) {
-            Optional<User> user = userService.findByEmail(principal.getName());
-            if (user.isPresent()) {
-                if (user.get().isRole("ADMIN") ||
-                    (user.get().isRole("USER") && user.get().getId() == id) &&
-                    user.get().getImg_user() != null) {
-                        try {
-                            user.get().setImg_user(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
-                            user.get().setImage(true);
-                            userService.save(user.get());
-
-                            URI location = fromCurrentRequest().path("/{id}/image").buildAndExpand(user.get().getId()).toUri();
-                            return ResponseEntity.created(location).build();
-                        }
-                        catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-            }
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        Optional<User> user = userService.findByEmail(principal.getName());
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        if (!user.get().isRole("ADMIN")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        if (user.get().isRole("ADMIN") ||
+            user.get().isRole("USER") && user.get().getId() == id) {
+
+                user.get().setImg_user(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
+                user.get().setImage(true);
+                userService.save(user.get());
+
+                URI location = fromCurrentRequest().path("/{id}/image").buildAndExpand(user.get().getId()).toUri();
+                return ResponseEntity.created(location).build();
+        }
+        
         return ResponseEntity.notFound().build();
+
     }
 
     @PutMapping("/{id}")
@@ -207,39 +264,6 @@ public class UserRestController {
         }
         catch (EmptyResultDataAccessException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-    @Operation (summary = "Registers a new user")
-    @ApiResponses(value = {
-        @ApiResponse(
-            responseCode = "201",
-            description = "User registered correctly",
-            content = @Content
-        ),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Bad request, maybe one of the user attributes is missing or the type is not valid"
-        ),
-        @ApiResponse(
-            responseCode = "409",
-            description = "User already exists"
-        )
-    })
-
-    @PostMapping("/register")
-    public ResponseEntity<User> createUser(HttpServletRequest httpServletRequest, @RequestBody User newUser,@RequestParam String password){
-        if((newUser.getEmail() == null) || (password==null) ||(newUser.getName()==null)){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        if(userService.existEmail(newUser.getEmail())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        } else {
-            String encode = passwordEncoder.encode(password);
-            newUser.setEncodedPassword(encode);
-            userService.save(newUser);
-            URI location = fromCurrentRequest().build().toUri();
-            return ResponseEntity.created(location).build();
         }
     }
 }

@@ -136,7 +136,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/payment/*").hasAnyRole("USER")
                         .requestMatchers("/create-artist").hasAnyRole("ADMIN")
                         .requestMatchers("/create-concert").hasAnyRole("ADMIN")
-                        .requestMatchers("/search/**").hasRole("ADMIN"))
+                        .requestMatchers("/search/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs**").hasAnyRole("ADMIN"))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/error")

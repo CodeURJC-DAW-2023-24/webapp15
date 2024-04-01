@@ -1,22 +1,31 @@
 package es.codeurjc.webapp15.controller.restController;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.codeurjc.webapp15.model.Artist;
+import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.service.ArtistService;
+import es.codeurjc.webapp15.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.IOException;
 import java.net.URI;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -41,6 +50,9 @@ public class ArtistRestController {
 
     @Autowired
     private ArtistService artistService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public ResponseEntity<Object> getArtists(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
@@ -124,8 +136,51 @@ public class ArtistRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
-    
-    
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<Object> getArtistImage(@PathVariable Long id) throws SQLException {
+
+        Optional<Artist> artist = artistService.findById(id);
+
+        if (artist.isPresent()) {
+            Resource file = new InputStreamResource(artist.get().getImageFile().getBinaryStream());
+
+            return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+            .contentLength(artist.get().getImageFile().length())
+            .body(file);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<Object> updateArtistImage(@PathVariable Long id, @RequestParam("imageFile") MultipartFile file, HttpServletRequest request) throws IOException {
+
+        Principal principal = request.getUserPrincipal();
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Optional<User> user = userService.findByEmail(principal.getName());
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        if (!user.get().isRole("ADMIN")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Optional<Artist> artist = artistService.findById(id);
+        if (artist.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        artist.get().setImageFile(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
+        artistService.save(artist.get());
+
+        URI location = fromCurrentRequest().path("/{id}/image").buildAndExpand(user.get().getId()).toUri();
+        return ResponseEntity.created(location).build();
+    }
     
 }
