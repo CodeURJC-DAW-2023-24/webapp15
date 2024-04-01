@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,7 +48,7 @@ public class Concert {
     @JsonView(MinimalView.class)
     private Genre genre;
 
-    @OneToMany(mappedBy = "concert")
+    @OneToMany(mappedBy = "concert", cascade=CascadeType.REMOVE)
     @JsonView(ConcertComplete.class)
     @JsonIgnore
     private List<Ticket> tickets;

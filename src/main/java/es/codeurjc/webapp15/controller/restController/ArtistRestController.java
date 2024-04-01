@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.service.ArtistService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import java.net.URI;
 import java.sql.SQLException;
@@ -42,6 +45,27 @@ public class ArtistRestController {
     @Autowired
     private ArtistService artistService;
 
+    @Operation(summary = "Get a page of artist")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the page",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Artist.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Invalid id supplied",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "404",
+    description = "Page not found",
+    content = @Content
+    )
+    })
     @GetMapping("")
     public ResponseEntity<Object> getArtists(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
         
@@ -57,6 +81,28 @@ public class ArtistRestController {
 
     }
 
+    @Operation(summary = "Get an artist by its id")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the artist",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Artist.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Invalid id supplied",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "404",
+    description = "Artist not found",
+    content = @Content
+    )
+    })
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> getArtist(@PathVariable int id) {
         
@@ -68,12 +114,28 @@ public class ArtistRestController {
         return ResponseEntity.ok(artist.get());
 
     }
-
+    @Operation(summary = "Create an artist")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "201",
+    description = "Artist created correctly",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Artist.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Artist not created",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "403",
+    description = "User not authorized",
+    content = @Content
+    )
+    })
     @PostMapping("")
-    @Operation(summary = "Create a new artist")
-    @ApiResponse(responseCode = "201", description = "Artist created")
-    @ApiResponse(responseCode = "400", description = "Artist not created")
-    @ApiResponse(responseCode = "403", description = "User not authorized")
     public ResponseEntity<Object> createArtist(@RequestBody Artist artist) {
 
         if((artist.getName()==null) || (artist.getInfo()==null)){
@@ -90,7 +152,27 @@ public class ArtistRestController {
 
     }
 
-
+    @Operation(summary = "Update an artist by its id")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Artist updated corectly",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Artist.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Artist not updated",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "403",
+    description = "User not authorized",
+    content = @Content
+    )
+    })
     @PutMapping("/{id}")
     public ResponseEntity<Artist> putArtist(@PathVariable Long id, @RequestBody Artist updatedArtist) throws SQLException {
 
@@ -113,6 +195,27 @@ public class ArtistRestController {
         }
     }
 
+    @Operation(summary = "Delete an artist by its id")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "204",
+    description = "Artist deleted corectly",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Artist.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Artist not updated",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "403",
+    description = "User not authorized",
+    content = @Content
+    )
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Artist> deleteArtist(@PathVariable Long id) {
 
@@ -124,8 +227,4 @@ public class ArtistRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
-    
-    
-    
 }
