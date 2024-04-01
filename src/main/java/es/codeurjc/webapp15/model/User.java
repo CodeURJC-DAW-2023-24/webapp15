@@ -11,6 +11,7 @@ import es.codeurjc.webapp15.model.Ticket.TicketComplete;
 
 import java.sql.Blob;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -55,7 +56,7 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JsonView(TicketComplete.class)
 	@JsonIgnore
 	private List<Ticket> tickets;
