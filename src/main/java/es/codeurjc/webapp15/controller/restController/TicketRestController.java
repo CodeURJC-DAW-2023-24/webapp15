@@ -24,7 +24,10 @@ import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -39,7 +42,27 @@ public class TicketRestController {
     
     @Autowired
     UserService userService;
-
+    @Operation(summary = "Get a page of tickets")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the page",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Ticket.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Invalid id supplied",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "404",
+    description = "Page not found",
+    content = @Content
+    )
+    })
     @GetMapping("")
     public ResponseEntity<Object> getTickets(@RequestParam("page") int page, HttpServletRequest request) {
 
@@ -53,6 +76,27 @@ public class TicketRestController {
         return new ResponseEntity<>(tickets.getContent(), HttpStatus.OK);
     }
 
+    @Operation(summary = "Get a ticket by id")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the ticket",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Invalid id supplied",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "404",
+    description = "Ticket not found",
+    content = @Content
+    )
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Object> getTicket(@PathVariable Long id) {
 
@@ -66,7 +110,27 @@ public class TicketRestController {
     }
 
 
-
+    @Operation(summary = "Delete a ticket by id")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the page",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Ticket not deleted",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "403",
+    description = "User not autorized",
+    content = @Content
+    )
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Ticket> deleteTicket(@PathVariable long id) {
         Ticket ticket = ticketService.findById(id).get();
@@ -80,9 +144,26 @@ public class TicketRestController {
 
     @PostMapping("")
     @Operation(summary = "Create a new ticket")
-    @ApiResponse(responseCode = "201", description = "Ticket created")
-    @ApiResponse(responseCode = "400", description = "Ticket not created")
-    @ApiResponse(responseCode = "403", description = "User not authorized")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "201",
+    description = "Ticket created",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "Ticket not created",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "403",
+    description = "User not autorized",
+    content = @Content
+    )
+    })
     public ResponseEntity<Ticket> createTicket(@RequestParam("num_ticket") Integer num_ticket, @RequestParam("id_user") long id,HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
