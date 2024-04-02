@@ -131,7 +131,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/signup/**").permitAll()
                         //.requestMatchers("api/**").permitAll()
                         // Private PAGES
-                        .requestMatchers("/profile").hasAnyRole("USER")
+                        .requestMatchers("/profile", "/user/**").hasAnyRole("USER")
                         .requestMatchers("/payment/*").hasAnyRole("USER")
                         .requestMatchers("/create-artist").hasAnyRole("ADMIN")
                         .requestMatchers("/create-concert").hasAnyRole("ADMIN")
