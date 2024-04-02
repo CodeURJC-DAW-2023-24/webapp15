@@ -314,3 +314,17 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 		- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/pom.xml
 		- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/security/LoginRequest.java
 
+- Carlos Solsona Álvarez
+	- En esta tercera fase me he encargado de la implementación de la API REST y de su documentación, en especial lo relacionado con la parte de User, así como del login y register. También me he encargado de la creación del fichero postman collection y de la generación del fichero de documentación de la API. Por último, he ayudado a corregir erroes y a integrar el código de todo el equipo mediante git.
+ 	- Commits más significativos:
+		- [Add Artist and Concerts API GET requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3545fb8411e86dbfa68ab11be42966e0e11a3fd7)
+		- [Add User REST requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/9ea3029fe3c55ad4c3a387dde545771ef0b26145)
+		- [Fix REST Register and GET and PUT images](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/1260216bdb26d3d2683cdb30e540f1d3e2580dfc)
+		- [Fix Concerts REST requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/8a59dbb077bc6369f5c65a0ac70c716da686345f)
+		- [Add Postman collection](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3cdeb7fe0a474cc3299a10c2f8772dc3ddb88889)
+	- Ficheros más significativos:
+  		- [UserRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/UserRestController.java)
+		- [AuthRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/AuthRestController.java)
+		- [ConcertRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/ConcertRestController.java)
+  		- [api-docs](https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/api-docs)
+		- [API_REST.postman_collection.json](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/API_REST.postman_collection.json)

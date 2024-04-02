@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1929036c-1216-40b4-9246-504b97fff141",
-		"name": "API REST",
+		"name": "API_REST",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33522843"
 	},
@@ -111,7 +111,7 @@
 								{
 									"key": "imageFile",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/Carloss/Pictures/renfe_leganes_021.webp"
 								}
 							]
 						},
@@ -406,7 +406,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:8443/api/tickets/1",
+							"raw": "https://localhost:8443/api/tickets/2",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -415,7 +415,7 @@
 							"path": [
 								"api",
 								"tickets",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -608,7 +608,7 @@
 								{
 									"key": "imageFile",
 									"type": "file",
-									"src": "/C:/Users/Carloss/Pictures/Profile pics/akari-navidad.jpg"
+									"src": "/C:/Users/Carloss/Pictures/renfe_leganes_021.webp"
 								}
 							]
 						},
@@ -623,38 +623,6 @@
 								"api",
 								"users",
 								"2",
-								"image"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "users/image Copy",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "imageFile",
-									"type": "file",
-									"src": "/C:/Users/Carloss/Pictures/__chen_touhou_drawn_by_junwool__f213d94449aa21fccfc7b94223e1b4c6.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "https://localhost:8443/api/users/11/image",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "8443",
-							"path": [
-								"api",
-								"users",
-								"11",
 								"image"
 							]
 						}
