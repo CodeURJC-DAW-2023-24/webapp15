@@ -261,12 +261,12 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ## URL de la aplicación y credenciales de ejemplo:
 - URL: https://10.100.139.56:8443
 - credenciales de ejemplo:
-	- usuario normal:
-   		- email: user@user.com
-       		- password: user
-         - usuario admin:
-           	- email: admin@admin.com
-           	- password: admin
+ 	- usuario normal:
+   	 	- email: user@user.com
+ 	 	- password: user
+ 	- usuario admin:
+ 	 	- email: admin@admin.com
+ 	 	- password: admin
 
 ## Participación de los miembros del equipo
 - Diego Del Amo Infante
@@ -329,3 +329,14 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 		- [ConcertRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/ConcertRestController.java)
   		- [api-docs](https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/api-docs)
 		- [API_REST.postman_collection.json](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/API_REST.postman_collection.json)
+
+- Javier García Seller
+   	- En esta fase 3 me he ocupado de dockerizar la aplicación, subirla a dockerhub, y desplegarla en la máquina virtual.
+  	- Commits más significativos:
+  	 	- [App running on Docker](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/ca9f2beaeced1a934d1b33f252beda389c019c8e)
+ 	 	- [Single command -> run app](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/0af62a8341b6e33062018cda84dcdfa3ea090a33)
+  	 	- [Dockerize new main architecture](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/67d1b0d20d15804a5e879cc9beb5dcabf26be796)
+ 	- Ficheros más significativos:
+   	 	- [Dockerfile](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/dockerfile)
+ 	 	- [docker-compose.yml](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/docker-compose.yml)
+   	 	- [create_image.sh](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/create_image.sh)
