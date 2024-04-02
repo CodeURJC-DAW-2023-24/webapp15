@@ -48,7 +48,7 @@ public class Concert {
     @JsonView(MinimalView.class)
     private Genre genre;
 
-    @OneToMany(mappedBy = "concert", cascade=CascadeType.REMOVE)
+    @OneToMany(mappedBy = "concert", cascade = CascadeType.REMOVE)
     @JsonView(ConcertComplete.class)
     @JsonIgnore
     private List<Ticket> tickets;

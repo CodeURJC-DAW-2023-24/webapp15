@@ -18,6 +18,10 @@ public class GenreService{
 	public Optional<Genre> findById(long id) {
 		return repository.findById(id);
 	}
+
+    public Optional<Genre> findByGenreType(String type) {
+        return repository.findByGenreType(type);
+    }
 	
 	public boolean exist(long id) {
 		return repository.existsById(id);

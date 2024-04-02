@@ -25,7 +25,7 @@ public class Genre{
 	private Long id;
 
     @JsonView(MinimalView.class)
-    private String genre_type;
+    private String genreType;
 
     @OneToMany(mappedBy="genre")
     @JsonIgnore
@@ -33,9 +33,9 @@ public class Genre{
 
     public Genre(){}
 
-    public Genre(String genre_type){
+    public Genre(String genreType){
 
-        this.genre_type = genre_type;
+        this.genreType = genreType;
     }
 
     public Long getId() {
@@ -46,12 +46,12 @@ public class Genre{
         this.id = id;
     }
 
-    public String getGenre_type() {
-        return genre_type;
+    public String getGenreType() {
+        return genreType;
     }
 
-    public void setGenre_type(String genre_type) {
-        this.genre_type = genre_type;
+    public void setGenreType(String genreType) {
+        this.genreType = genreType;
     }
 
     public List<Concert> getConcerts() {
