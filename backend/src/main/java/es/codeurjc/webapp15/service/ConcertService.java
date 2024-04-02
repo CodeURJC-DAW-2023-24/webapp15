@@ -103,24 +103,7 @@ public class ConcertService {
     }
 
     public void delete(long id) {
-         // Search concert in BBDD
-         Optional<Concert> optionalConcert = repository.findById(id);
-         if (optionalConcert.isPresent()) {
-             Concert concert = optionalConcert.get();
-             
-             // Delete tickets of this concert
-             List<Ticket> tickets = concert.getTickets();
-             if (tickets != null) {
-                 for (Ticket ticket : tickets) {
-                     ticketRepository.delete(ticket);
-                 }
-             }
-             
-             // Delete concert
-             repository.deleteById(id);
-         
-     }
- 
+         repository.deleteById(id);
     }
 
     public  Page<Concert> findByArtistName(String name, Pageable page){

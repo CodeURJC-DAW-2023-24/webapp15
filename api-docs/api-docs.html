@@ -762,7 +762,7 @@
       "type" : "integer",
       "format" : "int64"
     },
-    "genre_type" : {
+    "genreType" : {
       "type" : "string"
     }
   }
@@ -795,6 +795,36 @@
     },
     "password" : {
       "type" : "string"
+    }
+  }
+};
+            defs["NewConcert"] = {
+  "type" : "object",
+  "properties" : {
+    "artistId" : {
+      "type" : "integer",
+      "format" : "int64"
+    },
+    "genre" : {
+      "type" : "string"
+    },
+    "info" : {
+      "type" : "string"
+    },
+    "datetime" : {
+      "type" : "string",
+      "format" : "date-time"
+    },
+    "num_tickets" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "place" : {
+      "type" : "string"
+    },
+    "price" : {
+      "type" : "number",
+      "format" : "float"
     }
   }
 };
@@ -839,9 +869,6 @@
       "format" : "int64"
     },
     "name" : {
-      "type" : "string"
-    },
-    "encodedPassword" : {
       "type" : "string"
     },
     "email" : {
@@ -916,6 +943,9 @@
                     <li data-group="ConcertRestController" data-name="getConcerts" class="">
                       <a href="#api-ConcertRestController-getConcerts">getConcerts</a>
                     </li>
+                    <li data-group="ConcertRestController" data-name="updateConcert" class="">
+                      <a href="#api-ConcertRestController-updateConcert">updateConcert</a>
+                    </li>
                   <li class="nav-header" data-group="TicketRestController"><a href="#api-TicketRestController">API Methods - TicketRestController</a></li>
                     <li data-group="TicketRestController" data-name="createTicket" class="">
                       <a href="#api-TicketRestController-createTicket">createTicket</a>
@@ -948,8 +978,8 @@
                     <li data-group="UserRestController" data-name="postUserImage" class="">
                       <a href="#api-UserRestController-postUserImage">postUserImage</a>
                     </li>
-                    <li data-group="UserRestController" data-name="putUser" class="">
-                      <a href="#api-UserRestController-putUser">putUser</a>
+                    <li data-group="UserRestController" data-name="updateUser" class="">
+                      <a href="#api-UserRestController-updateUser">updateUser</a>
                     </li>
           </ul>
         </nav>
@@ -4152,7 +4182,7 @@ public class ConcertRestControllerApiExample {
     public static void main(String[] args) {
         
         ConcertRestControllerApi apiInstance = new ConcertRestControllerApi();
-        Concert body = ; // Concert | 
+        NewConcert body = ; // NewConcert | 
         try {
             Concert result = apiInstance.createConcert(body);
             System.out.println(result);
@@ -4171,7 +4201,7 @@ public class ConcertRestControllerApiExample {
 
     public static void main(String[] args) {
         ConcertRestControllerApi apiInstance = new ConcertRestControllerApi();
-        Concert body = ; // Concert | 
+        NewConcert body = ; // NewConcert | 
         try {
             Concert result = apiInstance.createConcert(body);
             System.out.println(result);
@@ -4187,7 +4217,7 @@ public class ConcertRestControllerApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-ConcertRestController-createConcert-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Concert *body = ; //  (optional)
+                              <pre class="prettyprint"><code class="language-cpp">NewConcert *body = ; // 
 
 ConcertRestControllerApi *apiInstance = [[ConcertRestControllerApi alloc] init];
 
@@ -4208,9 +4238,8 @@ ConcertRestControllerApi *apiInstance = [[ConcertRestControllerApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
 
 var api = new OpenApiDefinition.ConcertRestControllerApi()
-var opts = { 
-  'body':  // {{Concert}} 
-};
+var body = ; // {{NewConcert}} 
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -4218,7 +4247,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.createConcert(opts, callback);
+api.createConcert(body, callback);
 </code></pre>
                             </div>
 
@@ -4240,7 +4269,7 @@ namespace Example
         {
 
             var apiInstance = new ConcertRestControllerApi();
-            var body = new Concert(); // Concert |  (optional) 
+            var body = new NewConcert(); // NewConcert | 
 
             try
             {
@@ -4263,7 +4292,7 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiConcertRestControllerApi();
-$body = ; // Concert | 
+$body = ; // NewConcert | 
 
 try {
     $result = $api_instance->createConcert($body);
@@ -4280,7 +4309,7 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::ConcertRestControllerApi;
 
 my $api_instance = WWW::SwaggerClient::ConcertRestControllerApi->new();
-my $body = WWW::SwaggerClient::Object::Concert->new(); # Concert | 
+my $body = WWW::SwaggerClient::Object::NewConcert->new(); # NewConcert | 
 
 eval { 
     my $result = $api_instance->createConcert(body => $body);
@@ -4300,11 +4329,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.ConcertRestControllerApi()
-body =  # Concert |  (optional)
+body =  # NewConcert | 
 
 try: 
     # Create a concert
-    api_response = api_instance.create_concert(body=body)
+    api_response = api_instance.create_concert(body)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ConcertRestControllerApi->createConcert: %s\n" % e)</code></pre>
@@ -4321,7 +4350,7 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">body </td>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
                                 <td>
                                 
                                 
@@ -4331,10 +4360,11 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Concert"
+        "$ref" : "#/components/schemas/NewConcert"
       }
     }
-  }
+  },
+  "required" : true
 };
                                   var schema = schemaWrapper.content["application/json"].schema;
                                   if (schema.$ref != null) {
@@ -4410,6 +4440,14 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 400 - Concert not created </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 401 - User not identified </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -4722,6 +4760,14 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 400 - Concert not deleted </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 401 - User not authenticated </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -5056,7 +5102,7 @@ except ApiException as e:
                       <article id="api-ConcertRestController-getConcerts-0" data-group="User" data-name="getConcerts" data-version="0">
                         <div class="pull-left">
                           <h1>getConcerts</h1>
-                          <p>Get a page of concerts</p>
+                          <p>Get a page of concerts, sorted by datetime</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -5086,7 +5132,7 @@ except ApiException as e:
                           <div class="tab-pane active" id="examples-ConcertRestController-getConcerts-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 -H "Accept: application/json"\
-"https://localhost:8443/api/concerts?page=&pageSize=&locations=&artists="</code></pre>
+"https://localhost:8443/api/concerts?page=&size=&locations=&artists="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-ConcertRestController-getConcerts-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -5103,11 +5149,11 @@ public class ConcertRestControllerApiExample {
         
         ConcertRestControllerApi apiInstance = new ConcertRestControllerApi();
         Integer page = 56; // Integer | 
-        Integer pageSize = 56; // Integer | 
+        Integer size = 56; // Integer | 
         array[String] locations = ; // array[String] | 
         array[String] artists = ; // array[String] | 
         try {
-            Concert result = apiInstance.getConcerts(page, pageSize, locations, artists);
+            Concert result = apiInstance.getConcerts(page, size, locations, artists);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ConcertRestControllerApi#getConcerts");
@@ -5125,11 +5171,11 @@ public class ConcertRestControllerApiExample {
     public static void main(String[] args) {
         ConcertRestControllerApi apiInstance = new ConcertRestControllerApi();
         Integer page = 56; // Integer | 
-        Integer pageSize = 56; // Integer | 
+        Integer size = 56; // Integer | 
         array[String] locations = ; // array[String] | 
         array[String] artists = ; // array[String] | 
         try {
-            Concert result = apiInstance.getConcerts(page, pageSize, locations, artists);
+            Concert result = apiInstance.getConcerts(page, size, locations, artists);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ConcertRestControllerApi#getConcerts");
@@ -5144,15 +5190,15 @@ public class ConcertRestControllerApiExample {
   </div> -->
                             <div class="tab-pane" id="examples-ConcertRestController-getConcerts-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">Integer *page = 56; //  (optional) (default to 0)
-Integer *pageSize = 56; //  (optional) (default to 6)
+Integer *size = 56; //  (optional) (default to 6)
 array[String] *locations = ; //  (optional) (default to [])
 array[String] *artists = ; //  (optional) (default to [])
 
 ConcertRestControllerApi *apiInstance = [[ConcertRestControllerApi alloc] init];
 
-// Get a page of concerts
+// Get a page of concerts, sorted by datetime
 [apiInstance getConcertsWith:page
-    pageSize:pageSize
+    size:size
     locations:locations
     artists:artists
               completionHandler: ^(Concert output, NSError* error) {
@@ -5172,7 +5218,7 @@ ConcertRestControllerApi *apiInstance = [[ConcertRestControllerApi alloc] init];
 var api = new OpenApiDefinition.ConcertRestControllerApi()
 var opts = { 
   'page': 56, // {{Integer}} 
-  'pageSize': 56, // {{Integer}} 
+  'size': 56, // {{Integer}} 
   'locations': , // {{array[String]}} 
   'artists':  // {{array[String]}} 
 };
@@ -5206,14 +5252,14 @@ namespace Example
 
             var apiInstance = new ConcertRestControllerApi();
             var page = 56;  // Integer |  (optional)  (default to 0)
-            var pageSize = 56;  // Integer |  (optional)  (default to 6)
+            var size = 56;  // Integer |  (optional)  (default to 6)
             var locations = new array[String](); // array[String] |  (optional)  (default to [])
             var artists = new array[String](); // array[String] |  (optional)  (default to [])
 
             try
             {
-                // Get a page of concerts
-                Concert result = apiInstance.getConcerts(page, pageSize, locations, artists);
+                // Get a page of concerts, sorted by datetime
+                Concert result = apiInstance.getConcerts(page, size, locations, artists);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -5232,12 +5278,12 @@ require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiConcertRestControllerApi();
 $page = 56; // Integer | 
-$pageSize = 56; // Integer | 
+$size = 56; // Integer | 
 $locations = ; // array[String] | 
 $artists = ; // array[String] | 
 
 try {
-    $result = $api_instance->getConcerts($page, $pageSize, $locations, $artists);
+    $result = $api_instance->getConcerts($page, $size, $locations, $artists);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ConcertRestControllerApi->getConcerts: ', $e->getMessage(), PHP_EOL;
@@ -5252,12 +5298,12 @@ use WWW::SwaggerClient::ConcertRestControllerApi;
 
 my $api_instance = WWW::SwaggerClient::ConcertRestControllerApi->new();
 my $page = 56; # Integer | 
-my $pageSize = 56; # Integer | 
+my $size = 56; # Integer | 
 my $locations = []; # array[String] | 
 my $artists = []; # array[String] | 
 
 eval { 
-    my $result = $api_instance->getConcerts(page => $page, pageSize => $pageSize, locations => $locations, artists => $artists);
+    my $result = $api_instance->getConcerts(page => $page, size => $size, locations => $locations, artists => $artists);
     print Dumper($result);
 };
 if ($@) {
@@ -5275,13 +5321,13 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.ConcertRestControllerApi()
 page = 56 # Integer |  (optional) (default to 0)
-pageSize = 56 # Integer |  (optional) (default to 6)
+size = 56 # Integer |  (optional) (default to 6)
 locations =  # array[String] |  (optional) (default to [])
 artists =  # array[String] |  (optional) (default to [])
 
 try: 
-    # Get a page of concerts
-    api_response = api_instance.get_concerts(page=page, pageSize=pageSize, locations=locations, artists=artists)
+    # Get a page of concerts, sorted by datetime
+    api_response = api_instance.get_concerts(page=page, size=size, locations=locations, artists=artists)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ConcertRestControllerApi->getConcerts: %s\n" % e)</code></pre>
@@ -5319,11 +5365,11 @@ except ApiException as e:
                                     </div>
                                 </td>
                                 </tr>
-                                <tr><td style="width:150px;">pageSize</td>
+                                <tr><td style="width:150px;">size</td>
                                 <td>
                                 
                                 
-                                    <div id="d2e199_getConcerts_pageSize">
+                                    <div id="d2e199_getConcerts_size">
                                         <div class="json-schema-view">
                                             <div class="primitive">
                                                 <span class="type">
@@ -5440,6 +5486,379 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-ConcertRestController-updateConcert">
+                      <article id="api-ConcertRestController-updateConcert-0" data-group="User" data-name="updateConcert" data-version="0">
+                        <div class="pull-left">
+                          <h1>updateConcert</h1>
+                          <p>Update a concert by its id</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/api/concerts/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-ConcertRestController-updateConcert-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-java">Java</a></li>
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-ConcertRestController-updateConcert-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-ConcertRestController-updateConcert-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-ConcertRestController-updateConcert-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-ConcertRestController-updateConcert-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"https://localhost:8443/api/concerts/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ConcertRestControllerApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ConcertRestControllerApiExample {
+
+    public static void main(String[] args) {
+        
+        ConcertRestControllerApi apiInstance = new ConcertRestControllerApi();
+        NewConcert body = ; // NewConcert | 
+        Long id = 789; // Long | 
+        try {
+            Concert result = apiInstance.updateConcert(body, id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConcertRestControllerApi#updateConcert");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ConcertRestControllerApi;
+
+public class ConcertRestControllerApiExample {
+
+    public static void main(String[] args) {
+        ConcertRestControllerApi apiInstance = new ConcertRestControllerApi();
+        NewConcert body = ; // NewConcert | 
+        Long id = 789; // Long | 
+        try {
+            Concert result = apiInstance.updateConcert(body, id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ConcertRestControllerApi#updateConcert");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">NewConcert *body = ; // 
+Long *id = 789; // 
+
+ConcertRestControllerApi *apiInstance = [[ConcertRestControllerApi alloc] init];
+
+// Update a concert by its id
+[apiInstance updateConcertWith:body
+    id:id
+              completionHandler: ^(Concert output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
+
+var api = new OpenApiDefinition.ConcertRestControllerApi()
+var body = ; // {{NewConcert}} 
+var id = 789; // {{Long}} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.updateConcert(bodyid, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class updateConcertExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new ConcertRestControllerApi();
+            var body = new NewConcert(); // NewConcert | 
+            var id = 789;  // Long | 
+
+            try
+            {
+                // Update a concert by its id
+                Concert result = apiInstance.updateConcert(body, id);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ConcertRestControllerApi.updateConcert: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiConcertRestControllerApi();
+$body = ; // NewConcert | 
+$id = 789; // Long | 
+
+try {
+    $result = $api_instance->updateConcert($body, $id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ConcertRestControllerApi->updateConcert: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ConcertRestControllerApi;
+
+my $api_instance = WWW::SwaggerClient::ConcertRestControllerApi->new();
+my $body = WWW::SwaggerClient::Object::NewConcert->new(); # NewConcert | 
+my $id = 789; # Long | 
+
+eval { 
+    my $result = $api_instance->updateConcert(body => $body, id => $id);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ConcertRestControllerApi->updateConcert: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-ConcertRestController-updateConcert-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ConcertRestControllerApi()
+body =  # NewConcert | 
+id = 789 # Long | 
+
+try: 
+    # Update a concert by its id
+    api_response = api_instance.update_concert(body, id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ConcertRestControllerApi->updateConcert: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_updateConcert_id">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Long
+                                                  </span>
+                                                      <span class="format">
+                                                          (int64)
+                                                      </span>
+                                  
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/NewConcert"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_updateConcert_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_updateConcert_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Concert updated correctly </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-updateConcert-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-updateConcert-200-schema">
+                                  <div id='responses-updateConcert-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Concert updated correctly",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Concert"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-updateConcert-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-updateConcert-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-updateConcert-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Concert not updated </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 401 - User not authenticated </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 403 - User not authorized </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                   </section>
                 <section id="api-TicketRestController">
                   <h1>TicketRestController</h1>
@@ -5477,7 +5896,7 @@ except ApiException as e:
                           <div class="tab-pane active" id="examples-TicketRestController-createTicket-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X POST\
 -H "Accept: application/json"\
-"https://localhost:8443/api/tickets?num_ticket=&id_user="</code></pre>
+"https://localhost:8443/api/tickets?concertId=&numTicket="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-TicketRestController-createTicket-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -5493,10 +5912,10 @@ public class TicketRestControllerApiExample {
     public static void main(String[] args) {
         
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
+        Long concertId = 789; // Long | 
         Integer numTicket = 56; // Integer | 
-        Long idUser = 789; // Long | 
         try {
-            Concert result = apiInstance.createTicket(numTicket, idUser);
+            Ticket result = apiInstance.createTicket(concertId, numTicket);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#createTicket");
@@ -5513,10 +5932,10 @@ public class TicketRestControllerApiExample {
 
     public static void main(String[] args) {
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
+        Long concertId = 789; // Long | 
         Integer numTicket = 56; // Integer | 
-        Long idUser = 789; // Long | 
         try {
-            Concert result = apiInstance.createTicket(numTicket, idUser);
+            Ticket result = apiInstance.createTicket(concertId, numTicket);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#createTicket");
@@ -5530,15 +5949,15 @@ public class TicketRestControllerApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-TicketRestController-createTicket-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">Integer *numTicket = 56; // 
-Long *idUser = 789; // 
+                              <pre class="prettyprint"><code class="language-cpp">Long *concertId = 789; // 
+Integer *numTicket = 56; // 
 
 TicketRestControllerApi *apiInstance = [[TicketRestControllerApi alloc] init];
 
 // Create a new ticket
-[apiInstance createTicketWith:numTicket
-    idUser:idUser
-              completionHandler: ^(Concert output, NSError* error) {
+[apiInstance createTicketWith:concertId
+    numTicket:numTicket
+              completionHandler: ^(Ticket output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -5553,8 +5972,8 @@ TicketRestControllerApi *apiInstance = [[TicketRestControllerApi alloc] init];
                               <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
 
 var api = new OpenApiDefinition.TicketRestControllerApi()
+var concertId = 789; // {{Long}} 
 var numTicket = 56; // {{Integer}} 
-var idUser = 789; // {{Long}} 
 
 var callback = function(error, data, response) {
   if (error) {
@@ -5563,7 +5982,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.createTicket(numTicket, idUser, callback);
+api.createTicket(concertId, numTicket, callback);
 </code></pre>
                             </div>
 
@@ -5585,13 +6004,13 @@ namespace Example
         {
 
             var apiInstance = new TicketRestControllerApi();
+            var concertId = 789;  // Long | 
             var numTicket = 56;  // Integer | 
-            var idUser = 789;  // Long | 
 
             try
             {
                 // Create a new ticket
-                Concert result = apiInstance.createTicket(numTicket, idUser);
+                Ticket result = apiInstance.createTicket(concertId, numTicket);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -5609,11 +6028,11 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiTicketRestControllerApi();
+$concertId = 789; // Long | 
 $numTicket = 56; // Integer | 
-$idUser = 789; // Long | 
 
 try {
-    $result = $api_instance->createTicket($numTicket, $idUser);
+    $result = $api_instance->createTicket($concertId, $numTicket);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TicketRestControllerApi->createTicket: ', $e->getMessage(), PHP_EOL;
@@ -5627,11 +6046,11 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::TicketRestControllerApi;
 
 my $api_instance = WWW::SwaggerClient::TicketRestControllerApi->new();
+my $concertId = 789; # Long | 
 my $numTicket = 56; # Integer | 
-my $idUser = 789; # Long | 
 
 eval { 
-    my $result = $api_instance->createTicket(numTicket => $numTicket, idUser => $idUser);
+    my $result = $api_instance->createTicket(concertId => $concertId, numTicket => $numTicket);
     print Dumper($result);
 };
 if ($@) {
@@ -5648,12 +6067,12 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.TicketRestControllerApi()
+concertId = 789 # Long | 
 numTicket = 56 # Integer | 
-idUser = 789 # Long | 
 
 try: 
     # Create a new ticket
-    api_response = api_instance.create_ticket(numTicket, idUser)
+    api_response = api_instance.create_ticket(concertId, numTicket)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TicketRestControllerApi->createTicket: %s\n" % e)</code></pre>
@@ -5672,7 +6091,29 @@ except ApiException as e:
                                 <th width="150px">Name</th>
                                 <th>Description</th>
                               </tr>
-                                <tr><td style="width:150px;">num_ticket*</td>
+                                <tr><td style="width:150px;">concertId*</td>
+                                <td>
+                                
+                                
+                                    <div id="d2e199_createTicket_concertId">
+                                        <div class="json-schema-view">
+                                            <div class="primitive">
+                                                <span class="type">
+                                                    Long
+                                                </span>
+                                                    <span class="format">
+                                                        (int64)
+                                                    </span>
+                                
+                                            </div>
+                                                <div class="inner required">
+                                                    Required
+                                                </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                <tr><td style="width:150px;">numTicket*</td>
                                 <td>
                                 
                                 
@@ -5684,28 +6125,6 @@ except ApiException as e:
                                                 </span>
                                                     <span class="format">
                                                         (int32)
-                                                    </span>
-                                
-                                            </div>
-                                                <div class="inner required">
-                                                    Required
-                                                </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                </tr>
-                                <tr><td style="width:150px;">id_user*</td>
-                                <td>
-                                
-                                
-                                    <div id="d2e199_createTicket_idUser">
-                                        <div class="json-schema-view">
-                                            <div class="primitive">
-                                                <span class="type">
-                                                    Long
-                                                </span>
-                                                    <span class="format">
-                                                        (int64)
                                                     </span>
                                 
                                             </div>
@@ -5738,7 +6157,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Concert"
+        "$ref" : "#/components/schemas/Ticket"
       }
     }
   }
@@ -5838,7 +6257,7 @@ public class TicketRestControllerApiExample {
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
         Long id = 789; // Long | 
         try {
-            Concert result = apiInstance.deleteTicket(id);
+            Ticket result = apiInstance.deleteTicket(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#deleteTicket");
@@ -5857,7 +6276,7 @@ public class TicketRestControllerApiExample {
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
         Long id = 789; // Long | 
         try {
-            Concert result = apiInstance.deleteTicket(id);
+            Ticket result = apiInstance.deleteTicket(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#deleteTicket");
@@ -5877,7 +6296,7 @@ TicketRestControllerApi *apiInstance = [[TicketRestControllerApi alloc] init];
 
 // Delete a ticket by id
 [apiInstance deleteTicketWith:id
-              completionHandler: ^(Concert output, NSError* error) {
+              completionHandler: ^(Ticket output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -5928,7 +6347,7 @@ namespace Example
             try
             {
                 // Delete a ticket by id
-                Concert result = apiInstance.deleteTicket(id);
+                Ticket result = apiInstance.deleteTicket(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -6050,7 +6469,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Concert"
+        "$ref" : "#/components/schemas/Ticket"
       }
     }
   }
@@ -6150,7 +6569,7 @@ public class TicketRestControllerApiExample {
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
         Long id = 789; // Long | 
         try {
-            Concert result = apiInstance.getTicket(id);
+            Ticket result = apiInstance.getTicket(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#getTicket");
@@ -6169,7 +6588,7 @@ public class TicketRestControllerApiExample {
         TicketRestControllerApi apiInstance = new TicketRestControllerApi();
         Long id = 789; // Long | 
         try {
-            Concert result = apiInstance.getTicket(id);
+            Ticket result = apiInstance.getTicket(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling TicketRestControllerApi#getTicket");
@@ -6189,7 +6608,7 @@ TicketRestControllerApi *apiInstance = [[TicketRestControllerApi alloc] init];
 
 // Get a ticket by id
 [apiInstance getTicketWith:id
-              completionHandler: ^(Concert output, NSError* error) {
+              completionHandler: ^(Ticket output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -6240,7 +6659,7 @@ namespace Example
             try
             {
                 // Get a ticket by id
-                Concert result = apiInstance.getTicket(id);
+                Ticket result = apiInstance.getTicket(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -6362,7 +6781,7 @@ except ApiException as e:
   "content" : {
     "application/json" : {
       "schema" : {
-        "$ref" : "#/components/schemas/Concert"
+        "$ref" : "#/components/schemas/Ticket"
       }
     }
   }
@@ -7296,6 +7715,14 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 400 - User not deleted </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 401 - User not identified </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -8470,10 +8897,10 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
-                    <div id="api-UserRestController-putUser">
-                      <article id="api-UserRestController-putUser-0" data-group="User" data-name="putUser" data-version="0">
+                    <div id="api-UserRestController-updateUser">
+                      <article id="api-UserRestController-updateUser-0" data-group="User" data-name="updateUser" data-version="0">
                         <div class="pull-left">
-                          <h1>putUser</h1>
+                          <h1>updateUser</h1>
                           <p>Update a user by its id</p>
                         </div>
                         <div class="pull-right"></div>
@@ -8487,27 +8914,27 @@ except ApiException as e:
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-UserRestController-putUser-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-UserRestController-putUser-0-java">Java</a></li>
-                          <li class=""><a href="#examples-UserRestController-putUser-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-UserRestController-putUser-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-UserRestController-putUser-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-UserRestController-putUser-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-UserRestController-putUser-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-UserRestController-putUser-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-UserRestController-putUser-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-UserRestController-putUser-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-UserRestController-putUser-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-UserRestController-updateUser-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-java">Java</a></li>
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-UserRestController-updateUser-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-UserRestController-updateUser-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-UserRestController-updateUser-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-UserRestController-putUser-0-curl">
+                          <div class="tab-pane active" id="examples-UserRestController-updateUser-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
 "https://localhost:8443/api/users/{id}"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-UserRestController-putUser-0-java">
+                          <div class="tab-pane" id="examples-UserRestController-updateUser-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -8524,17 +8951,17 @@ public class UserRestControllerApiExample {
         NewUser body = ; // NewUser | 
         Long id = 789; // Long | 
         try {
-            User result = apiInstance.putUser(body, id);
+            User result = apiInstance.updateUser(body, id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling UserRestControllerApi#putUser");
+            System.err.println("Exception when calling UserRestControllerApi#updateUser");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-UserRestController-putUser-0-android">
+                          <div class="tab-pane" id="examples-UserRestController-updateUser-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserRestControllerApi;
 
 public class UserRestControllerApiExample {
@@ -8544,27 +8971,27 @@ public class UserRestControllerApiExample {
         NewUser body = ; // NewUser | 
         Long id = 789; // Long | 
         try {
-            User result = apiInstance.putUser(body, id);
+            User result = apiInstance.updateUser(body, id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling UserRestControllerApi#putUser");
+            System.err.println("Exception when calling UserRestControllerApi#updateUser");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-UserRestController-putUser-0-groovy">
+  <div class="tab-pane" id="examples-UserRestController-updateUser-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-UserRestController-putUser-0-objc">
+                            <div class="tab-pane" id="examples-UserRestController-updateUser-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">NewUser *body = ; // 
 Long *id = 789; // 
 
 UserRestControllerApi *apiInstance = [[UserRestControllerApi alloc] init];
 
 // Update a user by its id
-[apiInstance putUserWith:body
+[apiInstance updateUserWith:body
     id:id
               completionHandler: ^(User output, NSError* error) {
                             if (output) {
@@ -8577,7 +9004,7 @@ UserRestControllerApi *apiInstance = [[UserRestControllerApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-UserRestController-putUser-0-javascript">
+                            <div class="tab-pane" id="examples-UserRestController-updateUser-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var OpenApiDefinition = require('open_api_definition');
 
 var api = new OpenApiDefinition.UserRestControllerApi()
@@ -8591,14 +9018,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.putUser(bodyid, callback);
+api.updateUser(bodyid, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-UserRestController-putUser-0-angular">
+                            <!--<div class="tab-pane" id="examples-UserRestController-updateUser-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-UserRestController-putUser-0-csharp">
+                            <div class="tab-pane" id="examples-UserRestController-updateUser-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -8607,7 +9034,7 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class putUserExample
+    public class updateUserExample
     {
         public void main()
         {
@@ -8619,12 +9046,12 @@ namespace Example
             try
             {
                 // Update a user by its id
-                User result = apiInstance.putUser(body, id);
+                User result = apiInstance.updateUser(body, id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling UserRestControllerApi.putUser: " + e.Message );
+                Debug.Print("Exception when calling UserRestControllerApi.updateUser: " + e.Message );
             }
         }
     }
@@ -8632,7 +9059,7 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-UserRestController-putUser-0-php">
+                            <div class="tab-pane" id="examples-UserRestController-updateUser-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -8641,15 +9068,15 @@ $body = ; // NewUser |
 $id = 789; // Long | 
 
 try {
-    $result = $api_instance->putUser($body, $id);
+    $result = $api_instance->updateUser($body, $id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling UserRestControllerApi->putUser: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling UserRestControllerApi->updateUser: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-UserRestController-putUser-0-perl">
+                            <div class="tab-pane" id="examples-UserRestController-updateUser-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::UserRestControllerApi;
@@ -8659,15 +9086,15 @@ my $body = WWW::SwaggerClient::Object::NewUser->new(); # NewUser |
 my $id = 789; # Long | 
 
 eval { 
-    my $result = $api_instance->putUser(body => $body, id => $id);
+    my $result = $api_instance->updateUser(body => $body, id => $id);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling UserRestControllerApi->putUser: $@\n";
+    warn "Exception when calling UserRestControllerApi->updateUser: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-UserRestController-putUser-0-python">
+                            <div class="tab-pane" id="examples-UserRestController-updateUser-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -8681,10 +9108,10 @@ id = 789 # Long |
 
 try: 
     # Update a user by its id
-    api_response = api_instance.put_user(body, id)
+    api_response = api_instance.update_user(body, id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling UserRestControllerApi->putUser: %s\n" % e)</code></pre>
+    print("Exception when calling UserRestControllerApi->updateUser: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
@@ -8700,7 +9127,7 @@ except ApiException as e:
                                   <td>
                                   
                                   
-                                      <div id="d2e199_putUser_id">
+                                      <div id="d2e199_updateUser_id">
                                           <div class="json-schema-view">
                                               <div class="primitive">
                                                   <span class="type">
@@ -8755,12 +9182,12 @@ except ApiException as e:
                                   }
                                 
                                   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-                                  var result = $('#d2e199_putUser_body');
+                                  var result = $('#d2e199_updateUser_body');
                                   result.empty();
                                   result.append(view.render());
                                 });
                                 </script>
-                                <div id="d2e199_putUser_body"></div>
+                                <div id="d2e199_updateUser_body"></div>
                                 </td>
                                 </tr>
                             </table>
@@ -8772,14 +9199,14 @@ except ApiException as e:
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-putUser-200-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-updateUser-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-putUser-200-schema">
-                                  <div id='responses-putUser-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-updateUser-200-schema">
+                                  <div id='responses-updateUser-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
@@ -8805,14 +9232,14 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-putUser-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-putUser-200-schema-200');
+                                        $('#responses-updateUser-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-updateUser-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-putUser-200-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-updateUser-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 

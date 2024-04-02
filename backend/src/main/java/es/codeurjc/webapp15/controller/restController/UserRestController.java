@@ -317,7 +317,7 @@ public class UserRestController {
     )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<User> putUser(@PathVariable Long id, @RequestBody NewUser userBody) throws SQLException {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody NewUser userBody) throws SQLException {
 
         if (!userService.exist(id)) {
             return ResponseEntity.notFound().build();
@@ -353,6 +353,11 @@ public class UserRestController {
     @ApiResponse(
     responseCode = "400",
     description = "User not deleted",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "401",
+    description = "User not identified",
     content = @Content
     ),
     @ApiResponse(

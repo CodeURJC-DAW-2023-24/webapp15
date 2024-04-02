@@ -66,10 +66,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
 
                         // PRIVATE ENDPOINTS
-                        .requestMatchers(HttpMethod.GET,"/api/tickets").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.GET,"/api/users/**").hasAnyRole("USER","ADMIN")
-
-                        .requestMatchers(HttpMethod.GET,"/api/tickets/**").hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/tickets/**").hasAnyRole("USER","ADMIN")
+                        
                         .requestMatchers(HttpMethod.PUT,"/api/users/**").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.PUT,"/api/artists/**").hasAnyRole("ADMIN")
 
@@ -77,7 +76,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,"/api/logout").hasAnyRole("USER","ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/concerts").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/artists").hasAnyRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/api/tickets").hasAnyRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/tickets").hasAnyRole("USER","ADMIN")
 
                         .requestMatchers(HttpMethod.DELETE,"/api/tickets/**").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/api/users/**").hasAnyRole("ADMIN")
