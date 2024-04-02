@@ -35,7 +35,7 @@ public class User {
 	@JsonView(MinimalView.class)
 	private String name;
 
-	@JsonView(MinimalView.class)
+	@JsonIgnore
 	private String encodedPassword;
 
 	@Column(unique = true)

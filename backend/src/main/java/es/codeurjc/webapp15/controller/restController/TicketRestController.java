@@ -83,7 +83,7 @@ public class TicketRestController {
     description = "Found the ticket",
     content = {@Content(
     mediaType = "application/json",
-    schema = @Schema(implementation=Concert.class)
+    schema = @Schema(implementation=Ticket.class)
     )}
     ),
     @ApiResponse(
@@ -98,15 +98,32 @@ public class TicketRestController {
     )
     })
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getTicket(@PathVariable Long id) {
+    public ResponseEntity<Object> getTicket(@PathVariable Long id, HttpServletRequest request) {
+
+        if (!ticketService.exist(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Principal principal = request.getUserPrincipal();
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        Optional<User> user = userService.findByEmail(principal.getName());
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
 
         Optional<Ticket> ticket = ticketService.findById(id);
-        if (ticket.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        
-        ticket.get().getConcert(); // Ensure concert details are fetched
-        ticket.get().getUser();
-        return new ResponseEntity<>(ticket.get(), HttpStatus.OK);
+        User ticketUser = ticket.get().getUser();
+
+        if (user.get().isRole("ADMIN") ||
+            user.get().isRole("USER") && ticketUser.getId() == user.get().getId()) {
+
+                return new ResponseEntity<>(ticket.get(), HttpStatus.OK);
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 
@@ -117,7 +134,7 @@ public class TicketRestController {
     description = "Found the page",
     content = {@Content(
     mediaType = "application/json",
-    schema = @Schema(implementation=Concert.class)
+    schema = @Schema(implementation=Ticket.class)
     )}
     ),
     @ApiResponse(
@@ -150,7 +167,7 @@ public class TicketRestController {
     description = "Ticket created",
     content = {@Content(
     mediaType = "application/json",
-    schema = @Schema(implementation=Concert.class)
+    schema = @Schema(implementation=Ticket.class)
     )}
     ),
     @ApiResponse(
@@ -164,20 +181,20 @@ public class TicketRestController {
     content = @Content
     )
     })
-    public ResponseEntity<Ticket> createTicket(@RequestParam("num_ticket") Integer num_ticket, @RequestParam("id_user") long id,HttpServletRequest request) {
+    public ResponseEntity<Ticket> createTicket(@RequestParam long concertId, @RequestParam Integer numTicket, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
             User user = userService.findByEmail(principal.getName()).get();
-            Optional<Concert> concert = concertService.findById(id);
+            Optional<Concert> concert = concertService.findById(concertId);
             if (concert.isPresent()){
                 Integer left = concert.get().getNum_tickets();
-                left = left - num_ticket;
+                left = left - numTicket;
                 concert.get().setNum_tickets(left);
                 concertService.save(concert.get());
                     Ticket ticket = new Ticket();
                     ticket.setConcert(concert.get());
                     ticket.setUser(user);
-                    ticket.setNum_ticket(num_ticket);
+                    ticket.setNum_ticket(numTicket);
                     ticketService.save(ticket);
                     return ResponseEntity.created(URI.create("/api/concerts/" + ticket.getId())).body(ticket); 
             }
