@@ -211,7 +211,132 @@
 		- [UserService.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/service/UserService.java)
 		- [perfil.js](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/static/profile.js)
 		- [perfil.html](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/resources/templates/profile.html)
+ 
+
 # FASE 3
 
 ## Diagrama de clases(ACTUALIZACIÓN)
 ![DiagramaFase3](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/61629095-b7f9-4fbe-af1d-b36579efe53c)
+
+## Instrucciones de ejecución de la aplicación dockerizada
+- Tener instalado:
+	- git
+	- docker
+	- plugin docker compose
+- Una vez se tiene instalado lo anterior, se debe clonar el repositorio de github del proyecto con el siguiente comando:
+	`git clone https://github.com/CodeURJC-DAW-2023-24/webapp15.git`
+- Luego se debe de ir a la carpeta docker dentro de backend:
+	`cd backend/docker`
+- Y por último ejecutar docker compose:
+	`docker compose up -d`
+- Cuando termine se termine de inicializar todo, se puede visitar la web en la siguiente url:
+	- https://localhost:8443 (si lo estás usando en tu ordenador local)
+	- https://10.100.139.56:8443 (si estás conectado a la vpn de la urjc)
+## Construcción de la imagen de docker
+- El script create_image.sh, dentro de la carpeta docker, se encarga tanto de construirla como de subirla al dockerhub. Para ejecutar dicho script se tiene que ir al path en donde se encuentra create_image.sh y ejecutarlo.
+
+## Desplegar en la máquina virtual de la urjc
+- Lo primero que hay que hacer es instalar docker y su plugin docker compose:
+```python
+  # Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+- Ahora necesitamos que el usuario con el que estamos conectado pueda usar docker sin la necesidad de usar el comando "sudo", para ello lo añadiremos al grupo de docker con el siguiente comando:
+	`sudo usermod -aG docker $USER`
+- Una vez hecho esto, cerraremos sesión y volveremos a iniciarla para que se apliquen los cambios.
+- A continuación seguiremos los pasos explicados en el apartado anterior **"Instrucciones de ejecución de la aplicación dockerizada"**.
+
+## URL de la aplicación y credenciales de ejemplo:
+- URL: https://10.100.139.56:8443
+- credenciales de ejemplo:
+ 	- usuario normal:
+   	 	- email: user@user.com
+ 	 	- password: user
+ 	- usuario admin:
+ 	 	- email: admin@admin.com
+ 	 	- password: admin
+
+## Participación de los miembros del equipo
+- Diego Del Amo Infante
+  	- Durante esta fase, me he encargado de la implementación de la API REST donde me he encargado de toda la parte de la Api REST relacionado con el ticket, los POST y DELETES de las APIS. Además, me he encargado de la APi correspondiente a la autentificación y, además, de la resolución de errores que han ido surgiendo a lo largo de la fase.
+  	- Commits más significativos:
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/b8be48fb404620156fde6baa255760809e9d0d89
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/5e5bb85d435d25b4a3816f42b691fd8520e0da6c
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/882de6270ea736328112c32f5dc14865b0b7d02d
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/4ddccad20b9f2c25a3687cb39448542dfed19a88
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/fea0098e6b949490ed51b228a4b4a4abe8bb7eb8
+  	- Ficheros más significativos:
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/AuthRestController.java
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/ConcertRestController.java
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/TicketRestController.java
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/UserRestController.java
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/ArtistRestController.java
+  	
+- Jesús Pérez
+
+	- Durante la fase 3 he estado trabajando principalmente en la implementacion de API REST. De forma más concreta en los métodos http para el RestController de entradas de conciertos. Adicionalmente he realizado algunas funciones, también de API REST como el registrar usuario e implementado todas las @ApiResponses dentro de los RestControllers. Por último he participado activamente en la resolución de errores en lo relacionado a API REST.
+
+	- Commits más significativos:
+		- [TicketRestController](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/63ecead85b99ef27d55c9a8d80b1f2a3ca8b7613)
+		- [Register user](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/2939e2165944a3a7c07274431e8e084791c0520c)
+		- [ApiResponses artist](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/bc9f979d7079bfe61784c344400fc521a3b56872)
+		- [ApiResponses concert](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/e4414193193c5bcb8fea40a29397ee7f985401f2)
+		- [ApiResponses Tickets](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/e1fcf2dc608cb05ab7f63aff94a2ff2cccd64af9)
+
+	- Ficheros más significativos:
+		- [TicketRestControler.java](https://github.com/CodeURJC-DAW-2023-4/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/TicketRestController.java)
+		- [UserRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/UserRestController.java)
+		- [ConcertRestController](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/ConcertRestController.java)
+		- [ArtistRestController](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/src/main/java/es/codeurjc/webapp15/controller/restController/ArtistRestController.java)
+
+- Xavier Medina Salas
+  	- En la fase 3 me he encargado de la rama de seguridad de la aplicación, implementando la RestSecurity y actualizandolo para que funcione con API Rest. En particular me he encargado de agregar la caperta de JW a la seguridad, de agregar las dependencias en el pom, también de la nueva implementación de la SecurityConfiguration junto con el tratamiento de filtro de las solicitudes.
+  	- Commits mas significativos:
+  		- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/ac6d76e27afd8e1aa8495d88ab103f1a9cf3d829
+  	   	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/eeac0a417b4d3d83fe10cf881e6d9d4940db4df9
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/a51781f8c0a777cf20b1bd8d1b6d6b6f9a259771
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f9de619e66e6dc8b3328a7ae486aa925443e27d8
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/c0d49316065c7a437c8e1204754f1351cefb74f7
+	- Ficheros mas significativos:
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/backend/src/main/java/es/codeurjc/webapp15/security/jwt
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/security/SecurityConfiguration.java
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/pom.xml
+		- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/security/LoginRequest.java
+
+- Carlos Solsona Álvarez
+	- En esta tercera fase me he encargado de la implementación de la API REST y de su documentación, en especial lo relacionado con la parte de User, así como del login y register. También me he encargado de la creación del fichero postman collection y de la generación del fichero de documentación de la API. Por último, he ayudado a corregir erroes y a integrar el código de todo el equipo mediante git.
+ 	- Commits más significativos:
+		- [Add Artist and Concerts API GET requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3545fb8411e86dbfa68ab11be42966e0e11a3fd7)
+		- [Add User REST requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/9ea3029fe3c55ad4c3a387dde545771ef0b26145)
+		- [Fix REST Register and GET and PUT images](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/1260216bdb26d3d2683cdb30e540f1d3e2580dfc)
+		- [Fix Concerts REST requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/8a59dbb077bc6369f5c65a0ac70c716da686345f)
+		- [Add Postman collection](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3cdeb7fe0a474cc3299a10c2f8772dc3ddb88889)
+	- Ficheros más significativos:
+  		- [UserRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/UserRestController.java)
+		- [AuthRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/AuthRestController.java)
+		- [ConcertRestController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/restController/ConcertRestController.java)
+  		- [api-docs](https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/api-docs)
+		- [API_REST.postman_collection.json](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/API_REST.postman_collection.json)
+
+- Javier García Seller
+   	- En esta fase 3 me he ocupado de dockerizar la aplicación, subirla a dockerhub, y desplegarla en la máquina virtual.
+  	- Commits más significativos:
+  	 	- [App running on Docker](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/ca9f2beaeced1a934d1b33f252beda389c019c8e)
+ 	 	- [Single command -> run app](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/0af62a8341b6e33062018cda84dcdfa3ea090a33)
+  	 	- [Dockerize new main architecture](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/67d1b0d20d15804a5e879cc9beb5dcabf26be796)
+ 	- Ficheros más significativos:
+   	 	- [Dockerfile](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/dockerfile)
+ 	 	- [docker-compose.yml](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/docker-compose.yml)
+   	 	- [create_image.sh](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/create_image.sh)
