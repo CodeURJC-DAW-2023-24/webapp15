@@ -113,7 +113,7 @@ public class SecurityConfiguration {
 
         //si se quita esta linea no deja borrar los conciertos
         http.csrf().ignoringRequestMatchers("/search/**");
-
+        http.csrf().ignoringRequestMatchers("/user/**");
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // Public PAGES
@@ -130,6 +130,7 @@ public class SecurityConfiguration {
                         .requestMatchers("more-artists", "more-tickets").permitAll()
                         .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/signup/**").permitAll()
+                        .requestMatchers("/user/update/**").permitAll()
                         //.requestMatchers("api/**").permitAll()
                         // Private PAGES
                         .requestMatchers("/profile").hasAnyRole("USER")

@@ -91,7 +91,6 @@ function saveField(textId, inputId, saveBtnId, editBtnId) {
     } else if (inputId === 'emailInput') {
         updateUrl += 'email';
     }
-
     // Make the POST request using fetch
     fetch(updateUrl, {
         method: 'POST',
