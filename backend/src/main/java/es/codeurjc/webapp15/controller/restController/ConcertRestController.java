@@ -91,7 +91,7 @@ public class ConcertRestController {
     )
     })
     @GetMapping("")
-    public ResponseEntity<List<Concert>> getConcerts(@RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "size", defaultValue = "6") int size,
+    public ResponseEntity<Page<Concert>> getConcerts(@RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "size", defaultValue = "6") int size,
                                                         @RequestParam(value = "locations", defaultValue = "") String[] locations,
                                                         @RequestParam(value = "artists", defaultValue = "") String[] artists) {
         List<String> locationList = formatJSONArrayToList(locations);
@@ -103,7 +103,8 @@ public class ConcertRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     
-        return new ResponseEntity<>(concerts.getContent(), HttpStatus.OK);
+        // TODO Cambiar a page
+        return new ResponseEntity<>(concerts, HttpStatus.OK);
     }
 
     @Operation(summary = "Get a concert by id")

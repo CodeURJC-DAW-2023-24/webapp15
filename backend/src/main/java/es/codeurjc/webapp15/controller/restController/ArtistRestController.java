@@ -78,7 +78,7 @@ public class ArtistRestController {
     )
     })
     @GetMapping("")
-    public ResponseEntity<Object> getArtists(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
+    public ResponseEntity<Page<Artist>> getArtists(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "5") int size) {
         
         size = Math.min(size, 20);
         
@@ -86,9 +86,9 @@ public class ArtistRestController {
 
         // Redirect to error page
         if (concerts.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Query couldn't find any item");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         
-        return ResponseEntity.ok(concerts.getContent());
+        return ResponseEntity.ok(concerts);
 
     }
 
