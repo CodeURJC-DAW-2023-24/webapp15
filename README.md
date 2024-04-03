@@ -215,6 +215,12 @@
 
 # FASE 3
 
+## Documentación de la API REST
+
+La documentación de la API REST se puede acceder en los siguientes formatos:
+- Especificación OpenAPI (YAML): [api-docs.yaml](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/api-docs/api-docs.yaml)
+- Documentación HTML (visualizable en navegador): [api-docs.html](https://rawcdn.githack.com/CodeURJC-DAW-2023-24/webapp15/28df4d476f0c18efb3cf195e29915315f76fa9b9/api-docs/api-docs.html)
+
 ## Diagrama de clases(ACTUALIZACIÓN)
 ![DiagramaFase3](https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/61629095-b7f9-4fbe-af1d-b36579efe53c)
 
