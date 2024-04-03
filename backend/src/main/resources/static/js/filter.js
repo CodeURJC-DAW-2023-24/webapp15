@@ -147,11 +147,16 @@ function addDeleteButtonListeners() {
     
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const concertId = button.getAttribute('data-id');
             const confirmation = confirm('¿Estás seguro de que quieres eliminar este concierto?');
+
+            const concertId = button.getAttribute('data-id');
+            let formData = new FormData();
+            formData.append('_csrf', document.querySelector('meta[name="csrf"]').content);
+
             if (confirmation) {
                 fetch(`/search/${concertId}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    body: formData
                 })
                 .then(response => {
                     if (response.ok) {

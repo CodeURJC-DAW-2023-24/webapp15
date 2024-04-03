@@ -110,9 +110,6 @@ public class SecurityConfiguration {
 
         http.authenticationProvider(authenticationProvider());
 
-        //si se quita esta linea no deja borrar los conciertos
-        http.csrf().ignoringRequestMatchers("/search/**");
-
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // Public PAGES
