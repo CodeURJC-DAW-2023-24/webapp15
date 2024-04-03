@@ -1,8 +1,8 @@
 package es.codeurjc.webapp15.controller;
 
+import java.net.URI;
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.service.TicketService;
@@ -168,14 +170,13 @@ public class UserController {
         return "ticket-list";
     }
 
-    @PostMapping("/user/update/name")
-    public ResponseEntity<?> updateUserName(@RequestBody Map<String, String> payload, HttpServletRequest request) {
+    @PutMapping("/user/update/name")
+    public ResponseEntity<?> updateUserName(@RequestParam String value, HttpServletRequest request) {
         String principal = request.getUserPrincipal().getName();
         Optional<User> user = userService.findByEmail(principal);
         Long userId = user.get().getId();
-        // Extract the new name from the payload
-        String newName = payload.get("value");
-        User updatedUser = userService.updateUserName(userId, newName);
+
+        User updatedUser = userService.updateUserName(userId, value);
         if (updatedUser != null) {
             return ResponseEntity.ok().body("User name updated successfully");
         } else {
@@ -183,32 +184,38 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user/update/email")
-    public ResponseEntity<?> updateUserEmail(@RequestBody Map<String, String> payload, HttpServletRequest request) {
+    @PutMapping("/user/update/email")
+    public ResponseEntity<?> updateUserEmail(@RequestParam String value, HttpServletRequest request) {
         String principal = request.getUserPrincipal().getName();
         Optional<User> user = userService.findByEmail(principal);
         Long userId = user.get().getId();
-        // Extract the new email from the payload
-        String newEmail = payload.get("value");
-        User updatedUser = userService.updateUserEmail(userId, newEmail);
-        if (updatedUser != null) {
-            return ResponseEntity.ok().body("User email updated successfully");
-        } else {
-            return ResponseEntity.badRequest().body("User not found");
+
+        // TODO: Change principal/authentication email as well, the authentication breaks if user changes their email
+        User updatedUser = userService.updateUserEmail(userId, value);
+        if (updatedUser == null) {
+            return ResponseEntity.badRequest().build();
         }
+
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/user/update/image")
+    @PutMapping("/user/update/image")
     public ResponseEntity<?> updateUserImage(@RequestParam("imageFile") MultipartFile file, HttpServletRequest request) {
         try {
             String principal = request.getUserPrincipal().getName();
             User user = userService.findByEmail(principal).get();
+            boolean hasImage = (user.getImg_user() != null);
 
             user.setImg_user(BlobProxy.generateProxy(file.getInputStream(), file.getSize()));
             user.setImage(true);
             userService.save(user);
 
-            return ResponseEntity.ok("Image updated successfully");
+            URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("user/image/").path(Long.toString(user.getId())).build().toUri();
+
+            if (hasImage) {
+                return ResponseEntity.noContent().header("Location", uri.toString()).build();
+            }
+            return ResponseEntity.created(uri).build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to update image");
         }

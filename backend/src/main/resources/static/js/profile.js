@@ -97,11 +97,7 @@ function saveField(textId, inputId, saveBtnId, editBtnId) {
 
     // Make the POST request using fetch
     fetch(updateUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // Include CSRF token as needed for security
-        },
+        method: 'PUT',
         body: formData,
     }).then(response => {
         if (response.ok) {
@@ -143,7 +139,7 @@ function uploadImage(file) {
     formData.append('_csrf', document.querySelector('meta[name="csrf"]').content);
 
     fetch('/user/update/image', { // Endpoint to upload the image
-        method: 'POST',
+        method: 'PUT',
         body: formData, // Send the image file in FormData
     }).then(response => {
         if (response.ok) {
