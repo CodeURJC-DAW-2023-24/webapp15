@@ -35,6 +35,11 @@
                     <button class="send-date-form"><img src="images/point-right.png" width="20px"></button>
                     <button class="reset-date-form"><img src="images/restart-icon.png" width="20px"></button>
                 </li>
+                {{#admin}}
+                <li>
+                    <label><input class="filter" type="checkbox" id="show-past-concerts-input">Ver conciertos pasados</label>
+                </li>
+                {{/admin}}
             </ul>
         </aside>
     </div>

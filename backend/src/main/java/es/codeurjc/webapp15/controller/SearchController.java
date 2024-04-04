@@ -1,11 +1,13 @@
 package es.codeurjc.webapp15.controller;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -77,20 +79,21 @@ public class SearchController {
 
     @GetMapping("/get-concerts")
     public String getConcerts(Model model, HttpServletRequest request,
-                                @RequestParam("locations") String[] locations,
-                                @RequestParam("artists") String[] artists,
-                                @RequestParam("page") int page) {
+                                @RequestParam String[] locations, @RequestParam String[] artists,
+                                @RequestParam Optional<LocalDateTime> dateBefore, @RequestParam Optional<LocalDateTime> dateAfter,
+                                @RequestParam boolean showPast,
+                                @RequestParam int page) {
 
         List<String> locationList = formatJSONArrayToList(locations);
         List<String> artistList = formatJSONArrayToList(artists);
 
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Page<Concert> pageQuery = concertService.findConcerts(pageable, locationList, artistList, null, null, null, null);
+        Page<Concert> pageQuery = concertService.findConcerts(pageable, locationList, artistList, dateBefore, dateAfter, showPast, null, null);
 
         model.addAttribute("concerts", pageQuery.getContent());
 
-        boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, null, null, null, null).hasContent();
+        boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, dateBefore, dateAfter, showPast, null, null).hasContent();
         model.addAttribute("hasNext", hasNext);
 
         model.addAttribute("admin", request.isUserInRole("ADMIN"));

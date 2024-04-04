@@ -93,11 +93,15 @@ function filter(isNewQuery) {
 }
 
 function getQuery(isNewQuery) {
+    const showPastConcertsInput = document.querySelector("#show-past-concerts-input")
+    const showPastConcerts = showPastConcertsInput ? showPastConcertsInput.checked : false
+    
     $.ajax({
         url: '/get-concerts',
         type: 'GET',
         data: { locations: JSON.stringify(getLocationsChecked()),
                 artists: JSON.stringify(getArtistsChecked()),
+                showPast: showPastConcerts,
                 page: currentPage,
         },
         success: function(data) {
