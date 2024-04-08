@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 
 import es.codeurjc.webapp15.model.Ticket;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.service.TicketService;
 import es.codeurjc.webapp15.service.UserService;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -185,18 +187,22 @@ public class UserController {
     }
 
     @PutMapping("/user/update/email")
-    public ResponseEntity<?> updateUserEmail(@RequestParam String value, HttpServletRequest request) {
+    public ResponseEntity<?> updateUserEmail(@RequestParam String value, HttpServletRequest request) throws ServletException {
         String principal = request.getUserPrincipal().getName();
         Optional<User> user = userService.findByEmail(principal);
         Long userId = user.get().getId();
 
-        // TODO: Change principal/authentication email as well, the authentication breaks if user changes their email
         User updatedUser = userService.updateUserEmail(userId, value);
         if (updatedUser == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.noContent().build();
+        // This works for now but it's a bit inconvenient,
+        // I can't find a way to just change the authentication/request email, so we don't have to logout the user
+        request.logout();
+        // TODO: Redirection to index doesn't work
+        return ResponseEntity.status(302).body(new RedirectView("/"));
+        //return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/user/update/image")
