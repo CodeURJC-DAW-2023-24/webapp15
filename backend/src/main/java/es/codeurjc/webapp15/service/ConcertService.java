@@ -76,7 +76,13 @@ public class ConcertService {
         
         if (!showPast)
             jpql.append(" AND c.datetime > :now");
-            
+
+        if (priceLowerThan != null && priceLowerThan.isPresent())
+            jpql.append(" AND c.price < :priceLowerThan");
+
+        if (priceHigherThan != null && priceHigherThan.isPresent())
+            jpql.append(" AND c.price > :priceHigherThan");
+
         jpql.append(" ORDER BY c.datetime");
             
         Query query = entityManager.createQuery(jpql.toString());
@@ -97,6 +103,12 @@ public class ConcertService {
 
         if (!showPast)
             query.setParameter("now", now);
+
+        if (priceLowerThan != null && priceLowerThan.isPresent())
+            query.setParameter("priceLowerThan", priceLowerThan.get());
+
+        if (priceHigherThan != null && priceHigherThan.isPresent())
+            query.setParameter("priceHigherThan", priceHigherThan.get());
 
         query.setFirstResult(page.getPageNumber() * page.getPageSize());
         query.setMaxResults(page.getPageSize());

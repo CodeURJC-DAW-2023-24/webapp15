@@ -84,6 +84,8 @@ public class SearchController {
                                 @RequestParam("dateBefore") Optional<String> dateBeforeStr,
                                 @RequestParam("dateAfter") Optional<String> dateAfterStr,
                                 @RequestParam boolean showPast,
+                                @RequestParam Optional<Float> priceLowerThan,
+                                @RequestParam Optional<Float> priceHigherThan,
                                 @RequestParam int page) {
 
         List<String> locationList = formatJSONArrayToList(locations);
@@ -94,11 +96,11 @@ public class SearchController {
 
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Page<Concert> pageQuery = concertService.findConcerts(pageable, locationList, artistList, dateBefore, dateAfter, showPast, null, null);
+        Page<Concert> pageQuery = concertService.findConcerts(pageable, locationList, artistList, dateBefore, dateAfter, showPast, priceLowerThan, priceHigherThan);
 
         model.addAttribute("concerts", pageQuery.getContent());
 
-        boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, dateBefore, dateAfter, showPast, null, null).hasContent();
+        boolean hasNext = concertService.findConcerts(PageRequest.of(page+1, pageSize), locationList, artistList, dateBefore, dateAfter, showPast, priceLowerThan, priceHigherThan).hasContent();
         model.addAttribute("hasNext", hasNext);
 
         model.addAttribute("admin", request.isUserInRole("ADMIN"));

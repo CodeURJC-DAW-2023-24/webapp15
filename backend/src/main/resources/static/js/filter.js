@@ -70,7 +70,7 @@ function addFiltersListeners() {
 }
 
 function addDateInputResetButtonListeners() {
-    const buttons = document.querySelectorAll(".reset-date-form");
+    const buttons = document.querySelectorAll(".reset-form");
     buttons.forEach(b => {
         b.addEventListener("click", function(){
             b.parentElement.querySelector("input").value = "";
@@ -114,6 +114,8 @@ function getQuery(isNewQuery) {
     const showPastConcerts = showPastConcertsInput ? showPastConcertsInput.checked : false
     const dateBefore = getDateValue(document.querySelector("#before-date"))
     const dateAfter = getDateValue(document.querySelector("#after-date"))
+    const priceLowerThan = document.querySelector("#price-lower-than")
+    const priceHigherThan = document.querySelector("#price-higher-than")
 
     const requestData = {
         locations: JSON.stringify(getLocationsChecked()),
@@ -127,6 +129,12 @@ function getQuery(isNewQuery) {
 
     if (dateAfter)
         requestData.dateAfter = dateAfter
+
+    if (priceLowerThan)
+        requestData.priceLowerThan = priceLowerThan.value
+
+    if (priceHigherThan)
+        requestData.priceHigherThan = priceHigherThan.value
     
     $.ajax({
         url: '/get-concerts',

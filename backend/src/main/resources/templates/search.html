@@ -27,17 +27,30 @@
                 <img src="images/point-right.png" width="20px">
             </button>
             <ul class="collapse" id="dates-list">
-                <li class="date-form filter"><label><span>Desde:</span><input id="after-date" type="date"></label>
-                    <button class="reset-date-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                <li class="form-input filter"><label><span>Desde:</span><input id="after-date" type="date"></label>
+                    <button class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
                 </li>
-                <li class="date-form filter"><label><span>Hasta:</span><input id="before-date" type="date"></label>
-                    <button class="reset-date-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                <li class="form-input filter"><label><span>Hasta:</span><input id="before-date" type="date"></label>
+                    <button class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
                 </li>
                 {{#admin}}
                 <li>
                     <label><input class="filter" type="checkbox" id="show-past-concerts-input">Ver conciertos pasados</label>
                 </li>
                 {{/admin}}
+            </ul>
+
+            <button id="prices-button" data-bs-toggle="collapse" data-bs-target="#prices-list" aria-expanded="false" aria-controls="dates-list">
+                <span>Precio</span>
+                <img src="images/point-right.png" width="20px">
+            </button>
+            <ul class="collapse" id="prices-list">
+                <li class="form-input filter"><label><span>Desde:</span><input id="price-higher-than" type="number"></label>
+                    <button class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                </li>
+                <li class="form-input filter"><label><span>Hasta:</span><input id="price-lower-than" type="number"></label>
+                    <button class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                </li>
             </ul>
         </aside>
     </div>

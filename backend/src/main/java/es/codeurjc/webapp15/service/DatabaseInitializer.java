@@ -113,40 +113,40 @@ public class DatabaseInitializer {
         Concert concert6 = new Concert(LocalDateTime.of(2024, 04, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist3, genre2);
         concerts.save(concert6);
 
-        Concert concert7 = new Concert(LocalDateTime.of(2024, 04, 06, 22, 00, 00),"Zaragoza", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist6, genre1);
+        Concert concert7 = new Concert(LocalDateTime.of(2024, 04, 06, 22, 00, 00),"Zaragoza", Integer.valueOf(80000), Float.valueOf(45), "aaaaaaa", artist6, genre1);
         concerts.save(concert7);
 
-        Concert concert8 = new Concert(LocalDateTime.of(2024, 05, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist5, genre1);
+        Concert concert8 = new Concert(LocalDateTime.of(2024, 05, 06, 22, 00, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(85.5f), "aaaaaaa", artist5, genre1);
         concerts.save(concert8);
 
-        Concert concert9 = new Concert(LocalDateTime.of(2024, 05, 16, 18, 00, 00),"Málaga", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist9, genre2);
+        Concert concert9 = new Concert(LocalDateTime.of(2024, 05, 16, 18, 00, 00),"Málaga", Integer.valueOf(80000), Float.valueOf(22.25f), "aaaaaaa", artist9, genre2);
         concerts.save(concert9);
 
-        Concert concert10 = new Concert(LocalDateTime.of(2024, 05, 10, 19, 30, 00),"Valladolid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist8, genre1);
+        Concert concert10 = new Concert(LocalDateTime.of(2024, 05, 10, 19, 30, 00),"Valladolid", Integer.valueOf(80000), Float.valueOf(60f), "aaaaaaa", artist8, genre1);
         concerts.save(concert10);
 
-        Concert concert11 = new Concert(LocalDateTime.of(2024, 05, 27, 23, 00, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist4, genre2);
+        Concert concert11 = new Concert(LocalDateTime.of(2024, 05, 27, 23, 00, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(33.3f), "aaaaaaa", artist4, genre2);
         concerts.save(concert11);
 
-        Concert concert12 = new Concert(LocalDateTime.of(2024, 05, 31, 19, 15, 00),"Barcelona", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist7, genre1);
+        Concert concert12 = new Concert(LocalDateTime.of(2024, 05, 31, 19, 15, 00),"Barcelona", Integer.valueOf(80000), Float.valueOf(42f), "aaaaaaa", artist7, genre1);
         concerts.save(concert12);
 
-        Concert concert13 = new Concert(LocalDateTime.of(2024, 05, 02, 16, 30, 00),"Valencia", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist7, genre1);
+        Concert concert13 = new Concert(LocalDateTime.of(2024, 05, 02, 16, 30, 00),"Valencia", Integer.valueOf(80000), Float.valueOf(94.99f), "aaaaaaa", artist7, genre1);
         concerts.save(concert13);
 
-        Concert concert14 = new Concert(LocalDateTime.of(2024, 05, 03, 21, 15, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist5, genre2);
+        Concert concert14 = new Concert(LocalDateTime.of(2024, 05, 03, 21, 15, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(15f), "aaaaaaa", artist5, genre2);
         concerts.save(concert14);
 
-        Concert concert15 = new Concert(LocalDateTime.of(2024, 06, 24, 20, 45, 00),"Málaga", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist9, genre2);
+        Concert concert15 = new Concert(LocalDateTime.of(2024, 06, 24, 20, 45, 00),"Málaga", Integer.valueOf(80000), Float.valueOf(65f), "aaaaaaa", artist9, genre2);
         concerts.save(concert15);
 
-        Concert concert16 = new Concert(LocalDateTime.of(2024, 06, 8, 21, 30, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist6, genre1);
+        Concert concert16 = new Concert(LocalDateTime.of(2024, 06, 8, 21, 30, 00),"Sevilla", Integer.valueOf(80000), Float.valueOf(70.5f), "aaaaaaa", artist6, genre1);
         concerts.save(concert16);
 
-        Concert concert17 = new Concert(LocalDateTime.of(2024, 06, 9, 17, 00, 00),"Barcelona", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist2, genre1);
+        Concert concert17 = new Concert(LocalDateTime.of(2024, 06, 9, 17, 00, 00),"Barcelona", Integer.valueOf(80000), Float.valueOf(49.9f), "aaaaaaa", artist2, genre1);
         concerts.save(concert17);
 
-        Concert concert18 = new Concert(LocalDateTime.of(2024, 06, 30, 20, 00, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(120f), "aaaaaaa", artist4, genre2);
+        Concert concert18 = new Concert(LocalDateTime.of(2024, 06, 30, 20, 00, 00),"Madrid", Integer.valueOf(80000), Float.valueOf(37f), "aaaaaaa", artist4, genre2);
         concerts.save(concert18);
 
 
