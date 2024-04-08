@@ -24,6 +24,7 @@ fetch('/concert-list-data')
         generateLocationCheckboxes(locations);
         generateArtistsCheckboxes(artists);
         addFiltersListeners();
+        addDateInputResetButtonListeners();
     })
 
 
@@ -68,6 +69,17 @@ function addFiltersListeners() {
     });
 }
 
+function addDateInputResetButtonListeners() {
+    const buttons = document.querySelectorAll(".reset-form");
+    buttons.forEach(b => {
+        b.addEventListener("click", function(){
+            b.parentElement.querySelector("input").value = "";
+            currentPage = 0;
+            filter(true);
+        })
+    })
+}
+
 
 function clearSearchList() {
     let concerts = document.querySelectorAll(".event-article");
@@ -88,18 +100,46 @@ function getArtistsChecked() {
     return Array.from(filters).filter(x => x.checked).map(x => x.content);
 }
 
+function getDateValue(input) {
+    return (Date.parse(input.value) ? new Date(input.value).toISOString() : null)
+}
+
 function filter(isNewQuery) {
+    currentPage = isNewQuery ? 0 : currentPage + 1;
     getQuery(isNewQuery);
 }
 
 function getQuery(isNewQuery) {
+    const showPastConcertsInput = document.querySelector("#show-past-concerts-input")
+    const showPastConcerts = showPastConcertsInput ? showPastConcertsInput.checked : false
+    const dateBefore = getDateValue(document.querySelector("#before-date"))
+    const dateAfter = getDateValue(document.querySelector("#after-date"))
+    const priceLowerThan = document.querySelector("#price-lower-than")
+    const priceHigherThan = document.querySelector("#price-higher-than")
+
+    const requestData = {
+        locations: JSON.stringify(getLocationsChecked()),
+        artists: JSON.stringify(getArtistsChecked()),
+        showPast: showPastConcerts,
+        page: currentPage,
+    }
+
+    if (dateBefore)
+        requestData.dateBefore = dateBefore
+
+    if (dateAfter)
+        requestData.dateAfter = dateAfter
+
+    if (priceLowerThan)
+        requestData.priceLowerThan = priceLowerThan.value
+
+    if (priceHigherThan)
+        requestData.priceHigherThan = priceHigherThan.value
+    
     $.ajax({
         url: '/get-concerts',
         type: 'GET',
-        data: { locations: JSON.stringify(getLocationsChecked()),
-                artists: JSON.stringify(getArtistsChecked()),
-                page: currentPage,
-        },
+        data: requestData,
         success: function(data) {
             const button = document.getElementById("more-results-button");
             if (button)
@@ -122,7 +162,6 @@ function addMoreResultsButtonListener() {
     const button = document.getElementById("more-results-button");
     if (button) {
         button.addEventListener('click', function() {
-            currentPage++;
             filter(false);
         });
     }
@@ -147,11 +186,16 @@ function addDeleteButtonListeners() {
     
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const concertId = button.getAttribute('data-id');
             const confirmation = confirm('¿Estás seguro de que quieres eliminar este concierto?');
+
+            const concertId = button.getAttribute('data-id');
+            let formData = new FormData();
+            formData.append('_csrf', document.querySelector('meta[name="csrf"]').content);
+
             if (confirmation) {
                 fetch(`/search/${concertId}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    body: formData
                 })
                 .then(response => {
                     if (response.ok) {

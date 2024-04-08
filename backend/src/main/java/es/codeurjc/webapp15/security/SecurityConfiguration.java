@@ -110,9 +110,6 @@ public class SecurityConfiguration {
 
         http.authenticationProvider(authenticationProvider());
 
-        //si se quita esta linea no deja borrar los conciertos
-        http.csrf().ignoringRequestMatchers("/search/**");
-        http.csrf().ignoringRequestMatchers("/user/**");
         http
                 .authorizeHttpRequests(authorize -> authorize
                         // Public PAGES
@@ -132,7 +129,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/update/**").permitAll()
                         //.requestMatchers("api/**").permitAll()
                         // Private PAGES
-                        .requestMatchers("/profile").hasAnyRole("USER")
+                        .requestMatchers("/profile", "/user/**").hasAnyRole("USER")
                         .requestMatchers("/payment/*").hasAnyRole("USER")
                         .requestMatchers("/create-artist").hasAnyRole("ADMIN")
                         .requestMatchers("/create-concert").hasAnyRole("ADMIN")

@@ -571,20 +571,22 @@ button:hover span:nth-child(4) {
     font-weight: normal;
 }
 
-#filters-sidebar .date-form label span{
+#filters-sidebar .form-input label span{
     float: left;
     width: 60px;
     margin: auto;
     margin-right: 10px;
 }
 
-#filters-sidebar .send-date-form {
-    border: 0;
-    padding: 0;
-    margin-right: 6px;
+#filters-sidebar #dates-list .form-input input {
+    width: 142px;
 }
 
-#filters-sidebar .reset-date-form {
+#filters-sidebar #prices-list .form-input input {
+    width: 90px;
+}
+
+#filters-sidebar .reset-form {
     border: 0;
     padding: 0;
 }

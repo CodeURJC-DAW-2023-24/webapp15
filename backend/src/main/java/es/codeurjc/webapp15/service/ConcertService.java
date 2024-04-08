@@ -57,7 +57,7 @@ public class ConcertService {
         return repository.findByConcert(concerts);
     }
     public Page<Concert> findConcerts(Pageable page, List<String> locations, List<String> artists,
-                                      Optional<LocalDateTime> before, Optional<LocalDateTime> after,
+                                      Optional<LocalDateTime> before, Optional<LocalDateTime> after, boolean showPast,
                                       Optional<Float> priceLowerThan, Optional<Float> priceHigherThan) {
 
         StringBuilder jpql = new StringBuilder("SELECT c FROM Concert c WHERE 1=1");
@@ -68,15 +68,47 @@ public class ConcertService {
         if (artists != null && !artists.isEmpty())
             jpql.append(" AND c.artist.name IN :artists");
         
-        jpql.append(" ORDER BY c.datetime");
+        if (before != null && before.isPresent())
+            jpql.append(" AND c.datetime < :before");
 
+        if (after != null && after.isPresent())
+            jpql.append(" AND c.datetime > :after");
+        
+        if (!showPast)
+            jpql.append(" AND c.datetime > :now");
+
+        if (priceLowerThan != null && priceLowerThan.isPresent())
+            jpql.append(" AND c.price < :priceLowerThan");
+
+        if (priceHigherThan != null && priceHigherThan.isPresent())
+            jpql.append(" AND c.price > :priceHigherThan");
+
+        jpql.append(" ORDER BY c.datetime");
+            
         Query query = entityManager.createQuery(jpql.toString());
+        
+        LocalDateTime now = LocalDateTime.now();
 
         if (locations != null && !locations.isEmpty())
             query.setParameter("locations", locations);
 
         if (artists != null && !artists.isEmpty())
             query.setParameter("artists", artists);
+
+        if (before != null && before.isPresent())
+            query.setParameter("before", before.get());
+
+        if (after != null && after.isPresent())
+            query.setParameter("after", after.get());
+
+        if (!showPast)
+            query.setParameter("now", now);
+
+        if (priceLowerThan != null && priceLowerThan.isPresent())
+            query.setParameter("priceLowerThan", priceLowerThan.get());
+
+        if (priceHigherThan != null && priceHigherThan.isPresent())
+            query.setParameter("priceHigherThan", priceHigherThan.get());
 
         query.setFirstResult(page.getPageNumber() * page.getPageSize());
         query.setMaxResults(page.getPageSize());

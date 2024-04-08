@@ -64,7 +64,7 @@ public class TicketRestController {
     )
     })
     @GetMapping("")
-    public ResponseEntity<Object> getTickets(@RequestParam("page") int page, HttpServletRequest request) {
+    public ResponseEntity<Page<Ticket>> getTickets(@RequestParam("page") int page, HttpServletRequest request) {
 
         String principal = request.getUserPrincipal().getName();
         Optional<User> user = userService.findByEmail(principal);
@@ -73,7 +73,7 @@ public class TicketRestController {
         if (tickets.isEmpty())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         
-        return new ResponseEntity<>(tickets.getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     @Operation(summary = "Get a ticket by id")

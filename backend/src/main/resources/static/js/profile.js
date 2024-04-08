@@ -78,11 +78,14 @@ function editField(textId, inputId, saveBtnId, editBtnId) {
 }
 
 function saveField(textId, inputId, saveBtnId, editBtnId) {
+    // TODO: This is in the upper function ? 
     var newValue = document.getElementById(inputId).value;
     document.getElementById(textId).innerText = newValue;
 
     // Prepare data to be sent to the server
-    var data = { value: newValue };
+    let formData = new FormData();
+    formData.append('value', newValue);
+    formData.append('_csrf', document.querySelector('meta[name="csrf"]').content);
 
     // Determine which field is being updated based on the inputId
     var updateUrl = '/user/update/'; // Base URL for update endpoint
@@ -93,12 +96,8 @@ function saveField(textId, inputId, saveBtnId, editBtnId) {
     }
     // Make the POST request using fetch
     fetch(updateUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // Include CSRF token as needed for security
-        },
-        body: JSON.stringify(data)
+        method: 'PUT',
+        body: formData,
     }).then(response => {
         if (response.ok) {
             console.log('Update successful');
@@ -136,9 +135,10 @@ function previewImage(input) {
 function uploadImage(file) {
     var formData = new FormData();
     formData.append('imageFile', file); // 'imageFile' is the key
+    formData.append('_csrf', document.querySelector('meta[name="csrf"]').content);
 
     fetch('/user/update/image', { // Endpoint to upload the image
-        method: 'POST',
+        method: 'PUT',
         body: formData, // Send the image file in FormData
     }).then(response => {
         if (response.ok) {
