@@ -90,10 +90,10 @@ public class ConcertService {
             query.setParameter("artists", artists);
 
         if (before != null && before.isPresent())
-            query.setParameter("before", before);
+            query.setParameter("before", before.get());
 
         if (after != null && after.isPresent())
-            query.setParameter("after", after);
+            query.setParameter("after", after.get());
 
         if (!showPast)
             query.setParameter("now", now);

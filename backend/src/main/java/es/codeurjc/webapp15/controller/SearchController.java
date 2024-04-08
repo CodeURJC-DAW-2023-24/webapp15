@@ -2,6 +2,7 @@ package es.codeurjc.webapp15.controller;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -80,12 +81,16 @@ public class SearchController {
     @GetMapping("/get-concerts")
     public String getConcerts(Model model, HttpServletRequest request,
                                 @RequestParam String[] locations, @RequestParam String[] artists,
-                                @RequestParam Optional<LocalDateTime> dateBefore, @RequestParam Optional<LocalDateTime> dateAfter,
+                                @RequestParam("dateBefore") Optional<String> dateBeforeStr,
+                                @RequestParam("dateAfter") Optional<String> dateAfterStr,
                                 @RequestParam boolean showPast,
                                 @RequestParam int page) {
 
         List<String> locationList = formatJSONArrayToList(locations);
         List<String> artistList = formatJSONArrayToList(artists);
+
+        Optional<LocalDateTime> dateBefore = dateBeforeStr.map((str) -> LocalDateTime.parse(str, DateTimeFormatter.ISO_DATE_TIME));
+        Optional<LocalDateTime> dateAfter = dateAfterStr.map((str) -> LocalDateTime.parse(str, DateTimeFormatter.ISO_DATE_TIME));
 
         Pageable pageable = PageRequest.of(page, pageSize);
 
