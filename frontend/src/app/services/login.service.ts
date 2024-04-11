@@ -15,8 +15,9 @@ export class LoginService {
     }
 
     requestIsLogged() {
-        this.http.get("/api/users/me").subscribe({
-            next: (v) => this.user = v as User,
+        this.http.get("https://localhost:8443/api/users/me").subscribe({
+            // next: (v) => this.user = v as User,
+            next: (v) => console.log(v),
             error: (e) => console.error(e)
         })
     }
