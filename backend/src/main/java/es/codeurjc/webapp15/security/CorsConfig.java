@@ -16,6 +16,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:4200"); // Permite todas las solicitudes desde cualquier origen
         config.addAllowedMethod("*"); // Permite todos los métodos HTTP
         config.addAllowedHeader("*"); // Permite todos los encabezados
+        config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }

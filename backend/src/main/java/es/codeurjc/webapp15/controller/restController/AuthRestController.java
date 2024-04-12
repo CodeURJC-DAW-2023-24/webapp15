@@ -4,9 +4,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.codeurjc.webapp15.security.jwt.AuthResponse;
 import es.codeurjc.webapp15.security.jwt.LoginRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import es.codeurjc.webapp15.security.jwt.UserLoginService;
 import es.codeurjc.webapp15.security.jwt.AuthResponse.Status;
+import es.codeurjc.webapp15.service.UserService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +32,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class AuthRestController {
         
         @Autowired
-        private UserLoginService userService;
+        private UserLoginService userLoginService;
+
+        @Autowired
+        private UserService userService;
     
         @Operation(summary = "Log in")
         @ApiResponses(value = {
@@ -54,17 +61,23 @@ public class AuthRestController {
             )
         })
         @PostMapping(value="/login",consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<AuthResponse> login(
+        public ResponseEntity<Object> login(
                 @CookieValue(name = "accessToken", required = false) String accessToken,
                 @CookieValue(name = "refreshToken", required = false) String refreshToken,
-                @RequestBody LoginRequest loginRequest) {
-            return userService.login(loginRequest, accessToken, refreshToken);
+                @RequestBody LoginRequest loginRequest,
+                HttpServletRequest request) {
+            ResponseEntity<AuthResponse> response = userLoginService.login(loginRequest, accessToken, refreshToken);
+            if (response.getStatusCode() == HttpStatusCode.valueOf(200)) {
+                return ResponseEntity.ok(userService.findByEmail(request.getUserPrincipal().getName()).get());
+            }
+            
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         
         @PostMapping("/refresh")
         public ResponseEntity<AuthResponse> refreshToken(
                 @CookieValue(name = "refreshToken", required = false) String refreshToken) {
-            return userService.refresh(refreshToken);
+            return userLoginService.refresh(refreshToken);
         }
     
         @Operation(summary = "Log out ")
@@ -74,7 +87,7 @@ public class AuthRestController {
         @PostMapping("/logout")
         public ResponseEntity<AuthResponse> logOut(HttpServletRequest request, HttpServletResponse response) {
     
-            return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userService.logout(request, response)));
+            return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userLoginService.logout(request, response)));
         }
     
     
