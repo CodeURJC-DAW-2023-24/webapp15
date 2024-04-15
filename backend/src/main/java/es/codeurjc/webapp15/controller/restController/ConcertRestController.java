@@ -23,6 +23,7 @@ import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.model.Genre;
 import es.codeurjc.webapp15.model.User;
 import es.codeurjc.webapp15.service.ArtistService;
+import es.codeurjc.webapp15.service.AuthService;
 import es.codeurjc.webapp15.service.ConcertService;
 import es.codeurjc.webapp15.service.GenreService;
 import es.codeurjc.webapp15.service.UserService;
@@ -68,6 +69,9 @@ public class ConcertRestController {
     @Autowired
     private GenreService genreService;
 
+    @Autowired
+    private AuthService authService;
+
     // View search concerts
     @Operation(summary = "Get a page of concerts, sorted by datetime")
     @ApiResponses(value = {
@@ -93,17 +97,28 @@ public class ConcertRestController {
     @GetMapping("")
     public ResponseEntity<Page<Concert>> getConcerts(@RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "size", defaultValue = "6") int size,
                                                         @RequestParam(value = "locations", defaultValue = "") String[] locations,
-                                                        @RequestParam(value = "artists", defaultValue = "") String[] artists) {
+                                                        @RequestParam(value = "artists", defaultValue = "") String[] artists,
+                                                        @RequestParam Optional<LocalDateTime> before,
+                                                        @RequestParam Optional<LocalDateTime> after,
+                                                        @RequestParam(value = "showPast") Optional<Boolean> showPastOpt,
+                                                        @RequestParam Optional<Float> priceLowerThan,
+                                                        @RequestParam Optional<Float> priceHigherThan,
+                                                        HttpServletRequest request) {
         List<String> locationList = formatJSONArrayToList(locations);
         List<String> artistList = formatJSONArrayToList(artists);
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("datetime"));
-        Page<Concert> concerts = concertService.findConcerts(pageable,locationList,artistList,null,null,null,null);
+
+        boolean showPast = false;
+        if (authService.sessionIsRole("ADMIN", request)) {
+            showPast = showPastOpt.isPresent() ? showPastOpt.get() : false;
+        }
+        
+        Page<Concert> concerts = concertService.findConcerts(pageable, locationList, artistList, before, after, showPast, priceLowerThan, priceHigherThan);
         if (concerts.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     
-        // TODO Cambiar a page
         return new ResponseEntity<>(concerts, HttpStatus.OK);
     }
 
