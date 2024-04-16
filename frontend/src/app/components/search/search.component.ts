@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { SearchService } from "../../services/search.service";
 import { LoginService } from "../../services/login.service";
 
 @Component({
@@ -7,9 +8,12 @@ import { LoginService } from "../../services/login.service";
 
 export class SearchComponent {
 
-    constructor(private loginService: LoginService) { }
+    constructor(private searchService: SearchService, private loginService: LoginService) { }
 
     test(): void {
-        this.loginService.requestIsLogged();
+        //this.loginService.requestIsLogged();
+        this.searchService.search({
+
+        })
     }
 }
