@@ -18,7 +18,6 @@ export class LoginService {
     }
 
     requestIsLogged() {
-        console.log("bbbbbb")
         this.http.get(BASE_URL + "/users/me").subscribe({
             // next: (v) => this.user = v as User,
             next: (v) => {
@@ -28,7 +27,6 @@ export class LoginService {
             },
             error: (e: HttpErrorResponse) => {
                 if (e.status == 401) {
-                console.log("aaaaaaaaaaaa")
                 this.logged = false
             }
             console.error(e)

@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login/login.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,11 +18,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgbNavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

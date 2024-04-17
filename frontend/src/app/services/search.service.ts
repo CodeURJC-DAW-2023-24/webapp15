@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchParams, SearchParamsFields } from '../utils/search-params';
+import { Observable } from 'rxjs';
 
 const BASE_URL = 'https://localhost:8443/api'
 
@@ -11,16 +12,8 @@ export class SearchService {
 
     constructor(private http: HttpClient) { }
 
-    search(params: SearchParamsFields): void {
-        this.http.get(BASE_URL + "/concerts", { params: this.getParams(params) })
-            .subscribe({
-                next: (v) => {
-                    console.log(v)
-                },
-                error: (e: HttpErrorResponse) => {
-                    console.error(e)
-                }
-            })
+    search(params: SearchParamsFields): Observable<any> {
+        return this.http.get(BASE_URL + "/concerts", { params: this.getParams(params) })
     }
 
     private getParams(params: SearchParamsFields): HttpParams {
