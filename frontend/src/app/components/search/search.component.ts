@@ -5,6 +5,8 @@ import { NgbNavModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Concert } from "../../models/concert.model";
 import { SearchParamsFields } from "../../utils/search-params";
+import { Observable, catchError, firstValueFrom, map } from 'rxjs';
+import { SpringResponse } from "../../utils/spring-response";
 
 @Component({
     templateUrl: 'search.component.html',
@@ -12,29 +14,38 @@ import { SearchParamsFields } from "../../utils/search-params";
 
 export class SearchComponent {
 
-    concerts: Concert[] = this.search();
+    query?: SpringResponse<Concert[]>;
+    concerts: Concert[] = [];
 
-    constructor(private searchService: SearchService, private loginService: LoginService) { }
+    constructor(private searchService: SearchService, private loginService: LoginService) {
+        this.searchConcerts();
+    }
 
-    search(params?: SearchParamsFields): Concert[] {
-        let concerts: Concert[] = [];
-        //this.loginService.requestIsLogged();
-        this.searchService.search(params ?? {})
-            .subscribe({
-                next: (response: HttpResponse<any>) => {
-                    console.log(response)
-                    const content: Concert[] = response.body.content;
-                    for (let concert of content) {
-                        concert.datetime = new Date(concert.datetime);
-                        concerts.push(concert);
-                    }
-                    console.log(this.concerts)
-                },
-                error: (e: HttpErrorResponse) => {
-                    console.error(e)
-                }
+    private search<T>(params?: SearchParamsFields): Observable<SpringResponse<T>> {
+
+        return this.searchService.search(params ?? {})
+            .pipe(
+                map((response: SpringResponse<T>) => {
+                    return response;
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    throw error;
+                })
+            )
+    }
+
+    searchConcerts(params?: SearchParamsFields) {
+        this.search<Concert[]>(params ?? {})
+            .subscribe((response: SpringResponse<Concert[]>) => {
+                this.query = response;
+                this.concerts.push(...this.convertDatetime(response.content));
             })
+    }
 
+    private convertDatetime(concerts: Concert[]) {
+        concerts.forEach((concert) => {
+            concert.datetime = new Date(concert.datetime);
+        })
         return concerts;
     }
 }
