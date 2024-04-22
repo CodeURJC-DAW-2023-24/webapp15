@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login/login.component';
+import { ProfileComponent } from './components/user/profile.component';
 import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
