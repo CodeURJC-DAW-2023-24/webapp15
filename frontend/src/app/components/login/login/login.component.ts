@@ -14,7 +14,6 @@ export class LoginComponent {
     constructor(private loginService: LoginService) { }
 
     submitLoginForm() {
-        console.log('aaaaa')
         this.loginService.login(this.username, this.password)
     }
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
@@ -10,15 +11,14 @@ const BASE_URL = 'https://localhost:8443/api'
 })
 export class LoginService {
 
-    logged: boolean = false;
-    user: User | undefined;
+    private logged: boolean = false;
+    private user: User | undefined;
 
-    constructor(private http: HttpClient) {
-        this.requestIsLogged();
-    }
+    constructor(private http: HttpClient, private router: Router) { }
 
+    // TODO: Copiar del ejemplo de la fase 4 ???? no se como persistir la sesion.
     requestIsLogged() {
-        this.http.get(BASE_URL + "/users/me").subscribe({
+        this.http.get(BASE_URL + "/users/me", { withCredentials: true} ).subscribe({
             // next: (v) => this.user = v as User,
             next: (v) => {
                 this.logged = true
@@ -27,24 +27,33 @@ export class LoginService {
             },
             error: (e: HttpErrorResponse) => {
                 if (e.status == 401) {
-                this.logged = false
-            }
-            console.error(e)
+                    this.logged = false
+                }
+                console.error(e)
             }
         })
     }
 
     login(username: string, password: string) {
-        console.log(username)
         this.http.post(BASE_URL + "/login", { "username": username, "password": password }, { withCredentials: true })
             .subscribe({
                 next: (v) => {
-                    this.user = v as User
+                    this.user = v as User;
+                    this.logged = true;
                     console.log(v)
+                    this.router.navigate(['/']);
                 },
                 error: (e: HttpErrorResponse) => {
                     console.log(e)
                 }
             })
+    }
+
+    isLogged() { return this.logged }
+
+    isRole(role: string): boolean {
+        if (!this.user) { return false }
+
+        return this.user.roles.includes(role);
     }
 }

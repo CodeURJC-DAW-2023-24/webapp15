@@ -10,12 +10,15 @@ import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login/login.component';
 import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { ProfileComponent } from './components/profile/profile/profile.component';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,7 @@ import { CommonModule } from '@angular/common';
     NgbModule,
     NgbNavModule
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
