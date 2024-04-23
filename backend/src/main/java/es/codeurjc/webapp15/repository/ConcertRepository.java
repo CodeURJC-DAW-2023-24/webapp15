@@ -19,8 +19,8 @@ public interface ConcertRepository extends JpaRepository<Concert,Long> {
     @Query("SELECT DISTINCT c.place FROM Concert c")
     List<String> findLocations();
 
-    @Query("SELECT DISTINCT c.artist.name FROM Concert c")
-    List<String> findArtists();
+    @Query("SELECT DISTINCT c.artist FROM Concert c")
+    List<Artist> findArtists();
 
     @Query("SELECT c.artist " +
            "FROM Concert c " +

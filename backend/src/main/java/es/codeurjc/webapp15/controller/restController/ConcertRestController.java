@@ -336,4 +336,52 @@ public class ConcertRestController {
         concertService.delete(id);
         return ResponseEntity.ok(concert.get());
     }
+
+    @Operation(summary = "Get the list of artists that have a concert")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the list",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "List not found",
+    content = @Content
+    )
+    })
+    @GetMapping("/artists")
+    public ResponseEntity<List<Artist>> getArtists() {
+
+        List<Artist> artists = concertService.findArtists();
+        
+        return new ResponseEntity<>(artists, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Get the list of the concerts locations")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the list",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "List not found",
+    content = @Content
+    )
+    })
+    @GetMapping("/locations")
+    public ResponseEntity<List<String>> getLocations() {
+
+        List<String> locations = concertService.findLocations();
+        
+        return new ResponseEntity<>(locations, HttpStatus.OK);
+    }
 }
