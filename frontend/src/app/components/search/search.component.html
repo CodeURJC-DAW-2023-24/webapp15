@@ -1,6 +1,5 @@
 <h1>busqueda</h1>
-<button (click)="searchConcerts()">test</button>
-<!-- <main id="search-results" *ngFor="let concert of concerts"> -->
+
 <main id="search-results">
     @for (concert of concerts; track $index) {
         <article class="event-article">
@@ -34,6 +33,9 @@
             <!-- end if admin -->
         </article>
     }
+    @if (!last) {
+        <button (click)="searchConcerts(false)" id="more-results-button"><span>Más resultados</span></button>
+    }
 </main>
 
 <aside id="filters-sidebar">
@@ -41,14 +43,14 @@
     <ul id="artist-list">
     @for (artist of artists; track $index) {
         <li>
-            <label><input class="filter" filter="artist" type="checkbox"><span>{{artist.name}}</span></label>
+            <label><input (change)="updateCheckedArtists(artist.name)" class="filter" filter="artist" type="checkbox"><span>{{artist.name}}</span></label>
         </li>
     }
     </ul>
     <ul id="location-list">
     @for (location of locations; track $index) {
         <li>
-            <label><input class="filter" filter="location" type="checkbox"><span>{{location}}</span></label>
+            <label><input (change)="updateCheckedLocations(location)" class="filter" filter="location" type="checkbox"><span>{{location}}</span></label>
         </li>
     }
     </ul>
