@@ -12,8 +12,8 @@ export class SearchService {
 
     constructor(private http: HttpClient) { }
 
-    search(params: SearchParamsFields): Observable<any> {
-        return this.http.get(BASE_URL + "/concerts", { params: this.getParams(params) })
+    search<T>(relativeUrl: string, params: SearchParamsFields): Observable<T> {
+        return this.http.get<T>(BASE_URL + relativeUrl, { params: this.getParams(params) })
     }
 
     private getParams(params: SearchParamsFields): HttpParams {

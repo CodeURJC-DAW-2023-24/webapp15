@@ -7,6 +7,7 @@ import { Concert } from "../../models/concert.model";
 import { SearchParamsFields } from "../../utils/search-params";
 import { Observable, catchError, firstValueFrom, map } from 'rxjs';
 import { SpringResponse } from "../../utils/spring-response";
+import { Artist } from "../../models/artist.model";
 
 @Component({
     templateUrl: 'search.component.html',
@@ -16,14 +17,20 @@ export class SearchComponent {
 
     query?: SpringResponse<Concert[]>;
     concerts: Concert[] = [];
+    artists: Artist[] = [];
+    locations: String[] = [];
 
-    constructor(private searchService: SearchService, private loginService: LoginService) {
+    constructor(private searchService: SearchService, private loginService: LoginService) { }
+
+    ngOnInit() {
         this.searchConcerts();
+        this.getArtists();
+        this.getLocations();
     }
 
-    private search<T>(params?: SearchParamsFields): Observable<SpringResponse<T>> {
+    private searchPage<T>(relativeUrl: string, params?: SearchParamsFields): Observable<SpringResponse<T>> {
 
-        return this.searchService.search(params ?? {})
+        return this.searchService.search<SpringResponse<T>>(relativeUrl, params ?? {})
             .pipe(
                 map((response: SpringResponse<T>) => {
                     return response;
@@ -34,8 +41,21 @@ export class SearchComponent {
             )
     }
 
-    searchConcerts(params?: SearchParamsFields) {
-        this.search<Concert[]>(params ?? {})
+    private search<T>(relativeUrl: string, params?: SearchParamsFields): Observable<T> {
+
+        return this.searchService.search<T>(relativeUrl, params ?? {})
+            .pipe(
+                map((response: T) => {
+                    return response;
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    throw error;
+                })
+            )
+    }
+
+    searchConcerts(params?: SearchParamsFields): void {
+        this.searchPage<Concert[]>("/concerts", params ?? {})
             .subscribe((response: SpringResponse<Concert[]>) => {
                 this.query = response;
                 this.concerts.push(...this.convertDatetime(response.content));
@@ -47,5 +67,19 @@ export class SearchComponent {
             concert.datetime = new Date(concert.datetime);
         })
         return concerts;
+    }
+
+    getArtists(): void {
+        this.search<Artist[]>("/concerts/artists")
+            .subscribe((response: Artist[]) => {
+                this.artists = response;
+            })
+    }
+
+    getLocations(): void {
+        this.search<String[]>("/concerts/locations")
+            .subscribe((response: String[]) => {
+                this.locations = response;
+            })
     }
 }
