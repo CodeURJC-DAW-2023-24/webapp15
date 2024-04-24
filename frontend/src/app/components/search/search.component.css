@@ -1,0 +1,126 @@
+#search-container {
+    display: flex;
+}
+
+main {
+    flex-grow: 5;
+    margin: 30px;
+    margin-right: 15px;
+    padding: 20px;
+    background-color: #EEE;
+    border-radius: 10px;
+}
+
+.event-article {
+    display: flex;
+    margin-bottom: 8px;
+    padding: 18px 0;
+    border-radius: 10px;
+    background-color: #DDD;
+}
+
+.event-article time {
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.event-article time .month {
+    order: 1;
+}
+
+.event-article time .day {
+    order: 2;
+}
+
+.event-article .event-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-article h1 {
+    all: unset;
+    font-size: 15px;
+    font-weight: bold;
+    order: 2;
+}
+
+.event-article h1 a {
+    color: inherit;
+}
+
+.event-article .date-info {
+    order: 1;
+}
+
+.event-article p {
+    margin: 0;
+}
+
+.event-article .venue-info {
+    order: 3;
+}
+
+.event-article button {
+    margin-right: 20px;
+    padding: 0 12px;
+    height: 3em;
+    min-width: 120px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}
+
+main #more-results-button {
+    margin-right: 20px;
+    padding: 0 12px;
+    height: 4em;
+    min-width: 160px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}
+
+
+aside {
+    display: flex;
+    flex-direction: column;
+    min-width: 25vw;
+    margin: 30px;
+    margin-left: 15px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #EEE;
+}
+
+aside > ul {
+    margin: 0;
+    padding: 0;
+}
+
+aside li {
+    list-style-type: none;
+}
+
+aside input {
+    margin-right: 4px;
+}
+
+.form-input label span {
+    float: left;
+    width: 60px;
+    margin: auto;
+    margin-right: 10px;
+}
+
+#dates-list .form-input input {
+    width: 142px;
+}
+
+#prices-list .form-input input {
+    width: 90px;
+}

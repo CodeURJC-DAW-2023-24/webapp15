@@ -1,116 +1,123 @@
-<h1>busqueda</h1>
+<div id="search-container">
 
-<main id="search-results">
-    @for (concert of concerts; track $index) {
-        <article class="event-article">
-            <time>
-                <span class="day">{{concert.datetime.getDate()}}</span>
-                <span class="month">{{concert.datetime.toLocaleString("es-ES", { month: "short"})}}</span>
-            </time>
-            <div class="event-info">
-                <h1><a href="/artist/{{concert.artist.uri}}" class="artist-info-anchor">{{concert.artist.name}}</a></h1>
-                <p class="date-info">
-                    <span class="weekday">{{concert.datetime.getDay()}}</span>
-                    <span> - </span>
-                    <span class="hour">{{concert.datetime.getHours()}}</span>
-                </p>
-                <p class="venue-info">
-                    <span class="city">{{concert.place}}</span>
-                    <span> - </span>
-                    <span class="price">{{concert.price}}</span>
-                </p>
-            </div>
-            <!-- <button onclick="location.href ='/payment/" + concert.getId().toString() + "'"> -->
-            <button class="tickets-concert-list-button">
-                <span>Entradas</span>
-                <img src="/images/point-right.png" width="19px">
-            </button>
-            <!-- if admin -->
-            <button class="delete-btn" data-id={{concert.id}}>
-                <span>Eliminar</span>
-                <img src="images/point-right.png" width="19px">
-            </button>
-            <!-- end if admin -->
-        </article>
-    }
-    @if (!last) {
-        <button (click)="searchConcerts(false)" id="more-results-button"><span>Más resultados</span></button>
-    }
-</main>
-
-<aside id="filters-sidebar">
-    <h1>Filtros</h1>
-
-    <ul>
-        <li>
-            <ul id="artist-list">
-                @for (artist of artists; track $index) {
-                    <li>
-                        <label>
-                            <input (change)="updateCheckedArtists(artist.name)" class="filter" filter="artist" type="checkbox">
-                            <span>{{artist.name}}</span>
-                        </label>
-                    </li>
-                }
-            </ul>
-        </li>
-        <li>
-            <ul id="location-list">
-                @for (location of locations; track $index) {
-                    <li>
-                        <label>
-                            <input (change)="updateCheckedLocations(location)" class="filter" filter="location" type="checkbox">
-                            <span>{{location}}</span>
-                        </label>
-                    </li>
-                }
-            </ul>
-        </li>
-        <li>
-            <ul id="dates-list">
-                <li class="form-input">
-                    <label>
-                        <span>Desde:</span>
-                        <input filter="afterDate" #afterDateInput (change)="updateAfterDate(afterDateInput.value)" type="date">
-                    </label>
-                    <button (click)="resetAfterDate(afterDateInput)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
-                </li>
-                <li class="form-input">
-                    <label>
-                        <span>Hasta:</span>
-                        <input filter="beforeDate" #beforeDateInput (change)="updateBeforeDate(beforeDateInput.value)" type="date">
-                    </label>
-                    <button (click)="resetBeforeDate(beforeDateInput)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
-                </li>
+    <main id="search-results">
+        @for (concert of concerts; track $index) {
+            <article class="event-article">
+                <time>
+                    <span class="day">{{concert.datetime.getDate()}}</span>
+                    <span class="month">{{concert.datetime.toLocaleString("es-ES", { month: "short"})}}</span>
+                </time>
+                <div class="event-info">
+                    <h1><a href="/artist/{{concert.artist.uri}}" class="artist-info-anchor">{{concert.artist.name}}</a></h1>
+                    <p class="date-info">
+                        <span class="weekday">{{concert.datetime.toLocaleString("es-ES", { weekday: "short" })}}</span>
+                        <span> - </span>
+                        <span class="hour">{{formatHour(concert.datetime)}}</span>
+                    </p>
+                    <p class="venue-info">
+                        <span class="city">{{concert.place}}</span>
+                        <span> - </span>
+                        <span class="price">{{concert.price}}</span>
+                    </p>
+                </div>
+                <!-- <button onclick="location.href ='/payment/" + concert.getId().toString() + "'"> -->
+                <button class="tickets-concert-list-button">
+                    <span>Entradas</span>
+                    <img src="/images/point-right.png" width="19px">
+                </button>
                 <!-- if admin -->
-                <li>
-                    <label>
-                        <input (change)="toggleShowPast()" type="checkbox" id="show-past-concerts-input">
-                        <span>Ver conciertos pasados</span>
-                    </label>
-                </li>
+                <button class="delete-btn" data-id={{concert.id}}>
+                    <span>Eliminar</span>
+                    <img src="images/point-right.png" width="19px">
+                </button>
                 <!-- end if admin -->
-            </ul>
-        </li>
-        <li>
-            <ul id="prices-list">
-                <li class="form-input">
-                    <label>
-                        <span>Desde:</span>
-                        <input filter="priceHigherThan" #priceHigherThanInput (change)="updatePriceHigherThan(priceHigherThanInput.value)" type="number">
-                    </label>
-                    <button (click)="resetPriceHigherThan(priceHigherThanInput)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
-                </li>
-                <li class="form-input">
-                    <label>
-                        <span>Hasta:</span>
-                        <input filter="priceLowerThan" #priceLowerThanInput (change)="updatePriceLowerThan(priceLowerThanInput.value)" type="number">
-                    </label>
-                    <button (click)="resetPriceLowerThan(priceLowerThanInput)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
-                </li>
-            </ul>
-        </li>
-    </ul>
+            </article>
+        }
+        @if (!last) {
+            <button (click)="searchConcerts(false)" id="more-results-button"><span>Más resultados</span></button>
+        }
+    </main>
 
-</aside>
+    <aside id="filters-sidebar">
+        <h1>Filtros</h1>
+
+        <ul>
+            <li>
+                <h2>Artistas</h2>
+                <ul id="artist-list">
+                    @for (artist of artists; track $index) {
+                        <li>
+                            <label>
+                                <input (change)="updateCheckedArtists(artist.name)" class="filter" filter="artist" type="checkbox">
+                                <span>{{artist.name}}</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </li>
+            <li>
+                <h2>Lugar</h2>
+                <ul id="location-list">
+                    @for (location of locations; track $index) {
+                        <li>
+                            <label>
+                                <input (change)="updateCheckedLocations(location)" class="filter" filter="location" type="checkbox">
+                                <span>{{location}}</span>
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </li>
+            <li>
+                <h2>Fecha</h2>
+                <ul id="dates-list">
+                    <li class="form-input">
+                        <label>
+                            <span>Desde:</span>
+                            <input filter="afterDate" #afterDateInput (change)="updateAfterDate(afterDateInput.value)" type="date">
+                        </label>
+                        <button (click)="resetAfterDate(afterDateInput)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                    </li>
+                    <li class="form-input">
+                        <label>
+                            <span>Hasta:</span>
+                            <input filter="beforeDate" #beforeDateInput (change)="updateBeforeDate(beforeDateInput.value)" type="date">
+                        </label>
+                        <button (click)="resetBeforeDate(beforeDateInput)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                    </li>
+                    <!-- if admin -->
+                    <li>
+                        <label>
+                            <input (change)="toggleShowPast()" type="checkbox" id="show-past-concerts-input">
+                            <span>Ver conciertos pasados</span>
+                        </label>
+                    </li>
+                    <!-- end if admin -->
+                </ul>
+            </li>
+            <li>
+                <h2>Precio</h2>
+                <ul id="prices-list">
+                    <li class="form-input">
+                        <label>
+                            <span>Desde:</span>
+                            <input filter="priceHigherThan" #priceHigherThanInput (change)="updatePriceHigherThan(priceHigherThanInput.value)" type="number">
+                        </label>
+                        <button (click)="resetPriceHigherThan(priceHigherThanInput)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
+                    </li>
+                    <li class="form-input">
+                        <label>
+                            <span>Hasta:</span>
+                            <input filter="priceLowerThan" #priceLowerThanInput (change)="updatePriceLowerThan(priceLowerThanInput.value)" type="number">
+                        </label>
+                        <button (click)="resetPriceLowerThan(priceLowerThanInput)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </aside>
+
+</div>
+
 

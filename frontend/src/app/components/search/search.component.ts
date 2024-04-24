@@ -9,6 +9,7 @@ import { Artist } from "../../models/artist.model";
 
 @Component({
     templateUrl: 'search.component.html',
+    styleUrl: 'search.component.css',
 })
 
 export class SearchComponent {
@@ -176,6 +177,15 @@ export class SearchComponent {
         element.value = '';
         this.priceLowerThan = undefined;
         this.searchConcerts(true);
+    }
+
+    formatHour(date: Date): string {
+        let str = date.getHours().toString() + ":";
+        date.getMinutes() < 10
+            ? str += "0" + date.getMinutes()
+            : str += date.getMinutes();
+
+        return str;
     }
 
     private getParams(page: number): SearchParamsFields {
