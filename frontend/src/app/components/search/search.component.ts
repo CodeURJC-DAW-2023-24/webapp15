@@ -154,8 +154,27 @@ export class SearchComponent {
         this.searchConcerts(true);
     }
 
-    resetForm(element: HTMLInputElement) {
+    resetAfterDate(element: HTMLInputElement): void {
         element.value = '';
+        this.afterDate = undefined;
+        this.searchConcerts(true);
+    }
+
+    resetBeforeDate(element: HTMLInputElement): void {
+        element.value = '';
+        this.beforeDate = undefined;
+        this.searchConcerts(true);
+    }
+
+    resetPriceHigherThan(element: HTMLInputElement): void {
+        element.value = '';
+        this.priceHigherThan = undefined
+        this.searchConcerts(true);
+    }
+
+    resetPriceLowerThan(element: HTMLInputElement): void {
+        element.value = '';
+        this.priceLowerThan = undefined;
         this.searchConcerts(true);
     }
 
