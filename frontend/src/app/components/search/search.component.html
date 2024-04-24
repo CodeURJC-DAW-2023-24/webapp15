@@ -40,19 +40,52 @@
 
 <aside id="filters-sidebar">
     <h1>Filtros</h1>
-    <ul id="artist-list">
-    @for (artist of artists; track $index) {
+
+    <ul>
         <li>
-            <label><input (change)="updateCheckedArtists(artist.name)" class="filter" filter="artist" type="checkbox"><span>{{artist.name}}</span></label>
+            <ul id="artist-list">
+                @for (artist of artists; track $index) {
+                    <li>
+                        <label><input (change)="updateCheckedArtists(artist.name)" class="filter" filter="artist" type="checkbox"><span>{{artist.name}}</span></label>
+                    </li>
+                }
+            </ul>
         </li>
-    }
-    </ul>
-    <ul id="location-list">
-    @for (location of locations; track $index) {
         <li>
-            <label><input (change)="updateCheckedLocations(location)" class="filter" filter="location" type="checkbox"><span>{{location}}</span></label>
+            <ul id="location-list">
+                @for (location of locations; track $index) {
+                    <li>
+                        <label><input (change)="updateCheckedLocations(location)" class="filter" filter="location" type="checkbox"><span>{{location}}</span></label>
+                    </li>
+                }
+            </ul>
         </li>
-    }
+        <li>
+            <ul id="dates-list">
+                <li class="form-input"><label><span>Desde:</span><input #afterDate (change)="updateAfterDate(afterDate.value)" type="date"></label>
+                    <button (click)="resetForm(afterDate)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                </li>
+                <li class="form-input"><label><span>Hasta:</span><input #beforeDate (change)="updateBeforeDate(beforeDate.value)" type="date"></label>
+                    <button (click)="resetForm(beforeDate)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                </li>
+                <!-- if admin -->
+                <li>
+                    <label><input (change)="toggleShowPast()" type="checkbox" id="show-past-concerts-input">Ver conciertos pasados</label>
+                </li>
+                <!-- end if admin -->
+            </ul>
+        </li>
+        <li>
+            <ul id="prices-list">
+                <li class="form-input"><label><span>Desde:</span><input #priceHigherThan (change)="updatePriceHigherThan(priceHigherThan.value)" type="number"></label>
+                    <button (click)="resetForm(priceHigherThan)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
+                </li>
+                <li class="form-input"><label><span>Hasta:</span><input #priceLowerThan (change)="updatePriceLowerThan(priceLowerThan.value)" type="number"></label>
+                    <button (click)="resetForm(priceLowerThan)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
+                </li>
+            </ul>
+        </li>
     </ul>
+
 </aside>
 

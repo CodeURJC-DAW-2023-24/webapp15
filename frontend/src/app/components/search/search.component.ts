@@ -23,6 +23,11 @@ export class SearchComponent {
 
     private checkedArtists: string[] = [];
     private checkedLocations: string[] = [];
+    private afterDate?: Date;
+    private beforeDate?: Date;
+    private showPast: boolean = false;
+    private priceLowerThan?: number;
+    private priceHigherThan?: number;
 
     constructor(private searchService: SearchService) { }
 
@@ -124,12 +129,47 @@ export class SearchComponent {
             : list.concat(value);
     }
 
+    updateAfterDate(value: string): void {
+        this.afterDate = new Date(value + "T00:00");
+        this.searchConcerts(true);
+    }
+
+    updateBeforeDate(value: string): void {
+        this.beforeDate = new Date(value + "T00:00");
+        this.searchConcerts(true);
+    }
+
+    toggleShowPast(): void {
+        this.showPast = !this.showPast;
+        this.searchConcerts(true);
+    }
+
+    updatePriceHigherThan(value: string): void {
+        this.priceHigherThan = parseInt(value);
+        this.searchConcerts(true);
+    }
+
+    updatePriceLowerThan(value: string): void {
+        this.priceLowerThan = parseInt(value);
+        this.searchConcerts(true);
+    }
+
+    resetForm(element: HTMLInputElement) {
+        element.value = '';
+        this.searchConcerts(true);
+    }
+
     private getParams(page: number): SearchParamsFields {
         return {
             page: page,
             size: 6,
             artists: this.checkedArtists,
             locations: this.checkedLocations,
+            before: this.beforeDate,
+            after: this.afterDate,
+            showPast: this.showPast,
+            priceLowerThan: this.priceLowerThan,
+            priceHigherThan: this.priceHigherThan,
         }
     }
 }

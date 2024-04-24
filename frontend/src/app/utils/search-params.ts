@@ -25,12 +25,11 @@ export class SearchParams {
 
     constructor(fields: SearchParamsFields) {
         if (fields.page) this.page = fields.page;
-        //if (fields.size) this.size = fields.size;
         fields.size ? this.size = fields.size : this.size = 6;
         if (fields.artists) this.artists = fields.artists.toString();
         if (fields.locations) this.locations = fields.locations.toString();
-        if (fields.before) this.before = fields.before.toISOString();
-        if (fields.after) this.after = fields.after.toISOString();
+        if (fields.before) this.before = fields.before.toISOString().replace('Z', '');
+        if (fields.after) this.after = fields.after.toISOString().replace('Z', '');
         if (fields.showPast) this.showPast = fields.showPast;
         if (fields.priceLowerThan) this.priceLowerThan = fields.priceLowerThan;
         if (fields.priceHigherThan) this.priceHigherThan = fields.priceHigherThan;
