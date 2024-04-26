@@ -24,8 +24,8 @@
             </li>
         }
         </ul>
-        @if (!isLast) {
-            <button id="more-artists-button">Más artistas</button>
+        @if (!last) {
+            <button (click)="searchArtists()" id="more-artists-button">Más artistas</button>
         }
         <div id="chart-container">
             <canvas id="chart"></canvas>
