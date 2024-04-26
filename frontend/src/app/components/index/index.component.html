@@ -1,0 +1,55 @@
+@if (mainArtist) {
+    <div class="main-artist">
+        <img src="https://dummyimage.com/1920x500/000/fff">
+        <div class="main-artist-info">
+            <h1>{{mainArtist.name}}</h1>
+            <h2>{{mainArtist.info}}</h2>
+            <button [routerLink]="'/search'">Entradas</button>
+        </div>
+    </div>
+}
+
+<div id="content-container">
+    <div id="left-bar">
+        <ul id="secondary-artist-list">
+        @for (artist of artists; track $index) {
+            <li class="secondary-artist">
+                <a href="/artist/{{artist.id}}">
+                    <div>
+                        <img src="https://dummyimage.com/500x300/000/fff">
+                        <h2>{{artist.info}}</h2>
+                        <h1>{{artist.name}}</h1>
+                    </div>
+                </a>
+            </li>
+        }
+        </ul>
+        @if (!isLast) {
+            <button id="more-artists-button">Más artistas</button>
+        }
+        <div id="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
+
+    <div id="right-bar">
+        <h1>Recomendados</h1>
+        <ul>
+            @for (artist of recommendedArtists; track $index) {
+                <li>
+                    <a>
+                        <div class="recommended-artist">
+                            <a href="/artist/{{artist.id}}">
+                                <div>
+                                    <img src="https://dummyimage.com/410x246/000/fff">
+                                    <h2>{{artist.info}}</h2>
+                                    <h1>{{artist.name}}</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
