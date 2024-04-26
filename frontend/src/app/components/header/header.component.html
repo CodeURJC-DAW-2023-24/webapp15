@@ -1,0 +1,54 @@
+<nav id="navbar">
+    <button id="navbar-home" [routerLink]="'/'">
+        <span>MasterTicket</span>
+    </button>
+    <ul>
+        @if (loginService.isRole("ADMIN")) {
+            <li id="navbar-add-artist">
+                <button>
+                    <span>Crear artista</span>
+                </button>
+            </li>
+            <li id="navbar-add-concert">
+                <button>
+                    <span>Crear concierto</span>
+                </button>
+            </li>
+        }
+        <li id="navbar-search">
+            <button [routerLink]="'/search'">
+                <span>Búsqueda</span>
+            </button>
+        </li>
+        @if (!loginService.isLogged()) {
+            <li id="navbar-signup">
+                <button>
+                    <span>Registrarse</span>
+                </button>
+            </li>
+            <li id="navbar-login">
+                <button [routerLink]="'/login'">
+                    <span>Iniciar sesión</span>
+                </button>
+            </li>
+        }
+        @else {
+            <li id="navbar-profile">
+                <button [routerLink]="'/profile'">
+                    <span>Perfil</span>
+                </button>
+            </li>
+            <li id="navbar-logout">
+                <button>
+                    <span>Cerrar sesión</span>
+                </button>
+            </li>
+        }
+        <li id="navbar-help">
+            <button>
+                <span>Ayuda</span>
+            </button>
+        </li>
+
+    </ul>
+</nav>

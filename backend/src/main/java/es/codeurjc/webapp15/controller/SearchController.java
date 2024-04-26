@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import es.codeurjc.webapp15.model.Artist;
 import es.codeurjc.webapp15.model.Concert;
 import es.codeurjc.webapp15.service.ConcertService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,7 +64,7 @@ public class SearchController {
     public ResponseEntity<String> deleteConcert(@PathVariable Long id) {
         concertService.delete(id);
         return new ResponseEntity<>("Concierto eliminado correctamente", HttpStatus.OK);
-}
+    }
 
     @GetMapping("/concert-list-data")
     public ResponseEntity<Object> getConcertListData() {
@@ -71,8 +73,12 @@ public class SearchController {
         List<String> locations = concertService.findLocations();
         map.put("locations", locations);
 
-        List<String> artists = concertService.findArtists();
-        map.put("artists", artists);
+        List<Artist> artists = concertService.findArtists();
+        List<String> artistsNames = new ArrayList<>();
+        for (Artist artist : artists) {
+            artistsNames.add(artist.getName());
+        }
+        map.put("artists", artistsNames);
 
         return ResponseEntity.ok(map);
     }

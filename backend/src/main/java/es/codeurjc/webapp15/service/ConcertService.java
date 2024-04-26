@@ -49,7 +49,7 @@ public class ConcertService {
     public List<String> findLocations(){
         return repository.findLocations();
     }
-    public List<String> findArtists(){
+    public List<Artist> findArtists(){
         return repository.findArtists();
     }
     
