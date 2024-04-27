@@ -12,6 +12,7 @@ import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginService } from './services/login.service';
+import { ArtistComponent } from './components/artist/artist.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoginService } from './services/login.service';
     HeaderComponent,
     LoginComponent,
     ProfileComponent,
+    ArtistComponent,
   ],
   imports: [
     CommonModule,

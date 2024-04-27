@@ -1,0 +1,28 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    padding: 20px;
+    width: 50%;
+    background-color: #EEE;
+    border-radius: 10px;
+}
+
+#artist-info img {
+    width: 860px;
+    height: 516px;
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+#artist-info p {
+    font-size: large;
+}

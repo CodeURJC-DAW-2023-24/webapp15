@@ -1,0 +1,40 @@
+<div class="flex-container">
+        <div class="box" id="artist-info">
+            <h1>{{artist?.name}}</h1>
+            <img src="https://dummyimage.com/860x516/000/fff">
+            <p>{{artist?.info}}</p>
+        </div>
+
+        <div class="box" id="tickets">
+            <h2>Entradas</h2>
+
+            @for (concert of concerts; track $index) {
+                <article class="event-article">
+                    <time>
+                        <span class="day">{{concert.datetime.getDate()}}</span>
+                        <span class="month">{{concert.datetime.toLocaleString("es-ES", { month: "short"})}}</span>
+                    </time>
+                    <div class="event-info">
+                        <h1>{{concert.artist.name}}</h1>
+                        <p class="date-info">
+                            <span class="weekday">{{concert.datetime.toLocaleString("es-ES", { weekday: "short" })}}</span>
+                            <span> - </span>
+                            <span class="hour">{{formatHour(concert.datetime)}}</span>
+                        </p>
+                        <p class="venue-info">
+                            <span class="city">{{concert.place}}</span>
+                            <span> - </span>
+                            <span class="price">{{concert.price}}€</span>
+                        </p>
+                    </div>
+                    <button class="tickets-concert-list-button">
+                        <span>Entradas</span>
+                        <img src="/images/point-right.png" width="19px">
+                    </button>
+                </article>
+            }
+            @if (!last) {
+                <button (click)="searchConcerts()" id="more-results-button"><span>Más resultados</span></button>
+            }
+        </div>
+</div>
