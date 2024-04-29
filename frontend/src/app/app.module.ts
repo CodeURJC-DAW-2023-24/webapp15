@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginService } from './services/login.service';
 import { ArtistComponent } from './components/artist/artist.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { ArtistComponent } from './components/artist/artist.component';
     LoginComponent,
     ProfileComponent,
     ArtistComponent,
+    SearchComponent,
+    PaymentComponent,
   ],
   imports: [
     CommonModule,

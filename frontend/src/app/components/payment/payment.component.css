@@ -23,6 +23,17 @@
     margin: 25px;
 }
 
+form button {
+    margin-top: 15px;
+    padding: 0 12px;
+    height: 3em;
+    min-width: 120px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}
+
 input, label {
     display: block;
 }
