@@ -10,7 +10,7 @@ import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile.component';
 import { LoginService } from './services/login.service';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PaymentComponent } from './components/payment/payment.component';

@@ -1,0 +1,47 @@
+    <div id="profile-container" class="container">
+    <div>
+        <div id="profile-content" class="">
+                <div class="profile-header">
+                    <div id="profile-picture-container">
+                        <img src="/user/image/" alt="User Profile" class="profile-image" id="profileImage">
+                        <input type="file" id="imageInput" class="edit-input" style="display:none;" onchange="previewImage(this)">
+                        <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
+                    </div>
+                    <!-- For Name -->
+                    <div class="field-section">
+                        <h2 class="title">Nombre:</h2>
+                        <div class="edit-container">
+                            <div *ngIf="!editattname">
+                                <p class="user-name" id="userName">{{name}}</p>
+                                <button class="edit-button" id="editNameBtn" (click)="editName()">Editar</button>
+                            </div>
+                            <div *ngIf="editattname">
+                                <input [(ngModel)]="name" type="text" id="nameInput" class="edit-input" >
+                                <button id="saveNameBtn" class="save-button" (click)="editName()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- For Email -->
+                    <div class="field-section">
+                        <h2 class="title">Email:</h2>
+                        <div class="edit-container">
+                            <div *ngIf="!editattemail">
+                                <p class="user-Email">{{email}}</p>
+                                <button class="edit-button" id="editEmailBtn" (click)="editEmail()">Editar</button>
+                            </div>
+                            <div *ngIf="editattemail">
+                                <input [(ngModel)]="email" type="text" id="emailInput" class="edit-input" >
+                                <button id="saveEmailBtn" class="save-button" (click)="editEmail()">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tickets-history">
+                    <h3>Tickets Comprados:</h3>
+                        <p>Historial vacío</p>
+                </div>
+        </div>
+    </div>
+    </div>
+    <script src="/js/profile.js"></script>
