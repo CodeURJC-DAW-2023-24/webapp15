@@ -14,6 +14,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { LoginService } from './services/login.service';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { IndexComponent } from './components/index/index.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     ArtistComponent,
     SearchComponent,
     PaymentComponent,
+    IndexComponent,
   ],
   imports: [
     CommonModule,
