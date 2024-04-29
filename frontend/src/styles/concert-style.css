@@ -1,0 +1,73 @@
+.event-article {
+    display: flex;
+    margin-bottom: 8px;
+    padding: 18px 0;
+    border-radius: 10px;
+    background-color: #DDD;
+}
+
+.event-article time {
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.event-article time .month {
+    order: 1;
+}
+
+.event-article time .day {
+    order: 2;
+}
+
+.event-article .event-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-article h1 {
+    all: unset;
+    font-size: 15px;
+    font-weight: bold;
+    order: 2;
+}
+
+.event-article h1 a {
+    color: inherit;
+}
+
+.event-article .date-info {
+    order: 1;
+}
+
+.event-article p {
+    margin: 0;
+}
+
+.event-article .venue-info {
+    order: 3;
+}
+
+.event-article button {
+    margin-right: 20px;
+    padding: 0 12px;
+    height: 3em;
+    min-width: 120px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}
+
+#more-results-button {
+    margin-right: 20px;
+    padding: 0 12px;
+    height: 4em;
+    width: 160px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}

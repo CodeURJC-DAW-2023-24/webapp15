@@ -21,7 +21,7 @@
                     </p>
                 </div>
                 <!-- <button onclick="location.href ='/payment/" + concert.getId().toString() + "'"> -->
-                <button class="tickets-concert-list-button">
+                <button [routerLink]="'/payment/' + concert.id" class="tickets-concert-list-button">
                     <span>Entradas</span>
                     <img src="/images/point-right.png" width="19px">
                 </button>

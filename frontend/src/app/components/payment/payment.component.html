@@ -1,0 +1,60 @@
+<div class="flex-container">
+    @if (!error) {
+        @if (concert) {
+            <div class="box" id="card-form">
+                <h1>Comprar entradas</h1>
+                <form>
+                    <label>
+                        <span>Número de tarjeta</span>
+                        <input class="card-number" type="text" maxlength="19">
+                    </label>
+                    <label>
+                        <span>Fecha de expiración</span>
+                        <div class="expiration-date">
+                            <input class="card-month" type="number" placeholder="Mes" min="1" max="12">
+                            <input class="card-year" type="number" placeholder="Año" min="2024" max="2040">
+                        </div>
+                    </label>
+                    <label>
+                        <span>CVV</span>
+                        <input class="card-cvv" type="text" maxlength="4">
+                    </label>
+                    <label>
+                        <span>Número de entradas</span>
+                        <input [(ngModel)]="numberOfTickets" name="numberOfTickets" class="tickets-number" type="number" value="1" min="1" max="20">
+                    </label>
+                    <button (click)="purchaseTicket(concert.id, numberOfTickets)" class="purchase-tickets-button">Comprar entradas</button>
+                </form>
+            </div>
+
+            <div class="box" id="tickets-info">
+                <h1>Resumen de la compra</h1>
+                <article class="event-article">
+                    <time>
+                        <span class="day">{{concert.datetime.getDate()}}</span>
+                        <span class="month">{{concert.datetime.toLocaleString("es-ES", { month: "short"})}}</span>
+                    </time>
+                    <div class="event-info">
+                        <h1>{{concert.artist.name}}</h1>
+                        <p class="date-info">
+                            <span class="weekday">{{concert.datetime.toLocaleString("es-ES", { weekday: "short" })}}</span>
+                            <span> - </span>
+                            <span class="hour">{{formatHour(concert.datetime)}}</span>
+                        </p>
+                        <p class="venue-info">
+                            <span class="city">{{concert.place}}</span>
+                            <span> - </span>
+                            <span class="price">{{concert.price}}€</span>
+                        </p>
+                    </div>
+                </article>
+            </div>
+        }
+    }
+    @else {
+        <div class="box" id="card-form">
+            <h1>Error</h1>
+        </div>
+    }
+
+</div>

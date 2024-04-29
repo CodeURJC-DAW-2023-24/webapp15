@@ -1,0 +1,90 @@
+.main-artist {
+    position: relative;
+    height: 500px;
+}
+
+.main-artist img {
+    height: 500px;
+    width: 100vw;
+    object-fit: cover;
+}
+
+.main-artist-info {
+    position: absolute;
+    bottom: 0;
+    margin-left: 10px;
+    padding: 40px;
+    color: white;
+}
+
+
+#content-container {
+    display: flex;
+    margin: 30px;
+}
+
+#left-bar {
+    flex-grow: 5;
+    margin-right: 15px;
+    padding: 20px;
+    padding-top: 40px;
+    border-radius: 10px;
+    background-color: #EEE;
+}
+
+#right-bar {
+    min-width: 25vw;
+    padding: 20px;
+    margin-left: 15px;
+    border-radius: 10px;
+    background-color: #EEE;
+}
+
+#content-container ul {
+    padding: 0;
+}
+
+#content-container li {
+    list-style: none;
+}
+
+#content-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#secondary-artist-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.secondary-artist {
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 50%;
+}
+
+.secondary-artist h1 {
+    font-size: 1.75em;
+}
+
+.secondary-artist h2 {
+    font-size: 1.25em;
+}
+
+.recommended-artist {
+    display: flex;
+}
+
+.recommended-artist h1 {
+    font-size: 1.75em;
+}
+
+.recommended-artist h2 {
+    font-size: 1.25em;
+}
+
+.recommended-artist img {
+    width: 410px;
+    height: 246px;
+}
