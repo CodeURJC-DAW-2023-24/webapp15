@@ -1,0 +1,141 @@
+#profile-container {
+    background-color: #222;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile-content {
+    background-color: #FFF;
+    flex-grow: 1;
+    width: 800px;
+
+    padding: 50px 30px;
+    background-color: rgb(136, 188, 211);
+    
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.15);
+    
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    
+    box-sizing: border-box;
+}
+
+.profile-header, .tickets-history {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.tickets-history .event-info {
+    text-align: left;
+}
+
+#profile-picture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-picture-container button {
+    margin: 0;
+    width: 150px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.avatar-btn {
+    margin-left: 30px;
+}
+
+.user-name, .user-email, .user-lastname {
+    color: #333;
+    margin: 5px 0;
+}
+
+.edit-input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.edit-button, .save-button, .download-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0px 12px;
+    height: 3em;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}
+
+.tickets-list {
+    list-style-type: none;
+    padding: 0;
+    display: block;
+}
+
+.tickets-list li {
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.field-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.edit-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.edit-container > *:first-child {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.edit-container > *:last-child {
+    flex-grow: 0;
+}
+
+.edit-input, .user-name, .user-email, .user-lastname {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.architecture {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+.page-header {
+    margin: 0;
+}
