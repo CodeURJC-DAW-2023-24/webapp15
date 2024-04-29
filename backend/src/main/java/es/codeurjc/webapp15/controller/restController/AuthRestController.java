@@ -61,17 +61,13 @@ public class AuthRestController {
             )
         })
         @PostMapping(value="/login",consumes = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<Object> login(
+        public ResponseEntity<AuthResponse> login(
                 @CookieValue(name = "accessToken", required = false) String accessToken,
                 @CookieValue(name = "refreshToken", required = false) String refreshToken,
                 @RequestBody LoginRequest loginRequest,
                 HttpServletRequest request) {
-            ResponseEntity<AuthResponse> response = userLoginService.login(loginRequest, accessToken, refreshToken);
-            if (response.getStatusCode() == HttpStatusCode.valueOf(200)) {
-                return ResponseEntity.ok(userService.findByEmail(request.getUserPrincipal().getName()).get());
-            }
             
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return userLoginService.login(loginRequest, accessToken, refreshToken);
         }
         
         @PostMapping("/refresh")

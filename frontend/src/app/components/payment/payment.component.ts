@@ -55,7 +55,7 @@ export class PaymentComponent {
         numberOfTickets = Math.min(numberOfTickets, 20);
         numberOfTickets = Math.max(numberOfTickets, 1);
         const requestBody = {"concertId": concertId, "numberOfTickets": numberOfTickets}
-        this.http.post("https://localhost:8443/api/tickets", requestBody)
+        this.http.post("/api/tickets", requestBody)
             .subscribe((response: any) => {
                 console.log(response);
             })

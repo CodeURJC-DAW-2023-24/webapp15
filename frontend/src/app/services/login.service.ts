@@ -3,8 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 
-// TODO: Change this to relative route
-const BASE_URL = 'https://localhost:8443/api'
+const BASE_URL = '/api'
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +36,8 @@ export class LoginService {
     login(username: string, password: string) {
         this.http.post(BASE_URL + "/login", { "username": username, "password": password }, { withCredentials: true })
             .subscribe({
-                next: (v) => {
-                    this.user = v as User;
-                    this.logged = true;
-                    console.log(v)
+                next: () => {
+                    this.requestIsLogged();
                     this.router.navigate(['/']);
                 },
                 error: (e: HttpErrorResponse) => {

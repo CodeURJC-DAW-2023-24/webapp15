@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { SearchParams, SearchParamsFields } from '../utils/search-params';
 import { Observable } from 'rxjs';
 
-const BASE_URL = 'https://localhost:8443/api'
+const BASE_URL = '/api'
 
 @Injectable({
   providedIn: 'root'
