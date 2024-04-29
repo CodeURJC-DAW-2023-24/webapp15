@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SearchService } from "../../services/search.service";
 import { Concert } from "../../models/concert.model";
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { formatHour } from "../../utils/datetime-utils";
 
 @Component({
@@ -14,8 +14,9 @@ export class PaymentComponent {
     concertId?: number;
     concert?: Concert;
     error: boolean = false;
+    numberOfTickets: number = 1;
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute) { }
+    constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute) { }
 
     ngOnInit(): void {
         const concertIdStr = this.route.snapshot.paramMap.get('id') ?? undefined;
@@ -32,11 +33,9 @@ export class PaymentComponent {
         this.searchService.search<Concert>("/concerts/" + id)
             .subscribe({
                 next: (value: Concert) => {
-                    console.log(value);
                     this.concert = value;
                     this.concert.datetime = new Date(this.concert.datetime);
                     this.error = !this.isValidDate(this.concert);
-                    console.log(this.concert);
                 },
                 error: (error: HttpErrorResponse) => {
                     this.error = true;
@@ -45,11 +44,20 @@ export class PaymentComponent {
     }
 
     private isValidDate(concert: Concert): boolean {
-        console.log(new Date(), concert.datetime, new Date() < concert.datetime)
         return new Date() < concert.datetime;
     }
 
     formatHour(date: Date): string {
         return formatHour(date);
+    }
+
+    purchaseTicket(concertId: number, numberOfTickets: number) {
+        numberOfTickets = Math.min(numberOfTickets, 20);
+        numberOfTickets = Math.max(numberOfTickets, 1);
+        const requestBody = {"concertId": concertId, "numberOfTickets": numberOfTickets}
+        this.http.post("https://localhost:8443/api/tickets", requestBody)
+            .subscribe((response: any) => {
+                console.log(response);
+            })
     }
 }

@@ -26,9 +26,15 @@ import es.codeurjc.webapp15.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.servlet.http.HttpServletRequest;
+
+class NewTicket {
+    public int concertId;
+    public int numberOfTickets;
+}
 
 @RestController
 @RequestMapping("/api/tickets")
@@ -181,20 +187,21 @@ public class TicketRestController {
     content = @Content
     )
     })
-    public ResponseEntity<Ticket> createTicket(@RequestParam long concertId, @RequestParam Integer numTicket, HttpServletRequest request) {
+    // public ResponseEntity<Ticket> createTicket(@RequestParam long concertId, @RequestParam Integer numTicket, HttpServletRequest request) {
+    public ResponseEntity<Ticket> createTicket(@RequestBody NewTicket ticketBody, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
             User user = userService.findByEmail(principal.getName()).get();
-            Optional<Concert> concert = concertService.findById(concertId);
+            Optional<Concert> concert = concertService.findById(ticketBody.concertId);
             if (concert.isPresent()){
                 Integer left = concert.get().getNum_tickets();
-                left = left - numTicket;
+                left = left - ticketBody.numberOfTickets;
                 concert.get().setNum_tickets(left);
                 concertService.save(concert.get());
                     Ticket ticket = new Ticket();
                     ticket.setConcert(concert.get());
                     ticket.setUser(user);
-                    ticket.setNum_ticket(numTicket);
+                    ticket.setNum_ticket(ticketBody.numberOfTickets);
                     ticketService.save(ticket);
                     return ResponseEntity.created(URI.create("/api/concerts/" + ticket.getId())).body(ticket); 
             }
