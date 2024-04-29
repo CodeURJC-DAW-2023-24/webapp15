@@ -1,18 +1,26 @@
-import { Component } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { Component } from '@angular/core'
+import { LoginService } from "../../services/login.service";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+    selector: 'app-root',
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css'
 })
-export class ProfileComponent {
+export class ProfileComponent{
 
-    constructor(private loginService: LoginService) {
-        //loginService.requestIsLogged();
+    name = 'aaa'
+    email = 'aaa@aaa.com'
+
+    editattname = false
+    editattemail = false
+
+    constructor(private loginService: LoginService) { }
+
+    editName(){
+        this.editattname = !this.editattname
     }
 
-    test() {
-        this.loginService.requestIsLogged();
+    editEmail(){
+        this.editattemail = !this.editattemail
     }
 }
