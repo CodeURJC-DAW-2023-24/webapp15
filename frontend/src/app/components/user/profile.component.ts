@@ -7,8 +7,19 @@ import { LoginService } from "../../services/login.service";
 })
 export class ProfileComponent{
 
-    username: string = "FUNCIONA"
-    password: string = 'AAAA'
+    name = 'aaa'
+    email = 'aaa@aaa.com'
+
+    editattname = false
+    editattemail = false
 
     constructor(private loginService: LoginService) { }
+
+    editName(){
+        this.editattname = !this.editattname
+    }
+
+    editEmail(){
+        this.editattemail = !this.editattemail
+    }
 }
