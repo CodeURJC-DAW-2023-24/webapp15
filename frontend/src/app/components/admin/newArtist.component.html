@@ -1,0 +1,21 @@
+<div class="background">
+    <div class="container">
+        <div class="center">
+            <div class="login">
+                <div class="login-title">
+                    Creación del Artista
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="profile-picture">
+                        <img [src]="image" alt="Foto de perfil">
+                    </div>
+                    <input type="file" (change)="onFileSelected($event)" name="image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                    <input [(ngModel)]="name" type="text" name="name" placeholder="Nombre" required>
+                    <input  [(ngModel)]="info" type="text" name="info"  placeholder="Información" required>
+                    
+                    <button (click)="onSubmit()" type="submit" title="Submit" name="Submit">Crear</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

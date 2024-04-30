@@ -5,7 +5,7 @@
     <ul>
         @if (loginService.isRole("ADMIN")) {
             <li id="navbar-add-artist">
-                <button>
+                <button [routerLink]="'/newArtist'">
                     <span>Crear artista</span>
                 </button>
             </li>

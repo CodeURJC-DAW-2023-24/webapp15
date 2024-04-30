@@ -21,7 +21,7 @@ export class LoginService {
             // next: (v) => this.user = v as User,
             next: (v) => {
                 this.logged = true
-                //this.user = v as User
+                this.user = v as User
                 console.log(v)
             },
             error: (e: HttpErrorResponse) => {
