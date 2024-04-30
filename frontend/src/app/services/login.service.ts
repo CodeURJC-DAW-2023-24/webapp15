@@ -48,6 +48,21 @@ export class LoginService {
             })
     }
 
+    logout() {
+        this.http.post(BASE_URL + "/logout", { withCredentials: true })
+        .subscribe({
+            next: (r) => {
+                console.log(r);
+                this.logged = false;
+                this.user = undefined;
+            },
+            error: (e: HttpErrorResponse) => {
+                console.log(e)
+            }
+        })
+
+    }
+
     isLogged() { return this.logged }
 
     isRole(role: string): boolean {
