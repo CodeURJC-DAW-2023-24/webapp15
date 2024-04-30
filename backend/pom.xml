@@ -128,7 +128,7 @@
 				<version>5.4.0</version>
 				<executions>
 					<execution>
-						<phase>integration-test</phase>
+						<phase>integration-test2</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals> 

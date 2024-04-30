@@ -13,7 +13,9 @@ export class LoginService {
     private logged: boolean = false;
     private user: User | undefined;
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router) { 
+        this.requestIsLogged();
+    }
 
     // TODO: Copiar del ejemplo de la fase 4 ???? no se como persistir la sesion.
     requestIsLogged() {
@@ -21,8 +23,8 @@ export class LoginService {
             // next: (v) => this.user = v as User,
             next: (v) => {
                 this.logged = true
-                //this.user = v as User
-                console.log(v)
+                this.user = v as User
+                console.log(this.user)
             },
             error: (e: HttpErrorResponse) => {
                 if (e.status == 401) {
