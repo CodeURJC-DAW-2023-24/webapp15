@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { SignUpService } from '../../services/signup.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,14 +8,19 @@ import { LoginService } from '../../services/login.service';
 })
 export class SignUpComponent {
 
-    username: string = ''
-    email: string = ''
-    name: string = ''
-    password: string = ''
+    email: string = '';
+    name: string = '';
+    password: string = '';
 
-    constructor(private loginService: LoginService) { }
+    error: string = '';
+
+    constructor(private signupService: SignUpService) { }
 
     submitRegisterForm() {
-        this.loginService.login(this.username, this.password)
+      if (this.email !== '' || this.name != '' || this.password != '') {
+        this.signupService.registerUser(this.name, this.email, this.password);
+      } else {
+        this.error = 'Datos inválidos.';
+      }
     }
 }

@@ -1,0 +1,26 @@
+<div class="background">
+    <div class="container">
+        <div class="center">
+            <div class="login">
+                <div class="login-title">
+                    Registro
+                </div>
+                <form (ngSubmit)="submitRegisterForm()" enctype="multipart/form-data">
+                    <div class="profile-picture">
+                        <img src="images/profile-picture.jpg" alt="Foto de perfil">
+                    </div>
+
+                    <input type="file" name="image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                    <input type="text" name="name" [(ngModel)]="name" placeholder="Nombre" required>
+                    <input type="email" name="email" [(ngModel)]="email" placeholder="Correo" required>
+                    <input type="password" name="password" [(ngModel)]="password" placeholder="Contraseña" required>
+                    <button type="submit" name="signup" title="Signup">Registro</button>
+                </form>
+                <div class="pie-form">
+                    <div style="color: red;">{{error}}</div>
+                    <a [routerLink]="'/login'">Iniciar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,12 +7,12 @@
                     Bienvenido
                 </div>
                 <form (ngSubmit)="submitLoginForm()" id="login-form">
-                <input [(ngModel)]="username" type="text" name="username" placeholder="Nombre de usuario" required>              
+                <input [(ngModel)]="username" type="text" name="username" placeholder="Email" required>              
                 <input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña" required>
                 <button type="submit">Iniciar sesión</button>
             </form>
             <div class="pie-form">
-                <!-- <div style="color: red;">{{error}}</div> -->
+                <div style="color: red;">{{error}}</div>
                 <a [routerLink]="'/signup'">Registrarse</a>
             </div>
         </div>

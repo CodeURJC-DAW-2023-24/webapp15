@@ -22,7 +22,7 @@
         </li>
         @if (!loginService.isLogged()) {
             <li id="navbar-signup">
-                <button>
+                <button [routerLink]="'/signup'">
                     <span>Registrarse</span>
                 </button>
             </li>

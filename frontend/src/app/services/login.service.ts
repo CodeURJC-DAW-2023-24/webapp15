@@ -43,7 +43,7 @@ export class LoginService {
                     this.router.navigate(['/']);
                 },
                 error: (e: HttpErrorResponse) => {
-                    console.log(e)
+                    alert("Credenciales inválidas.");
                 }
             })
     }
