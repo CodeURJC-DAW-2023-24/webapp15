@@ -61,13 +61,13 @@ export class LoginService {
     }
 
     updateUser(user: User){
-        this.http.put(BASE_URL + "/users/" + user.id, { "name": user.name, "email":user.email}, { withCredentials: false })
+        this.http.put(BASE_URL + "/users/" + user.id, user)
         .subscribe({
             next: () => {
-                console.log("weee")
+                console.log("OK")
             },
             error: (e: HttpErrorResponse) => {
-                console.log("fuck")
+                console.log(e)
             }
         })
     }
