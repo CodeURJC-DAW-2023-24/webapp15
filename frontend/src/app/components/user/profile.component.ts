@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { LoginService } from "../../services/login.service";
+import { User } from '../../models/user.model';
 
 @Component({
     selector: 'app-root',
@@ -14,7 +15,19 @@ export class ProfileComponent{
     editattname = false
     editattemail = false
 
-    constructor(private loginService: LoginService) { }
+    private user: User | undefined;
+
+    constructor(private loginService: LoginService) { 
+        this.loadCurrentUser()
+    }
+
+    loadCurrentUser(){
+        this.user = this.loginService.currentUser()
+        if (this.user !== undefined){
+            this.name = this.user.name
+            this.email = this.user.email
+        }
+    }
 
     editName(){
         this.editattname = !this.editattname
@@ -23,4 +36,21 @@ export class ProfileComponent{
     editEmail(){
         this.editattemail = !this.editattemail
     }
+
+    updateName(){
+        this.editattname = !this.editattname
+        if (this.user !== undefined){
+            this.user.name = this.name
+            this.loginService.updateUser(this.user)
+        }
+    }
+
+    updateEmail(){
+        this.editattname = !this.editattname
+        if (this.user !== undefined){
+            this.user.name = this.name
+            this.loginService.updateUser(this.user)
+        }
+    }
+
 }
