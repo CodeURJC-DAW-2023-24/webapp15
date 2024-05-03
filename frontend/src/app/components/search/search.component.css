@@ -74,6 +74,10 @@ main {
     border-radius: 6px;
 }
 
+.event-article button img {
+    margin-left: 6px;
+}
+
 main #more-results-button {
     margin-right: 20px;
     padding: 0 12px;

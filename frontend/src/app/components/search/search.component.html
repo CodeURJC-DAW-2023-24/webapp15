@@ -17,19 +17,19 @@
                     <p class="venue-info">
                         <span class="city">{{concert.place}}</span>
                         <span> - </span>
-                        <span class="price">{{concert.price}}</span>
+                        <span class="price">{{concert.price}}€</span>
                     </p>
                 </div>
                 @if (loginService.isLogged()) {
                     <button [routerLink]="'/payment/' + concert.id" class="tickets-concert-list-button">
                         <span>Entradas</span>
-                        <img src="/images/point-right.png" width="19px">
+                        <img src="assets/images/point-right.png" width="19px">
                     </button>
                 }
                 @if (loginService.isRole("ADMIN")) {
                     <button (click)="deleteConcert(concert)" class="delete-btn" data-id={{concert.id}}>
                         <span>Eliminar</span>
-                        <img src="images/point-right.png" width="19px">
+                        <img src="assets/images/point-right.png" width="19px">
                     </button>
                 }
             </article>
@@ -77,23 +77,23 @@
                             <span>Desde:</span>
                             <input filter="afterDate" #afterDateInput (change)="updateAfterDate(afterDateInput.value)" type="date">
                         </label>
-                        <button (click)="resetAfterDate(afterDateInput)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                        <button (click)="resetAfterDate(afterDateInput)" class="reset-form filter"><img src="assets/images/restart-icon.png" width="20px"></button>
                     </li>
                     <li class="form-input">
                         <label>
                             <span>Hasta:</span>
                             <input filter="beforeDate" #beforeDateInput (change)="updateBeforeDate(beforeDateInput.value)" type="date">
                         </label>
-                        <button (click)="resetBeforeDate(beforeDateInput)" class="reset-form filter"><img src="images/restart-icon.png" width="20px"></button>
+                        <button (click)="resetBeforeDate(beforeDateInput)" class="reset-form filter"><img src="assets/images/restart-icon.png" width="20px"></button>
                     </li>
-                    <!-- if admin -->
-                    <li>
-                        <label>
-                            <input (change)="toggleShowPast()" type="checkbox" id="show-past-concerts-input">
-                            <span>Ver conciertos pasados</span>
-                        </label>
-                    </li>
-                    <!-- end if admin -->
+                    @if (loginService.isRole("ADMIN")) {
+                        <li>
+                            <label>
+                                <input (change)="toggleShowPast()" type="checkbox" id="show-past-concerts-input">
+                                <span>Ver conciertos pasados</span>
+                            </label>
+                        </li>
+                    }
                 </ul>
             </li>
             <li>
@@ -104,14 +104,14 @@
                             <span>Desde:</span>
                             <input filter="priceHigherThan" #priceHigherThanInput (change)="updatePriceHigherThan(priceHigherThanInput.value)" type="number">
                         </label>
-                        <button (click)="resetPriceHigherThan(priceHigherThanInput)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
+                        <button (click)="resetPriceHigherThan(priceHigherThanInput)" class="reset-form"><img src="assets/images/restart-icon.png" width="20px"></button>
                     </li>
                     <li class="form-input">
                         <label>
                             <span>Hasta:</span>
                             <input filter="priceLowerThan" #priceLowerThanInput (change)="updatePriceLowerThan(priceLowerThanInput.value)" type="number">
                         </label>
-                        <button (click)="resetPriceLowerThan(priceLowerThanInput)" class="reset-form"><img src="images/restart-icon.png" width="20px"></button>
+                        <button (click)="resetPriceLowerThan(priceLowerThanInput)" class="reset-form"><img src="assets/images/restart-icon.png" width="20px"></button>
                     </li>
                 </ul>
             </li>
