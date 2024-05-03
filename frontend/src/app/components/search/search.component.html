@@ -8,7 +8,7 @@
                     <span class="month">{{concert.datetime.toLocaleString("es-ES", { month: "short"})}}</span>
                 </time>
                 <div class="event-info">
-                    <h1><a href="/artist/{{concert.artist.uri}}" class="artist-info-anchor">{{concert.artist.name}}</a></h1>
+                    <h1><a href="/artist/{{concert.artist.id}}" class="artist-info-anchor">{{concert.artist.name}}</a></h1>
                     <p class="date-info">
                         <span class="weekday">{{concert.datetime.toLocaleString("es-ES", { weekday: "short" })}}</span>
                         <span> - </span>
