@@ -6,6 +6,8 @@ import { SearchParamsFields } from "../../utils/search-params";
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { SpringResponse } from "../../utils/spring-response";
 import { Artist } from "../../models/artist.model";
+import { LoginService } from "../../services/login.service";
+import { DeleteService } from "../../services/delete.service";
 
 @Component({
     templateUrl: 'search.component.html',
@@ -30,7 +32,7 @@ export class SearchComponent {
     private priceLowerThan?: number;
     private priceHigherThan?: number;
 
-    constructor(private searchService: SearchService) { }
+    constructor(private searchService: SearchService, public loginService: LoginService, private deleteService: DeleteService) { }
 
     ngOnInit() {
         this.searchConcerts(true);
@@ -98,6 +100,17 @@ export class SearchComponent {
             concert.datetime = new Date(concert.datetime);
         })
         return concerts;
+    }
+
+    deleteConcert(concert: Concert): void {
+        this.deleteService.deleteConcert(concert.id)
+            .subscribe(() => {
+                this.concerts = this.removeConcertFromResults(concert, this.concerts);
+            })
+    }
+
+    private removeConcertFromResults(concert: Concert, results: Concert[]): Concert[] {
+        return results.filter(item => item !== concert);
     }
 
     private getArtistsList(): void {

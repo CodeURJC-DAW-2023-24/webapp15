@@ -20,17 +20,18 @@
                         <span class="price">{{concert.price}}</span>
                     </p>
                 </div>
-                <!-- <button onclick="location.href ='/payment/" + concert.getId().toString() + "'"> -->
-                <button [routerLink]="'/payment/' + concert.id" class="tickets-concert-list-button">
-                    <span>Entradas</span>
-                    <img src="/images/point-right.png" width="19px">
-                </button>
-                <!-- if admin -->
-                <button class="delete-btn" data-id={{concert.id}}>
-                    <span>Eliminar</span>
-                    <img src="images/point-right.png" width="19px">
-                </button>
-                <!-- end if admin -->
+                @if (loginService.isLogged()) {
+                    <button [routerLink]="'/payment/' + concert.id" class="tickets-concert-list-button">
+                        <span>Entradas</span>
+                        <img src="/images/point-right.png" width="19px">
+                    </button>
+                }
+                @if (loginService.isRole("ADMIN")) {
+                    <button (click)="deleteConcert(concert)" class="delete-btn" data-id={{concert.id}}>
+                        <span>Eliminar</span>
+                        <img src="images/point-right.png" width="19px">
+                    </button>
+                }
             </article>
         }
         @if (!last) {
