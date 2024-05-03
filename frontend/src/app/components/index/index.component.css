@@ -9,6 +9,32 @@
     object-fit: cover;
 }
 
+.main-artist a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.main-artist a:hover {
+    text-decoration: underline;
+}
+
+.main-artist button {
+    margin-right: 20px;
+    padding: 0 12px;
+    height: 3em;
+    min-width: 120px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
+}
+
+.main-artist button img {
+    margin-left: 6px;
+    width: 19px;
+    height: 19px;
+}
+
 .main-artist-info {
     position: absolute;
     bottom: 0;
@@ -70,6 +96,17 @@
 
 .secondary-artist h2 {
     font-size: 1.25em;
+}
+
+#more-artists-button {
+    margin-right: 20px;
+    padding: 0 12px;
+    height: 4em;
+    min-width: 160px;
+    text-align: center;
+    background-color: #266bf0;
+    color: #FFF;
+    border-radius: 6px;
 }
 
 .recommended-artist {
