@@ -61,7 +61,7 @@ export class LoginService {
     }
 
     updateUser(user: User){
-        this.http.put(BASE_URL + "/users/" + user.id, user)
+        this.http.put(BASE_URL + "/users/" + user.id, user, {withCredentials: true })
         .subscribe({
             next: () => {
                 console.log("OK")
