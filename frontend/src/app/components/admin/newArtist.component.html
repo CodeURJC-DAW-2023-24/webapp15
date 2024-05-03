@@ -9,7 +9,7 @@
                     <div class="profile-picture">
                         <img [src]="image" alt="Foto de perfil">
                     </div>
-                    <input type="file" (change)="onFileSelected($event)" name="image" placeholder="Foto" accept=".jpg, .jpeg, .png">
+                    <input #file type="file"  name="image" placeholder="Foto" accept=".jpg, .jpeg, .png">
                     <input [(ngModel)]="name" type="text" name="name" placeholder="Nombre" required>
                     <input  [(ngModel)]="info" type="text" name="info"  placeholder="Información" required>
                     

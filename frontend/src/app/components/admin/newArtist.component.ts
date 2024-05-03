@@ -1,7 +1,9 @@
 
 import { Component, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { newArtistService } from '../../services/newArtist.service';
+import { Artist } from '../../models/artist.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'newArtist',
@@ -9,7 +11,7 @@ import { newArtistService } from '../../services/newArtist.service';
   styleUrl: 'newArtist.component.css'
 })
 export class NewArtistComponent {
-  constructor(private http: HttpClient, private newArtist: newArtistService) { }
+  constructor(private http: HttpClient, private newArtist: newArtistService, private router: Router) { }
   name:string ='';
   info:string ='';
   image: File | undefined;
@@ -19,9 +21,23 @@ export class NewArtistComponent {
   file: any;
   
   onSubmit(){
-    return this.newArtist.createArtist(this.name,this.info,this.image);
+    const requestBody = {"name": this.name, "info": this.info}
+    this.newArtist.createArtist(requestBody).subscribe({
+      next: (v: Artist) => {
+          this.uploadImage(v)
+          this.router.navigate(['/']);
+      },
+      error: (e: HttpErrorResponse) => {
+          
+      }
+  })
   }
-  onFileSelected(event: any) {
-      this.image= event.target.files[0];
-}
+  uploadImage(artist: Artist) {
+    const image = this.file.nativeElement.files[0];
+    if (image) {
+      const data = new FormData();
+      data.append('imageFile', image);
+      this.newArtist.setArtistImage(artist, data).subscribe();
+    }
+  }
 }

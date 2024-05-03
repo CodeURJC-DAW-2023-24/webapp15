@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Artist } from '../models/artist.model';
 
 
 
@@ -10,12 +12,10 @@ export class newArtistService {
   
   constructor(private http: HttpClient) { }
 
-  createArtist(name:string,info:string,image:File | undefined) {
-    
-    const requestBody = {"name": name, "info": info,"image":image}
-    return this.http.post("/api/artists", requestBody)
-            .subscribe((response: any) => {
-                console.log(response);
-            })
+  createArtist(requestBody:any):Observable<any> { 
+    return this.http.post("/api/artists", requestBody);
+  }
+  setArtistImage(artist: Artist, data:FormData):Observable<any> {
+    return this.http.put("/api/artists/" + artist.id + '/image', data);
   }
 }
