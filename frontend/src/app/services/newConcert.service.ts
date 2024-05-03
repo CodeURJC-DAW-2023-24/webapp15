@@ -11,7 +11,7 @@ export class ConcertService {
   constructor(private http: HttpClient) {}
 
   getArtists(): Observable<any[]> {
-    return this.http.get<any[]>(`/api/concerts/artists`);
+    return this.http.get<any[]>(`/api/concerts/artists/all`);
   }
 
   getGenres(): Observable<any[]> {

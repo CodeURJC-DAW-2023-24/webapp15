@@ -5,6 +5,7 @@ import { Genre } from '../../models/genre.model';
 import { Artist } from '../../models/artist.model';
 import { Time } from '@angular/common';
 import { convertDatetime } from '../../utils/datetime-utils';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class NewConcertComponent implements OnInit {
   artists: any[] = []; // Aquí puedes definir el tipo de datos para los artistas
   genres: any[] = []; // Aquí puedes definir el tipo de datos para los géneros
 
-  constructor(private http: HttpClient,private concertService: ConcertService) {}
+  constructor(private http: HttpClient,private concertService: ConcertService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadArtists();
@@ -54,6 +55,7 @@ export class NewConcertComponent implements OnInit {
     this.concertService.createConcert(requestBody).subscribe({
       next: (v) => {
           console.log(v);
+          this.router.navigate(['/']);
       },
       error: (e: HttpErrorResponse) => {
           
