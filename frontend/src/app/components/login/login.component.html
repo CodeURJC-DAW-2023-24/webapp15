@@ -1,13 +1,20 @@
-<p>login works!</p>
 
-<form (ngSubmit)="submitLoginForm()">
-    <label>Nombre de usuario
-        <input [(ngModel)]="username" type="text" name="username" placeholder="Nombre de usuario" required>
-    </label>
-
-    <label>Contraseña
-        <input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña" required>
-    </label>
-
-    <button type="submit">Iniciar sesión</button>
-</form>
+<div class="background">
+    <div class="container">
+        <div class="center">
+            <div class="login">
+                <div class="login-title">
+                    Bienvenido
+                </div>
+                <form (ngSubmit)="submitLoginForm()" id="login-form">
+                <input [(ngModel)]="username" type="text" name="username" placeholder="Email" required>              
+                <input [(ngModel)]="password" type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+            <div class="pie-form">
+                <div style="color: red;">{{error}}</div>
+                <a [routerLink]="'/signup'">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</div>

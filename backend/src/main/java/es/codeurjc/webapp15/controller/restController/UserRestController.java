@@ -150,7 +150,7 @@ public class UserRestController {
             content = @Content
         )
     })
-    @PostMapping("")
+    @PostMapping("/new")
     public ResponseEntity<User> createUser(HttpServletRequest httpServletRequest, @RequestBody NewUser userBody){
         if((userBody.email == null) || (userBody.name == null) || (userBody.password == null)){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

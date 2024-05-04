@@ -22,7 +22,7 @@
         </li>
         @if (!loginService.isLogged()) {
             <li id="navbar-signup">
-                <button>
+                <button [routerLink]="'/signup'">
                     <span>Registrarse</span>
                 </button>
             </li>
@@ -39,7 +39,7 @@
                 </button>
             </li>
             <li id="navbar-logout">
-                <button>
+                <button (click)="logOut()">
                     <span>Cerrar sesión</span>
                 </button>
             </li>

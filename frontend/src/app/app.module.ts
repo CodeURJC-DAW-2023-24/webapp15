@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/signup/signup.component';
 import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './components/user/profile.component';
@@ -21,6 +22,7 @@ import { IndexComponent } from './components/index/index.component';
     AppComponent,
     HeaderComponent,
     LoginComponent,
+    SignUpComponent,
     ProfileComponent,
     ArtistComponent,
     SearchComponent,

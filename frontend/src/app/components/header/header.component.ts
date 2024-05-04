@@ -12,4 +12,8 @@ export class HeaderComponent {
     constructor (public loginService: LoginService) {
     }
 
+    logOut() {
+        this.loginService.logout();
+    }
+
 }
