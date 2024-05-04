@@ -1,7 +1,10 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { SearchService } from "../../services/search.service";
+import { LoginService } from "../../services/login.service";
+import { PaymentService } from "../../services/payment.service";
 import { Concert } from "../../models/concert.model";
+import { User } from "../../models/user.model"
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { formatHour } from "../../utils/datetime-utils";
 
@@ -13,10 +16,13 @@ export class PaymentComponent {
 
     concertId?: number;
     concert?: Concert;
+    user?: User;
     error: boolean = false;
     numberOfTickets: number = 1;
 
-    constructor(private searchService: SearchService, private http: HttpClient, private route: ActivatedRoute) { }
+    constructor(private searchService: SearchService, private loginService: LoginService, private paymentService: PaymentService, private http: HttpClient, private route: ActivatedRoute) {
+        this.user = loginService.currentUser()
+    }
 
     ngOnInit(): void {
         const concertIdStr = this.route.snapshot.paramMap.get('id') ?? undefined;
@@ -54,10 +60,8 @@ export class PaymentComponent {
     purchaseTicket(concertId: number, numberOfTickets: number) {
         numberOfTickets = Math.min(numberOfTickets, 20);
         numberOfTickets = Math.max(numberOfTickets, 1);
-        const requestBody = {"concertId": concertId, "numberOfTickets": numberOfTickets}
-        this.http.post("/api/tickets", requestBody)
-            .subscribe((response: any) => {
-                console.log(response);
-            })
+        if (this.user !== undefined && this.concert !== undefined){
+            this.paymentService.processPayment(this.user, this.concert, numberOfTickets)
+        }
     }
 }

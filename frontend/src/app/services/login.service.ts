@@ -53,4 +53,9 @@ export class LoginService {
 
         return this.user.roles.includes(role);
     }
+    
+    currentUser() {
+        return this.user;
+    }
+
 }
