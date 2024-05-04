@@ -13,7 +13,7 @@ export class LoginService {
     private logged: boolean = false;
     private user: User | undefined;
 
-    constructor(private http: HttpClient, private router: Router) { 
+    constructor(private http: HttpClient, private router: Router) {
         this.requestIsLogged();
     }
 
@@ -70,9 +70,20 @@ export class LoginService {
 
         return this.user.roles.includes(role);
     }
-    
+
     currentUser() {
         return this.user;
     }
 
+    updateUser(user: User){
+        this.http.put(BASE_URL + "/users/" + user.id, user, {withCredentials: true })
+        .subscribe({
+            next: () => {
+                console.log("OK")
+            },
+            error: (e: HttpErrorResponse) => {
+                console.log(e)
+            }
+        })
+    }
 }

@@ -17,7 +17,7 @@
                             </div>
                             <div *ngIf="editattname">
                                 <input [(ngModel)]="name" type="text" id="nameInput" class="edit-input" >
-                                <button id="saveNameBtn" class="save-button" (click)="editName()">Guardar</button>
+                                <button id="saveNameBtn" class="save-button" (click)="updateName()">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </div>
                             <div *ngIf="editattemail">
                                 <input [(ngModel)]="email" type="text" id="emailInput" class="edit-input" >
-                                <button id="saveEmailBtn" class="save-button" (click)="editEmail()">Guardar</button>
+                                <button id="saveEmailBtn" class="save-button" (click)="updateEmail()">Guardar</button>
                             </div>
                         </div>
                     </div>
