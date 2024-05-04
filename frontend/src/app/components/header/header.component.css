@@ -16,3 +16,17 @@ ul {
     list-style-type: none;
     gap: 15px;
 }
+
+button {
+    all: unset;
+    margin: 8px;
+    font-size: 1.33em;
+    color: white;
+
+}
+
+button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+}

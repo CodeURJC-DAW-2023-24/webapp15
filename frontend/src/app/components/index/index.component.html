@@ -2,9 +2,12 @@
     <div class="main-artist">
         <img src="https://dummyimage.com/1920x500/000/fff">
         <div class="main-artist-info">
-            <h1>{{mainArtist.name}}</h1>
+            <h1><a href="/artist/{{mainArtist.id}}">{{mainArtist.name}}</a></h1>
             <h2>{{mainArtist.info}}</h2>
-            <button [routerLink]="'/search'">Entradas</button>
+            <button [routerLink]="'/artist/' + mainArtist.id">
+                <span>Entradas</span>
+                <img src="assets/images/point-right.png" width="19px">
+            </button>
         </div>
     </div>
 }

@@ -27,10 +27,12 @@
                             <span class="price">{{concert.price}}€</span>
                         </p>
                     </div>
-                    <button class="tickets-concert-list-button">
-                        <span>Entradas</span>
-                        <img src="/images/point-right.png" width="19px">
-                    </button>
+                    @if (loginService.isLogged()) {
+                        <button [routerLink]="'/payment/' + concert.id" class="tickets-concert-list-button">
+                            <span>Entradas</span>
+                            <img src="assets/images/point-right.png" width="19px">
+                        </button>
+                    }
                 </article>
             }
             @if (!last) {

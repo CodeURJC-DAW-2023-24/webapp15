@@ -7,6 +7,7 @@ import { Concert } from '../../models/concert.model';
 import { convertDatetime, formatHour } from '../../utils/datetime-utils';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-artist',
@@ -22,7 +23,7 @@ export class ArtistComponent {
     currentPage: number = 0;
     last: boolean = false;
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute) { }
+    constructor(private searchService: SearchService, private route: ActivatedRoute, public loginService: LoginService) { }
 
     ngOnInit(): void {
         const artistIdStr = this.route.snapshot.paramMap.get('id') ?? undefined;
