@@ -7,6 +7,8 @@ import { ProfileComponent } from './components/user/profile.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { IndexComponent } from './components/index/index.component';
+import { NewArtistComponent } from './components/admin/newArtist.component';
+import { NewConcertComponent } from './components/admin/newConcert.component';
 
 const routes: Routes = [
   { path: '', component: IndexComponent },
@@ -16,8 +18,10 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'artist/:id', component: ArtistComponent },
   { path: 'payment/:id', component: PaymentComponent },
-  { path: 'profile', component: ProfileComponent}
-];
+  { path: 'profile', component: ProfileComponent},
+  { path: 'newArtist', component: NewArtistComponent},
+  { path: 'newConcert', component: NewConcertComponent},
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -360,6 +360,29 @@ public class ConcertRestController {
         
         return new ResponseEntity<>(artists, HttpStatus.OK);
     }
+    @Operation(summary = "Get the list of artists that have a concert")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the list",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "List not found",
+    content = @Content
+    )
+    })
+    @GetMapping("/genres")
+    public ResponseEntity<List<Genre>> getGenres() {
+
+        List<Genre> genre = genreService.findAll();
+        
+        return new ResponseEntity<>(genre, HttpStatus.OK);
+    }
 
     @Operation(summary = "Get the list of the concerts locations")
     @ApiResponses(value = {
@@ -383,5 +406,28 @@ public class ConcertRestController {
         List<String> locations = concertService.findLocations();
         
         return new ResponseEntity<>(locations, HttpStatus.OK);
+    }
+    @Operation(summary = "Get the list of the concerts locations")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the list",
+    content = {@Content(
+    mediaType = "application/json",
+    schema = @Schema(implementation=Concert.class)
+    )}
+    ),
+    @ApiResponse(
+    responseCode = "400",
+    description = "List not found",
+    content = @Content
+    )
+    })
+    @GetMapping("/artists/all")
+    public ResponseEntity<List<Artist>> getAllArtist() {
+
+        List<Artist> artists = artistService.findAll();
+        
+        return new ResponseEntity<>(artists, HttpStatus.OK);
     }
 }

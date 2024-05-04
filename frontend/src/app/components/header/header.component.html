@@ -5,12 +5,12 @@
     <ul>
         @if (loginService.isRole("ADMIN")) {
             <li id="navbar-add-artist">
-                <button>
+                <button [routerLink]="'/newArtist'">
                     <span>Crear artista</span>
                 </button>
             </li>
             <li id="navbar-add-concert">
-                <button>
+                <button [routerLink]="'/newConcert'">
                     <span>Crear concierto</span>
                 </button>
             </li>
