@@ -3,7 +3,7 @@ import { User } from "./user.model";
 
 export interface Ticket{
     id: number,
-    num_tickets: number,
+    num_ticket: number,
     user: User,
     concert: Concert
 }

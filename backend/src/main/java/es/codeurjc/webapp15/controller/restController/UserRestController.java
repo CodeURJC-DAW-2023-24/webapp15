@@ -45,6 +45,12 @@ class NewUser {
     public String password;
 }
 
+class PartialUser {
+    public Optional<String> email;
+    public Optional<String> name;
+    public Optional<String> password;
+}
+
 @RestController
 @RequestMapping("/api/users")
 public class UserRestController {
@@ -317,7 +323,7 @@ public class UserRestController {
     )
     })
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody NewUser userBody) throws SQLException {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody PartialUser userBody) throws SQLException {
 
         if (!userService.exist(id)) {
             return ResponseEntity.notFound().build();
@@ -326,8 +332,11 @@ public class UserRestController {
         User storedUser = userService.findById(id).get();
         String[] roles = storedUser.getRoles().toArray(new String[0]);
 
-        String encodedPassword = passwordEncoder.encode(userBody.password);
-        User updatedUser = new User(userBody.email, userBody.name, encodedPassword, roles);
+        String email = userBody.email.isPresent() ? userBody.email.get() : storedUser.getEmail();
+        String name = userBody.name.isPresent() ? userBody.name.get() : storedUser.getName();
+        String encodedPassword = (userBody.password != null && userBody.password.isPresent()) ? passwordEncoder.encode(userBody.password.get()) : storedUser.getEncodedPassword();
+
+        User updatedUser = new User(email, name, encodedPassword, roles);
             
         // Mantain current image
         if (storedUser.getImg_user() != null) {
