@@ -356,5 +356,20 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 <img width="637" alt="DiagramaFase4" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/51710643-ff58-4e76-8155-02c4a1740ff0">
 
 ## Participación de miembros
+- Diego Del Amo Infante
+  	- Durante esta fase, me he encargado de la implementación de las funciones únicas que tienen los administradores, crear Artista y crear Concierto. Además, he estado mejorando la subida de imágenes en perfil y crear Artista junto a su previsualización. Por último, me he encargado de la visualización de las imágenes en los archivos donde se debía visualizar alguna imagen.
+  	  
+  	- Commits más significativos:
+  	  	- CreateConcert: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/37219a212d32d90d31b94cc10630a8c08acef0bf
+  	  	- CreateArtist: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/a4af246cde517baf6355739d6c9d2795fd8681fa
+  	  	- CreateArtist: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/df590425816b8be84191bf28b3bfb44f5998b70a
+  	  	- CreateArtist & profile : https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/337e11deed523b8cdb782f962b89a717326c06f4
+  	  	- Images: https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/579d55b1f1a34877dba54a5443225cf797fdaa51
 
+  	- Ficheros más significativos:
+  	  	- CreateArtist: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/admin/newArtist.component.ts
+  	  	- Profile: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/user/profile.component.ts
+  	  	- CreateConcert: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/admin/newConcert.component.ts
+  	  	- Index: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts
+  	  	- CreateConcert Service: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/newConcert.service.ts
 ## Vídeo
