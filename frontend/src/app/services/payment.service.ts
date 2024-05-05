@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { Ticket } from '../models/ticket.model';
 import { Observable } from 'rxjs/internal/Observable';
+import { SpringResponse } from '../utils/spring-response';
+import { catchError, map } from 'rxjs';
 
 // TODO: Change this to relative route
 const BASE_URL = '/api/tickets'
@@ -22,7 +24,15 @@ export class PaymentService{
 
     }
 
-    getTickets(user: User){
-        return this.http.get(BASE_URL).pipe() as Observable<Ticket[]>;
+    getTickets(page: number): Observable<Ticket[]> {
+        return this.http.get<SpringResponse<Ticket[]>>(BASE_URL, {params: {page: page} })
+            .pipe(
+                map((response: SpringResponse<Ticket[]>) => {
+                    return response.content;
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    throw error;
+                })
+            )
     }
 }

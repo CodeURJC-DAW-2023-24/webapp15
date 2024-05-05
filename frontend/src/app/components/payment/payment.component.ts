@@ -20,11 +20,10 @@ export class PaymentComponent {
     error: boolean = false;
     numberOfTickets: number = 1;
 
-    constructor(private searchService: SearchService, private loginService: LoginService, private paymentService: PaymentService, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
-        this.user = loginService.currentUser()
-    }
+    constructor(private searchService: SearchService, private loginService: LoginService, private paymentService: PaymentService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(): void {
+        this.user = this.loginService.getUser();
         const concertIdStr = this.route.snapshot.paramMap.get('id') ?? undefined;
         concertIdStr ? this.concertId = parseInt(concertIdStr) : undefined;
 
