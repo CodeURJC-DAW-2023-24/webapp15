@@ -60,9 +60,9 @@ export class ProfileComponent{
     }
 
     updateEmail(){
-        this.editattname = !this.editattname
+        this.editattemail = !this.editattemail
         if (this.user !== undefined){
-            this.user.name = this.name
+            this.user.email = this.email
             this.loginService.updateUser(this.user)
         }
     }
