@@ -1,10 +1,10 @@
 .content-footer{
     background-color: rgb(7, 7, 7);
-    padding-top: 15px;
+    padding-top: 15px; 
     padding-bottom: 5px;
 }
 
-.footer-list{
+.footer-list{ 
     display: flex;
     padding: 0px;
     margin-left: 0px;
