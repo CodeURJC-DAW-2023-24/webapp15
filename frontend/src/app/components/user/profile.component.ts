@@ -3,6 +3,7 @@ import { LoginService } from "../../services/login.service";
 import { User } from '../../models/user.model';
 import { Ticket } from '../../models/ticket.model';
 import { PaymentService } from "../../services/payment.service";
+import jsPDF from "jspdf"
 
 @Component({
     selector: 'app-root',
@@ -75,4 +76,29 @@ export class ProfileComponent{
         reader.readAsDataURL(event.target.files[0]);
       
     }
+
+    downloadTicket(ticketId: string, num_ticket: number, eventName: string, name: string, date: string, month: string, time: string, location: string) {
+        const doc = new jsPDF();
+        // PDF Content
+        // Incluye la imagen del código QR
+        const qrImg1 = ""; // Coloca la imagen del código QR aquí
+        const pageWidth = doc.internal.pageSize.getWidth(); // Obtiene el ancho de la página
+        const marginLeft = 10;
+        const marginRight = 10; // Margen derecho deseado
+        const imageWidth = pageWidth - marginLeft - marginRight; // Nuevo ancho de la imagen para respetar el margen derecho
+        
+        doc.addImage(qrImg1, 10, 10, 10, imageWidth); // Ajusta el ancho para incluir el margen derecho
+        doc.setFontSize(16);
+        doc.text(eventName, 10, 90);
+        doc.setFontSize(12);
+        doc.text(` ${name}`, 10, 100);
+        doc.text(`Fecha: ${date} ${month}`, 10, 110)
+        doc.text(`Hora: ${time}`, 10, 120);
+        doc.text(`Lugar: ${location}`, 10, 130);
+        doc.text(`${num_ticket}`, 10, 140);
+    
+        // Trigger PDF download
+        doc.save(`ticket-${ticketId}.pdf`);
+    }
+
 }
