@@ -324,7 +324,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 - Carlos Solsona Álvarez
 	- En esta tercera fase me he encargado de la implementación de la API REST y de su documentación, en especial lo relacionado con la parte de User, así como del login y register. También me he encargado de la creación del fichero postman collection y de la generación del fichero de documentación de la API. Por último, he ayudado a corregir erroes y a integrar el código de todo el equipo mediante git.
  	- Commits más significativos:
-		- [Add Artist and Concerts API GET requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3545fb8411e86dbfa68ab11be42966e0e11a3fd7)
+		- [Add Artist and Concerts API GET request](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/3545fb8411e86dbfa68ab11be42966e0e11a3fd7)
 		- [Add User REST requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/9ea3029fe3c55ad4c3a387dde545771ef0b26145)
 		- [Fix REST Register and GET and PUT images](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/1260216bdb26d3d2683cdb30e540f1d3e2580dfc)
 		- [Fix Concerts REST requests](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/8a59dbb077bc6369f5c65a0ac70c716da686345f)
@@ -372,4 +372,22 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
   	  	- CreateConcert: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/admin/newConcert.component.ts
   	  	- Index: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts
   	  	- CreateConcert Service: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/newConcert.service.ts
+
+  - Jesús Pérez
+
+	- Durante la fase 4 he trabajado principalmente en la realzación de las páginas de perfil de usuario y la de pago para las entradas de conciertos. Además, 
+he realizado la descarga de PDFs con el ticket de compra de cada entrada. Por último, he participado activamente en la resolución de errores cuando fue necesario.
+
+	- Commits más significativos:
+		- [profile page setup](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/d55d1c10306c0246db95d074b9dfacfd7b05d54b)
+		- [profile update 1](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/7de243798207d8b88962cb87b317044d2f7ae696)
+		- [processPayment](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/531a3d75c64d4adb77655633aa0c041148cc431d)
+		- [load tickets 1](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/295e9c426419d85745e12d0e8a91ff5e92dbf4c4)
+		- [download ticket](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/e2335a8d8ac09a787e78dc9a2387d1dcc3e53570)
+
+	- Ficheros más significativos:
+		- [profile.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/user/profile.component.ts)
+		- [payment.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/payment/payment.component.ts)
+		- [login.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/login.service.ts)
+		- [payment.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/payment.service.ts)
 ## Vídeo
