@@ -39,7 +39,37 @@
                 </div>
                 <div class="tickets-history">
                     <h3>Tickets Comprados:</h3>
-                        <p>Historial vacío</p>
+                        <div *ngFor="let ticket of tickets">
+                            <article class="event-article">
+    
+                                <time>
+                                    <span class="day">ticket.concert.day</span>
+                                    <span class="month">ticket.concert.month</span>
+                                </time>
+                                <div class="event-info">
+                                    <h1><a>{{ticket.concert.artist.name}}</a></h1>
+                                    <p class="date-info">
+                                    <span class="weekday">{{ticket.concert.id}}</span>
+                                    <span> - </span>
+                                    <span class="hour">{{ticket.concert.id}}</span>
+                                    </p>
+                                    <p class="venue-info">
+                                    <span class="city">{{ticket.concert.place}}</span>
+                                    </p>
+                                    <p class="venue-info">
+                                        <span class="name"><em>Nombre:</em> {{name}}</span>
+                                    </p>
+                                    <p class="venue-info">
+                                        <span class="numticket"><em>Entradas:</em> {{ticket.concert.num_tickets}}</span>
+                                    </p>
+                                   
+                                </div>
+                                <button class="download-button" data-id="{{ticket.concert.id}}">
+                                <span>Descargar</span>
+                                <img src="/images/point-right.png" width="19px">
+                                </button>   
+                            </article>
+                        </div>
                 </div>
         </div>
     </div>
