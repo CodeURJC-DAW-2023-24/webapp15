@@ -346,3 +346,15 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
    	 	- [Dockerfile](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/dockerfile)
  	 	- [docker-compose.yml](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/docker-compose.yml)
    	 	- [create_image.sh](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/create_image.sh)
+
+#FASE 4
+
+## Preparación del entorno de desarrollo
+
+
+## Diagrama de clases y templates de la SPA
+<img width="637" alt="DiagramaFase4" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/51710643-ff58-4e76-8155-02c4a1740ff0">
+
+## Participación de miembros
+
+## Vídeo
