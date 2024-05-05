@@ -1,6 +1,6 @@
 @if (mainArtist) {
     <div class="main-artist">
-        <img src="https://dummyimage.com/1920x500/000/fff">
+        <img src="/api/artists/{{mainArtist.id}}/image">
         <div class="main-artist-info">
             <h1><a href="/artist/{{mainArtist.id}}">{{mainArtist.name}}</a></h1>
             <h2>{{mainArtist.info}}</h2>
@@ -19,7 +19,7 @@
             <li class="secondary-artist">
                 <a href="/artist/{{artist.id}}">
                     <div>
-                        <img src="https://dummyimage.com/500x300/000/fff">
+                        <img src="/api/artists/{{artist.id}}/image">
                         <h2>{{artist.info}}</h2>
                         <h1>{{artist.name}}</h1>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="recommended-artist">
                             <a href="/artist/{{artist.id}}">
                                 <div>
-                                    <img src="https://dummyimage.com/410x246/000/fff">
+                                    <img src="/api/artists/{{artist.id}}/image">
                                     <h2>{{artist.info}}</h2>
                                     <h1>{{artist.name}}</h1>
                                 </div>

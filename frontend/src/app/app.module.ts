@@ -18,6 +18,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { IndexComponent } from './components/index/index.component';
 import { NewArtistComponent } from './components/admin/newArtist.component';
 import { NewConcertComponent } from './components/admin/newConcert.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NewConcertComponent } from './components/admin/newConcert.component';
     PaymentComponent,
     IndexComponent,
     NewArtistComponent,
-    NewConcertComponent
+    NewConcertComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,

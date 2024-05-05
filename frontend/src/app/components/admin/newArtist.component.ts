@@ -15,6 +15,7 @@ export class NewArtistComponent {
   name:string ='';
   info:string ='';
   image: File | undefined;
+  imageSrc:string|undefined;
 
  
   @ViewChild("file")
@@ -40,4 +41,13 @@ export class NewArtistComponent {
       this.newArtist.setArtistImage(artist, data).subscribe();
     }
   }
-}
+  functionChangeImage(event: any) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imageSrc = event.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      
+    }
+    
+}  

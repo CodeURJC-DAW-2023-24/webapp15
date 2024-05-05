@@ -55,6 +55,7 @@ export class LoginService {
                 console.log(r);
                 this.logged = false;
                 this.user = undefined;
+                this.router.navigate(['/']);
             },
             error: (e: HttpErrorResponse) => {
                 console.log(e)
@@ -63,16 +64,14 @@ export class LoginService {
 
     }
 
+    getUser() { return this.user }
+
     isLogged() { return this.logged }
 
     isRole(role: string): boolean {
         if (!this.user) { return false }
 
         return this.user.roles.includes(role);
-    }
-
-    currentUser() {
-        return this.user;
     }
 
     updateUser(user: User){

@@ -103,10 +103,12 @@ export class SearchComponent {
     }
 
     deleteConcert(concert: Concert): void {
+        if(confirm('¿Estás seguro de querer borrarlo?')){     
         this.deleteService.deleteConcert(concert.id)
             .subscribe(() => {
                 this.concerts = this.removeConcertFromResults(concert, this.concerts);
             })
+        }
     }
 
     private removeConcertFromResults(concert: Concert, results: Concert[]): Concert[] {
