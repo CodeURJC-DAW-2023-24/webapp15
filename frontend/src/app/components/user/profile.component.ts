@@ -17,6 +17,7 @@ export class ProfileComponent{
 
     editattname = false
     editattemail = false
+    imageSrc:string|undefined;
 
     private user: User | undefined;
 
@@ -66,5 +67,12 @@ export class ProfileComponent{
             this.loginService.updateUser(this.user)
         }
     }
-
+    functionChangeImage(event: any) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imageSrc = event.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      
+    }
 }
