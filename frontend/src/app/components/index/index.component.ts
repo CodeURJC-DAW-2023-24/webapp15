@@ -33,7 +33,7 @@ export class IndexComponent {
         this.searchService.search<SpringResponse<Artist[]>>("/artists", { page: this.currentPage, size: 4 })
             .subscribe((response: SpringResponse<Artist[]>) => {
                 this.artists = this.artists.concat(response.content);
-                this.mainArtist = response.content[0];
+                if (!this.mainArtist) this.mainArtist = response.content[0];
             });
 
         // Workaround

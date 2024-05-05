@@ -3,6 +3,7 @@ import { LoginService } from "../../services/login.service";
 import { User } from '../../models/user.model';
 import { Ticket } from '../../models/ticket.model';
 import { PaymentService } from "../../services/payment.service";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -11,8 +12,8 @@ import { PaymentService } from "../../services/payment.service";
 })
 export class ProfileComponent{
 
-    name = 'aaa'
-    email = 'aaa@aaa.com'
+    name = ''
+    email = ''
     tickets: Ticket[] = []
 
     editattname = false
@@ -20,7 +21,7 @@ export class ProfileComponent{
 
     private user: User | undefined;
 
-    constructor(private loginService: LoginService, private ticketService: PaymentService) { 
+    constructor(private loginService: LoginService, private ticketService: PaymentService, private router: Router) { 
         this.loadCurrentUser()
         this.loadTickets()
     }
@@ -64,6 +65,8 @@ export class ProfileComponent{
         if (this.user !== undefined){
             this.user.email = this.email
             this.loginService.updateUser(this.user)
+            this.loginService.logout();
+            this.router.navigate(['/']);
         }
     }
 
