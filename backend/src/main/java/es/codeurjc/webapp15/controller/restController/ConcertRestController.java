@@ -430,4 +430,30 @@ public class ConcertRestController {
         
         return new ResponseEntity<>(artists, HttpStatus.OK);
     }
+
+
+    @Operation(summary = "Get the number of concerts per month")
+    @ApiResponses(value = {
+    @ApiResponse(
+    responseCode = "200",
+    description = "Found the request",
+    content = @Content
+    ),
+    @ApiResponse(
+    responseCode = "404",
+    description = "Request not found",
+    content = @Content
+    )
+    })
+    @GetMapping("/per-month")
+    public ResponseEntity<Object> getConcertsPerMonth(@RequestParam Optional<Long> months) {
+
+        if (months.isEmpty())
+            months = Optional.of(Long.valueOf(6));
+        else if (months.get() > 24){
+            months = Optional.of(Long.valueOf(24));
+        }
+
+        return ResponseEntity.ok(concertService.countConcertsByMonthInRange(months.get()));
+    }
 }
