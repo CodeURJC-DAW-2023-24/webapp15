@@ -3,32 +3,36 @@ import { LoginService } from "../../services/login.service";
 import { User } from '../../models/user.model';
 import { Ticket } from '../../models/ticket.model';
 import { PaymentService } from "../../services/payment.service";
+import { Router } from '@angular/router';
+import { convertTicketDatetime } from '../../utils/datetime-utils';
 
 @Component({
     selector: 'app-root',
     templateUrl: './profile.component.html',
-    styleUrl: './profile.component.css'
+    styleUrls: ['./profile.component.css', '../../../styles/concert-style.css']
 })
 export class ProfileComponent{
 
-    name = 'aaa'
-    email = 'aaa@aaa.com'
+    name = ''
+    email = ''
     tickets: Ticket[] = []
 
     editattname = false
     editattemail = false
     imageSrc:string|undefined;
 
-    private user: User | undefined;
+    user?: User;
 
-    constructor(private loginService: LoginService, private ticketService: PaymentService) { 
-        this.loadCurrentUser()
-        this.loadTickets()
+    constructor(public loginService: LoginService, private ticketService: PaymentService, private router: Router) { }
+
+    ngOnInit() {
+        this.loadCurrentUser();
+        this.loadTickets();
     }
 
     
     loadCurrentUser(){
-        this.user = this.loginService.currentUser()
+        this.user = this.loginService.getUser();
         if (this.user !== undefined){
             this.name = this.user.name
             this.email = this.user.email
@@ -36,11 +40,12 @@ export class ProfileComponent{
     }
 
     loadTickets(){
-        if (this.user !== undefined){
-            this.ticketService.getTickets(this.user).subscribe(
-                tickets => this.tickets = tickets,
-                error => console.log(error)
-            );
+        if (this.user !== undefined) {
+            this.ticketService.getTickets(0)
+                .subscribe((response: Ticket[]) => {
+                    this.tickets = this.tickets.concat(convertTicketDatetime(response));
+                    console.log(this.tickets);
+                })
         }
     }
 
@@ -65,8 +70,11 @@ export class ProfileComponent{
         if (this.user !== undefined){
             this.user.email = this.email
             this.loginService.updateUser(this.user)
+            this.loginService.logout();
+            this.router.navigate(['/']);
         }
     }
+    
     functionChangeImage(event: any) {
         const reader = new FileReader();
         reader.onload = (event: any) => {
@@ -75,4 +83,14 @@ export class ProfileComponent{
         reader.readAsDataURL(event.target.files[0]);
       
     }
+
+    formatHour(date: Date): string {
+        let str = date.getHours().toString() + ":";
+        date.getMinutes() < 10
+            ? str += "0" + date.getMinutes()
+            : str += date.getMinutes();
+
+        return str;
+    }
+
 }

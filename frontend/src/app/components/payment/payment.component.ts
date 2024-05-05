@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SearchService } from "../../services/search.service";
 import { LoginService } from "../../services/login.service";
 import { PaymentService } from "../../services/payment.service";
@@ -20,11 +20,10 @@ export class PaymentComponent {
     error: boolean = false;
     numberOfTickets: number = 1;
 
-    constructor(private searchService: SearchService, private loginService: LoginService, private paymentService: PaymentService, private http: HttpClient, private route: ActivatedRoute) {
-        this.user = loginService.currentUser()
-    }
+    constructor(private searchService: SearchService, private loginService: LoginService, private paymentService: PaymentService, private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit(): void {
+        this.user = this.loginService.getUser();
         const concertIdStr = this.route.snapshot.paramMap.get('id') ?? undefined;
         concertIdStr ? this.concertId = parseInt(concertIdStr) : undefined;
 
@@ -61,7 +60,11 @@ export class PaymentComponent {
         numberOfTickets = Math.min(numberOfTickets, 20);
         numberOfTickets = Math.max(numberOfTickets, 1);
         if (this.user !== undefined && this.concert !== undefined){
-            this.paymentService.processPayment(this.user, this.concert, numberOfTickets)
+            this.paymentService.processPayment(concertId, numberOfTickets)
+                .subscribe((response) => {
+                    console.log(response);
+                    this.router.navigate(['/']);
+                })
         }
     }
 }
