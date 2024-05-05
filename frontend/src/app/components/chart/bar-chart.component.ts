@@ -12,7 +12,8 @@ interface Data {
 
 @Component({
     selector: 'bar-chart',
-    templateUrl: './bar-chart.component.html'
+    templateUrl: './bar-chart.component.html',
+    styleUrl: './bar-chart.component.css',
 })
 export class BarChartComponent {
 
