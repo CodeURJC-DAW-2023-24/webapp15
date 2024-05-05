@@ -55,6 +55,7 @@ export class LoginService {
                 console.log(r);
                 this.logged = false;
                 this.user = undefined;
+                this.router.navigate(['/']);
             },
             error: (e: HttpErrorResponse) => {
                 console.log(e)
