@@ -11,7 +11,7 @@ services:
       DATABASE_URL: jdbc:mysql://app_db/mydb
       DATABASE_USER: grupo15
       DATABASE_PASSWORD: Password123.
-    restart: always
+    restart: on-failure
     depends_on:
       - app_db
 

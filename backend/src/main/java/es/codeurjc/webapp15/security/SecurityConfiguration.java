@@ -127,6 +127,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/signup/**").permitAll()
                         .requestMatchers("/user/update/**").permitAll()
+                        .requestMatchers("/new/**").permitAll()
                         //.requestMatchers("api/**").permitAll()
                         // Private PAGES
                         .requestMatchers("/profile", "/user/**").hasAnyRole("USER")
