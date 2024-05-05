@@ -19,6 +19,7 @@ import { IndexComponent } from './components/index/index.component';
 import { NewArtistComponent } from './components/admin/newArtist.component';
 import { NewConcertComponent } from './components/admin/newConcert.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BarChartComponent } from './components/chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FooterComponent } from './components/footer/footer.component';
     IndexComponent,
     NewArtistComponent,
     NewConcertComponent,
-    FooterComponent
+    FooterComponent,
+    BarChartComponent,
   ],
   imports: [
     CommonModule,
