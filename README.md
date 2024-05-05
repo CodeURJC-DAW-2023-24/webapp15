@@ -359,7 +359,7 @@ Para poder tener la implementación para la aplicación SPA usando Angular, debe
    	2. Clonar el repositorio:
     		https://github.com/CodeURJC-DAW-2023-24/webapp15.git
 
-      	3. Cambiar a la carpeta frontend:
+        3. Cambiar a la carpeta frontend:
        		cd frontend
 
  	4. Instalar todos los módulos necesarios:
@@ -367,6 +367,8 @@ Para poder tener la implementación para la aplicación SPA usando Angular, debe
 
      	5. Runear SPA
       		npm start
+
+ 	La aplicación estará alojada en http://localhost:4200/
 
 ## Diagrama de clases y templates de la SPA
 <img width="637" alt="DiagramaFase4" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/51710643-ff58-4e76-8155-02c4a1740ff0">
