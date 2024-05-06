@@ -24,9 +24,12 @@ export class ProfileComponent{
     imageSrc?: string;
 
     hasImage = false;
+    imageRoute: string;
     user?: User;
 
-    constructor(public loginService: LoginService, private ticketService: PaymentService, private router: Router, private http: HttpClient) { }
+    constructor(public loginService: LoginService, private ticketService: PaymentService, private router: Router, private http: HttpClient) {
+        this.imageRoute = "/api/users/" + this.loginService.getUser()!.id + "/image?" + Date.now();
+    }
 
     ngOnInit() {
         this.loadCurrentUser();
@@ -88,7 +91,8 @@ export class ProfileComponent{
 
     getImageRoute(): string {
         return this.hasImage
-            ? "/api/users/" + this.loginService.getUser()!.id + "/image"
+            // ? "/api/users/" + this.loginService.getUser()!.id + "/image"
+            ? this.imageRoute
             : "assets/images/default-profile-picture.jpg";
     }
 
@@ -112,7 +116,7 @@ export class ProfileComponent{
         this.http.put(("/api/users/" + this.user!.id + "/image"), formData)
             .subscribe((response) => {
                 this.hasImage = true;
-                console.log(response);
+                this.imageRoute = "/api/users/" + this.loginService.getUser()!.id + "/image?" + Date.now();
             })
     }
 
@@ -125,7 +129,6 @@ export class ProfileComponent{
         return str;
     }
 
-    // downloadTicket(ticketId: string, num_ticket: number, eventName: string, name: string, date: string, month: string, time: string, location: string) {
     downloadTicket(ticket: Ticket) {
 
         const doc = new jsPDF();

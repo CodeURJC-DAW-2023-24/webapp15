@@ -5,7 +5,6 @@
                     <div class="profile-header">
                         <div id="profile-picture-container">
                             <img [src]="getImageRoute()" alt="User Profile" class="profile-image" id="profileImage">
-                            <!-- <img [src]="imageSrc||'assets/images/default-profile-picture.jpg'" alt="User Profile" class="profile-image" id="profileImage"> -->
                             <input type="file" id="imageInput" class="edit-input" style="display:none;" (change)="functionChangeImage($event)">
                             <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
                         </div>
