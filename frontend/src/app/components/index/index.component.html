@@ -17,7 +17,7 @@
         <ul id="secondary-artist-list">
         @for (artist of artists; track $index) {
             <li class="secondary-artist">
-                <a href="/artist/{{artist.id}}">
+                <a [routerLink]="'/artist/{{artist.id}}'">
                     <div>
                         <img src="/api/artists/{{artist.id}}/image">
                         <h2>{{artist.info}}</h2>
