@@ -391,7 +391,7 @@ Para poder tener la implementación para la aplicación SPA usando Angular, debe
   	  	- Index: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts
   	  	- CreateConcert Service: https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/newConcert.service.ts
 
-  - Jesús Pérez
+- Jesús Pérez
 
 	- Durante la fase 4 he trabajado principalmente en la realzación de las páginas de perfil de usuario y la de pago para las entradas de conciertos. Además, 
 he realizado la descarga de PDFs con el ticket de compra de cada entrada. Por último, he participado activamente en la resolución de errores cuando fue necesario.
@@ -408,4 +408,22 @@ he realizado la descarga de PDFs con el ticket de compra de cada entrada. Por ú
 		- [payment.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/payment/payment.component.ts)
 		- [login.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/login.service.ts)
 		- [payment.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/payment.service.ts)
+
+- Carlos Solsona
+
+  	- Durante la fase 4 me he encargado principalmente de la implementación de la página de búsqueda, página principal y de usuario, así como de la lógica del inicio de sesión. Además, también me he encargado de la integración del código del equipo y de solucionar las dudas o fallos que iban surgiendo.
+
+  	- Commits más significativos:
+  		- [Add concerts to search page](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/dfa9fa4c2882911cebe2ff08dd0c1dd6bbe5a607)
+  	  	- [Add dates and prices filters](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/b9eca6d5c16c0ece28bf246107dd756ea0c2bb66)
+  	  	- [Add index page](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f28dac5fad6ac234198da819268b21a965a00b37)
+  	  	- [Add artist page](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/c055332200a6c92d551618a8891f56b8173a0238)
+  	  	- [Add concerts per month chart to index page](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/5e02b52bce6c8907b4231049e0c881353beb2381)
+
+  	- Ficheros más significativos:
+  	  	- [search.component.html](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/search/search.component.html)
+  	  	- [search.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/search/search.component.ts)
+  	  	- [index.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts)
+  	  	- [artist.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/artist/artist.component.ts)
+  	  	- [login.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/login.service.ts)
 ## Vídeo
