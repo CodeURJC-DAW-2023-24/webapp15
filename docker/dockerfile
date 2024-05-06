@@ -1,4 +1,6 @@
-# Base image for the Angular builder container
+#################################################
+# Base image for the Angular build container
+#################################################
 FROM node as buildFront
 WORKDIR /frontend
 COPY ../frontend/package*.json ../frontend/angular.json ../frontend/tsconfig*.json ./
@@ -6,15 +8,23 @@ RUN npm install
 COPY ../frontend/src ./src
 RUN npm run build -- --configuration production --base-href="/new/"
 
-# Base image for the Maven builder container
+#################################################
+# Base image for the maven build container
+#################################################
 FROM maven as buildBack
 WORKDIR /app
 COPY ../backend/pom.xml .
+
+#RUN mvn clean verify 
+
 COPY backend/src ./src
 COPY --from=buildFront /frontend/dist/frontend/browser/ ./src/main/resources/static/new
+
 RUN mvn clean package -DskipTests
 
-# Stage 2: Create the final Docker image with only the compiled jar and runtime
+#################################################
+# Base image for the application container
+#################################################
 FROM openjdk:23-jdk-slim
 
 # Copy the jar from the build stage
