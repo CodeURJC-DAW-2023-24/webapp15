@@ -449,4 +449,21 @@ he realizado la descarga de PDFs con el ticket de compra de cada entrada. Por ú
    	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts
    	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.html
 
+- Javier García 
+
+  	- Durante la fase 4 me he encargado de el apartado de login (terminarlo) y registro, todo lo relacionado con Docker, y subirlo a la máquina virtual.
+
+  	- Commits más significativos:
+  		- [Fix user persistence](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f508336c7e870130b121012d40b569c3d92824fb)
+  	  	- [Logout](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/42b246cd5129068fdaaa190b3003d372d22cc7c9)
+  	  	- [SignUp implementation](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/d3d300e875e64ecc6297540ba54a7c09289a0408)
+  	  	- [Dockerize full app - Working](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/854ac54895de0cb271e02e3b6a860136a495cf2c)
+
+  	- Ficheros más significativos:
+  	  	- [signup.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/signup.service.ts)
+  	  	- [dockerfile](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/docker/dockerfile)
+  	  	- [login.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/login.service.ts)
+  	  	- [signup.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/signup/signup.component.ts)
+  	  	- [SPAController.java](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/backend/src/main/java/es/codeurjc/webapp15/controller/SPAController.java)
+
 ## Vídeo
