@@ -4,7 +4,8 @@
                 <div id="profile-content" class="">
                     <div class="profile-header">
                         <div id="profile-picture-container">
-                            <img [src]="imageSrc||'assets/images/default-profile-picture.jpg'" alt="User Profile" class="profile-image" id="profileImage">
+                            <img [src]="getImageRoute()" alt="User Profile" class="profile-image" id="profileImage">
+                            <!-- <img [src]="imageSrc||'assets/images/default-profile-picture.jpg'" alt="User Profile" class="profile-image" id="profileImage"> -->
                             <input type="file" id="imageInput" class="edit-input" style="display:none;" (change)="functionChangeImage($event)">
                             <button onclick="document.getElementById('imageInput').click()" class="edit-button avatar-btn">Cambiar imagen</button>
                         </div>
@@ -22,7 +23,7 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <!-- For Email -->
                         <div class="field-section">
                             <h2 class="title">Email:</h2>
@@ -42,7 +43,7 @@
                         <h3>Tickets Comprados:</h3>
                         @for (ticket of tickets; track $index) {
                             <article class="event-article">
-    
+
                                 <time>
                                     <span class="day">{{ticket.concert.datetime.getDate()}}</span>
                                     <span class="month">{{ticket.concert.datetime.toLocaleString("es-ES", { month: "short"})}}</span>
@@ -63,12 +64,12 @@
                                     <p class="venue-info">
                                         <span class="numticket"><em>Entradas:</em> {{ticket.num_ticket}}</span>
                                     </p>
-                                    
+
                                 </div>
-                                <button class="download-button" data-id="{{ticket.concert.id}}">
+                                <button (click)="downloadTicket(ticket)" class="download-button">
                                 <span>Descargar</span>
                                 <img src="/images/point-right.png" width="19px">
-                                </button>   
+                                </button>
                             </article>
                         }
                     </div>
@@ -77,4 +78,3 @@
         </div>
         <script src="/js/profile.js"></script>
     }
-    
