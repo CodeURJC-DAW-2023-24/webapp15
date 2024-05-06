@@ -373,6 +373,12 @@ Para poder tener la implementación para la aplicación SPA usando Angular, debe
 ## Diagrama de clases y templates de la SPA
 <img width="637" alt="DiagramaFase4" src="https://github.com/CodeURJC-DAW-2023-24/webapp15/assets/80209861/51710643-ff58-4e76-8155-02c4a1740ff0">
 
+## Desplegar la aplicación en la Máquina Virtual
+- Se siguen los mismos pasos que en la Fase3 y ahora en la url https://10.100.139.56:8443 se encontrará lo que teníamos en la Fase 3 y en https://10.100.139.56:8443/new/ estará lo nuevo de esta fase, Angular.
+- Los usuarios siguen siendo los mismos:
+	- user@user.com:user
+	- admin@admin.com:admin
+
 ## Participación de miembros
 - Diego Del Amo Infante
   	- Durante esta fase, me he encargado de la implementación de las funciones únicas que tienen los administradores, crear Artista y crear Concierto. Además, he estado mejorando la subida de imágenes en perfil y crear Artista junto a su previsualización. Por último, me he encargado de la visualización de las imágenes en los archivos donde se debía visualizar alguna imagen.
