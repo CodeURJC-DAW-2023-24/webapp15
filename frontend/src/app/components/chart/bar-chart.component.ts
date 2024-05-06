@@ -26,7 +26,7 @@ export class BarChartComponent {
     }
 
     private fetchData() {
-        this.http.get<Data[]>("api/concerts/per-month")
+        this.http.get<Data[]>("/api/concerts/per-month")
             .subscribe((response: Data[]) => {
                 const months = Array.from(response).map(x => new Date(x.date.year, (x.date.month - 1)).toLocaleString('default', { month: 'long' }));
                 const data = Array.from(response).map((x) => x.count);
