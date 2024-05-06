@@ -451,7 +451,7 @@ he realizado la descarga de PDFs con el ticket de compra de cada entrada. Por ú
 
 - Javier García 
 
-  	- Durante la fase 4 me he encargado de el apartado de login (terminarlo) y registro, todo lo relacionado con Docker, y subirlo a la máquina virtual.
+  	- Durante la fase 4 me he encargado del apartado de login (terminarlo) y registro, todo lo relacionado con Docker, y subirlo a la máquina virtual.
 
   	- Commits más significativos:
   		- [Fix user persistence](https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f508336c7e870130b121012d40b569c3d92824fb)
