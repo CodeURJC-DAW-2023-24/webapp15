@@ -2,7 +2,7 @@
     <div class="main-artist">
         <img src="/api/artists/{{mainArtist.id}}/image">
         <div class="main-artist-info">
-            <h1><a href="/artist/{{mainArtist.id}}">{{mainArtist.name}}</a></h1>
+            <h1><a [routerLink]="'/artist/{{mainArtist.id}}'">{{mainArtist.name}}</a></h1>
             <h2>{{mainArtist.info}}</h2>
             <button [routerLink]="'/artist/' + mainArtist.id">
                 <span>Entradas</span>
