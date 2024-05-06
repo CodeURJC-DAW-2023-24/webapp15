@@ -347,7 +347,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
  	 	- [docker-compose.yml](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/docker-compose.yml)
    	 	- [create_image.sh](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/docker-main/docker/create_image.sh)
 
-#FASE 4
+# FASE 4
 
 ## Preparación del entorno de desarrollo
 
@@ -426,4 +426,21 @@ he realizado la descarga de PDFs con el ticket de compra de cada entrada. Por ú
   	  	- [index.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts)
   	  	- [artist.component.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/artist/artist.component.ts)
   	  	- [login.service.ts](https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/services/login.service.ts)
+- Xavier Medina SAlas
+  
+  	- Durante la fase 4 me he encargado de la implementacion de la pagina principal, index, y de estructurar sus componentes.
+
+    	- Commits más significativos:
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/e442d480d80783e5e7f6ebf62fd7e711c88737c9
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f94ca51bd6f8037d83efe301512e3bc68c920acb
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/f28dac5fad6ac234198da819268b21a965a00b37
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/8de062f3f30f00e7960d75251decdd2f31233de0
+  	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/commit/cba20cd015161d92e70c85de4600d38e3e2bf9b9
+
+   	- Ficheros más significativos:
+   	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/frontend/src/app/components/footer
+   	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/tree/main/frontend/src/app/components/header
+   	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.ts
+   	  	- https://github.com/CodeURJC-DAW-2023-24/webapp15/blob/main/frontend/src/app/components/index/index.component.html
+
 ## Vídeo
